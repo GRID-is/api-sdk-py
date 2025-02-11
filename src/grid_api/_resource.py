@@ -8,13 +8,13 @@ from typing import TYPE_CHECKING
 import anyio
 
 if TYPE_CHECKING:
-    from ._client import SpreadsheetAPI, AsyncSpreadsheetAPI
+    from ._client import GRID, AsyncGRID
 
 
 class SyncAPIResource:
-    _client: SpreadsheetAPI
+    _client: GRID
 
-    def __init__(self, client: SpreadsheetAPI) -> None:
+    def __init__(self, client: GRID) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post
@@ -28,9 +28,9 @@ class SyncAPIResource:
 
 
 class AsyncAPIResource:
-    _client: AsyncSpreadsheetAPI
+    _client: AsyncGRID
 
-    def __init__(self, client: AsyncSpreadsheetAPI) -> None:
+    def __init__(self, client: AsyncGRID) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post

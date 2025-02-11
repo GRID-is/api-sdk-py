@@ -26,29 +26,20 @@ from ._utils import (
 from ._version import __version__
 from .resources import workbooks
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, SpreadsheetAPIError
+from ._exceptions import GRIDError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
 )
 
-__all__ = [
-    "Timeout",
-    "Transport",
-    "ProxiesTypes",
-    "RequestOptions",
-    "SpreadsheetAPI",
-    "AsyncSpreadsheetAPI",
-    "Client",
-    "AsyncClient",
-]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "GRID", "AsyncGRID", "Client", "AsyncClient"]
 
 
-class SpreadsheetAPI(SyncAPIClient):
+class GRID(SyncAPIClient):
     workbooks: workbooks.WorkbooksResource
-    with_raw_response: SpreadsheetAPIWithRawResponse
-    with_streaming_response: SpreadsheetAPIWithStreamedResponse
+    with_raw_response: GRIDWithRawResponse
+    with_streaming_response: GRIDWithStreamedResponse
 
     # client options
     bearer_token: str
@@ -76,20 +67,20 @@ class SpreadsheetAPI(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous spreadsheet-api client instance.
+        """Construct a new synchronous GRID client instance.
 
-        This automatically infers the `bearer_token` argument from the `GRID_API_BEARER_TOKEN` environment variable if it is not provided.
+        This automatically infers the `bearer_token` argument from the `GRID_API_TOKEN` environment variable if it is not provided.
         """
         if bearer_token is None:
-            bearer_token = os.environ.get("GRID_API_BEARER_TOKEN")
+            bearer_token = os.environ.get("GRID_API_TOKEN")
         if bearer_token is None:
-            raise SpreadsheetAPIError(
-                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the GRID_API_BEARER_TOKEN environment variable"
+            raise GRIDError(
+                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the GRID_API_TOKEN environment variable"
             )
         self.bearer_token = bearer_token
 
         if base_url is None:
-            base_url = os.environ.get("SPREADSHEET_API_BASE_URL")
+            base_url = os.environ.get("GRID_BASE_URL")
         if base_url is None:
             base_url = f"https://api-alpha.grid.is"
 
@@ -105,8 +96,8 @@ class SpreadsheetAPI(SyncAPIClient):
         )
 
         self.workbooks = workbooks.WorkbooksResource(self)
-        self.with_raw_response = SpreadsheetAPIWithRawResponse(self)
-        self.with_streaming_response = SpreadsheetAPIWithStreamedResponse(self)
+        self.with_raw_response = GRIDWithRawResponse(self)
+        self.with_streaming_response = GRIDWithStreamedResponse(self)
 
     @property
     @override
@@ -125,6 +116,7 @@ class SpreadsheetAPI(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
+            "X-Client-Name": "spreadsheet-api-node",
             **self._custom_headers,
         }
 
@@ -213,10 +205,10 @@ class SpreadsheetAPI(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncSpreadsheetAPI(AsyncAPIClient):
+class AsyncGRID(AsyncAPIClient):
     workbooks: workbooks.AsyncWorkbooksResource
-    with_raw_response: AsyncSpreadsheetAPIWithRawResponse
-    with_streaming_response: AsyncSpreadsheetAPIWithStreamedResponse
+    with_raw_response: AsyncGRIDWithRawResponse
+    with_streaming_response: AsyncGRIDWithStreamedResponse
 
     # client options
     bearer_token: str
@@ -244,20 +236,20 @@ class AsyncSpreadsheetAPI(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async spreadsheet-api client instance.
+        """Construct a new async GRID client instance.
 
-        This automatically infers the `bearer_token` argument from the `GRID_API_BEARER_TOKEN` environment variable if it is not provided.
+        This automatically infers the `bearer_token` argument from the `GRID_API_TOKEN` environment variable if it is not provided.
         """
         if bearer_token is None:
-            bearer_token = os.environ.get("GRID_API_BEARER_TOKEN")
+            bearer_token = os.environ.get("GRID_API_TOKEN")
         if bearer_token is None:
-            raise SpreadsheetAPIError(
-                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the GRID_API_BEARER_TOKEN environment variable"
+            raise GRIDError(
+                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the GRID_API_TOKEN environment variable"
             )
         self.bearer_token = bearer_token
 
         if base_url is None:
-            base_url = os.environ.get("SPREADSHEET_API_BASE_URL")
+            base_url = os.environ.get("GRID_BASE_URL")
         if base_url is None:
             base_url = f"https://api-alpha.grid.is"
 
@@ -273,8 +265,8 @@ class AsyncSpreadsheetAPI(AsyncAPIClient):
         )
 
         self.workbooks = workbooks.AsyncWorkbooksResource(self)
-        self.with_raw_response = AsyncSpreadsheetAPIWithRawResponse(self)
-        self.with_streaming_response = AsyncSpreadsheetAPIWithStreamedResponse(self)
+        self.with_raw_response = AsyncGRIDWithRawResponse(self)
+        self.with_streaming_response = AsyncGRIDWithStreamedResponse(self)
 
     @property
     @override
@@ -293,6 +285,7 @@ class AsyncSpreadsheetAPI(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
+            "X-Client-Name": "spreadsheet-api-node",
             **self._custom_headers,
         }
 
@@ -381,26 +374,26 @@ class AsyncSpreadsheetAPI(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class SpreadsheetAPIWithRawResponse:
-    def __init__(self, client: SpreadsheetAPI) -> None:
+class GRIDWithRawResponse:
+    def __init__(self, client: GRID) -> None:
         self.workbooks = workbooks.WorkbooksResourceWithRawResponse(client.workbooks)
 
 
-class AsyncSpreadsheetAPIWithRawResponse:
-    def __init__(self, client: AsyncSpreadsheetAPI) -> None:
+class AsyncGRIDWithRawResponse:
+    def __init__(self, client: AsyncGRID) -> None:
         self.workbooks = workbooks.AsyncWorkbooksResourceWithRawResponse(client.workbooks)
 
 
-class SpreadsheetAPIWithStreamedResponse:
-    def __init__(self, client: SpreadsheetAPI) -> None:
+class GRIDWithStreamedResponse:
+    def __init__(self, client: GRID) -> None:
         self.workbooks = workbooks.WorkbooksResourceWithStreamingResponse(client.workbooks)
 
 
-class AsyncSpreadsheetAPIWithStreamedResponse:
-    def __init__(self, client: AsyncSpreadsheetAPI) -> None:
+class AsyncGRIDWithStreamedResponse:
+    def __init__(self, client: AsyncGRID) -> None:
         self.workbooks = workbooks.AsyncWorkbooksResourceWithStreamingResponse(client.workbooks)
 
 
-Client = SpreadsheetAPI
+Client = GRID
 
-AsyncClient = AsyncSpreadsheetAPI
+AsyncClient = AsyncGRID

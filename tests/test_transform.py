@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from spreadsheet_api._types import Base64FileInput
-from spreadsheet_api._utils import (
+from grid_api._types import Base64FileInput
+from grid_api._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from spreadsheet_api._compat import PYDANTIC_V2
-from spreadsheet_api._models import BaseModel
+from grid_api._compat import PYDANTIC_V2
+from grid_api._models import BaseModel
 
 _T = TypeVar("_T")
 

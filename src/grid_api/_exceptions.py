@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class SpreadsheetAPIError(Exception):
+class GRIDError(Exception):
     pass
 
 
-class APIError(SpreadsheetAPIError):
+class APIError(GRIDError):
     message: str
     request: httpx.Request
 

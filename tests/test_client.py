@@ -21,12 +21,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from spreadsheet_api import SpreadsheetAPI, AsyncSpreadsheetAPI, APIResponseValidationError
-from spreadsheet_api._types import Omit
-from spreadsheet_api._models import BaseModel, FinalRequestOptions
-from spreadsheet_api._constants import RAW_RESPONSE_HEADER
-from spreadsheet_api._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from spreadsheet_api._base_client import (
+from grid_api import GRID, AsyncGRID, APIResponseValidationError
+from grid_api._types import Omit
+from grid_api._models import BaseModel, FinalRequestOptions
+from grid_api._constants import RAW_RESPONSE_HEADER
+from grid_api._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from grid_api._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -49,7 +49,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: SpreadsheetAPI | AsyncSpreadsheetAPI) -> int:
+def _get_open_connections(client: GRID | AsyncGRID) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -57,8 +57,8 @@ def _get_open_connections(client: SpreadsheetAPI | AsyncSpreadsheetAPI) -> int:
     return len(pool._requests)
 
 
-class TestSpreadsheetAPI:
-    client = SpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+class TestGRID:
+    client = GRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -105,7 +105,7 @@ class TestSpreadsheetAPI:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = SpreadsheetAPI(
+        client = GRID(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -142,7 +142,7 @@ class TestSpreadsheetAPI:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = SpreadsheetAPI(
+        client = GRID(
             base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -233,10 +233,10 @@ class TestSpreadsheetAPI:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "spreadsheet_api/_legacy_response.py",
-                        "spreadsheet_api/_response.py",
+                        "grid_api/_legacy_response.py",
+                        "grid_api/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "spreadsheet_api/_compat.py",
+                        "grid_api/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -267,7 +267,7 @@ class TestSpreadsheetAPI:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = SpreadsheetAPI(
+        client = GRID(
             base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -278,7 +278,7 @@ class TestSpreadsheetAPI:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = SpreadsheetAPI(
+            client = GRID(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -288,7 +288,7 @@ class TestSpreadsheetAPI:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = SpreadsheetAPI(
+            client = GRID(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -298,7 +298,7 @@ class TestSpreadsheetAPI:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = SpreadsheetAPI(
+            client = GRID(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -309,7 +309,7 @@ class TestSpreadsheetAPI:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                SpreadsheetAPI(
+                GRID(
                     base_url=base_url,
                     bearer_token=bearer_token,
                     _strict_response_validation=True,
@@ -317,7 +317,7 @@ class TestSpreadsheetAPI:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = SpreadsheetAPI(
+        client = GRID(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -327,7 +327,7 @@ class TestSpreadsheetAPI:
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = SpreadsheetAPI(
+        client2 = GRID(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -341,7 +341,7 @@ class TestSpreadsheetAPI:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = SpreadsheetAPI(
+        client = GRID(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -458,7 +458,7 @@ class TestSpreadsheetAPI:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: SpreadsheetAPI) -> None:
+    def test_multipart_repeating_array(self, client: GRID) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -545,7 +545,7 @@ class TestSpreadsheetAPI:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = SpreadsheetAPI(
+        client = GRID(
             base_url="https://example.com/from_init", bearer_token=bearer_token, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -555,19 +555,19 @@ class TestSpreadsheetAPI:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(SPREADSHEET_API_BASE_URL="http://localhost:5000/from/env"):
-            client = SpreadsheetAPI(bearer_token=bearer_token, _strict_response_validation=True)
+        with update_env(GRID_BASE_URL="http://localhost:5000/from/env"):
+            client = GRID(bearer_token=bearer_token, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            SpreadsheetAPI(
+            GRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            SpreadsheetAPI(
+            GRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -576,7 +576,7 @@ class TestSpreadsheetAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: SpreadsheetAPI) -> None:
+    def test_base_url_trailing_slash(self, client: GRID) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -589,12 +589,12 @@ class TestSpreadsheetAPI:
     @pytest.mark.parametrize(
         "client",
         [
-            SpreadsheetAPI(
+            GRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            SpreadsheetAPI(
+            GRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -603,7 +603,7 @@ class TestSpreadsheetAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: SpreadsheetAPI) -> None:
+    def test_base_url_no_trailing_slash(self, client: GRID) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -616,12 +616,12 @@ class TestSpreadsheetAPI:
     @pytest.mark.parametrize(
         "client",
         [
-            SpreadsheetAPI(
+            GRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            SpreadsheetAPI(
+            GRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -630,7 +630,7 @@ class TestSpreadsheetAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: SpreadsheetAPI) -> None:
+    def test_absolute_request_url(self, client: GRID) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -641,7 +641,7 @@ class TestSpreadsheetAPI:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = SpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = GRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -652,7 +652,7 @@ class TestSpreadsheetAPI:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = SpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = GRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -673,7 +673,7 @@ class TestSpreadsheetAPI:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            SpreadsheetAPI(
+            GRID(
                 base_url=base_url,
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -687,12 +687,12 @@ class TestSpreadsheetAPI:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = SpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        strict_client = GRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = SpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
+        client = GRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -720,14 +720,14 @@ class TestSpreadsheetAPI:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = SpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = GRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -742,7 +742,7 @@ class TestSpreadsheetAPI:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/query").mock(return_value=httpx.Response(500))
@@ -758,12 +758,12 @@ class TestSpreadsheetAPI:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: SpreadsheetAPI,
+        client: GRID,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -789,11 +789,9 @@ class TestSpreadsheetAPI:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_omit_retry_count_header(
-        self, client: SpreadsheetAPI, failures_before_success: int, respx_mock: MockRouter
-    ) -> None:
+    def test_omit_retry_count_header(self, client: GRID, failures_before_success: int, respx_mock: MockRouter) -> None:
         client = client.with_options(max_retries=4)
 
         nb_retries = 0
@@ -814,10 +812,10 @@ class TestSpreadsheetAPI:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: SpreadsheetAPI, failures_before_success: int, respx_mock: MockRouter
+        self, client: GRID, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -839,8 +837,8 @@ class TestSpreadsheetAPI:
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
 
-class TestAsyncSpreadsheetAPI:
-    client = AsyncSpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+class TestAsyncGRID:
+    client = AsyncGRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -889,7 +887,7 @@ class TestAsyncSpreadsheetAPI:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncSpreadsheetAPI(
+        client = AsyncGRID(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -926,7 +924,7 @@ class TestAsyncSpreadsheetAPI:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncSpreadsheetAPI(
+        client = AsyncGRID(
             base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -1017,10 +1015,10 @@ class TestAsyncSpreadsheetAPI:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "spreadsheet_api/_legacy_response.py",
-                        "spreadsheet_api/_response.py",
+                        "grid_api/_legacy_response.py",
+                        "grid_api/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "spreadsheet_api/_compat.py",
+                        "grid_api/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1051,7 +1049,7 @@ class TestAsyncSpreadsheetAPI:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncSpreadsheetAPI(
+        client = AsyncGRID(
             base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -1062,7 +1060,7 @@ class TestAsyncSpreadsheetAPI:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncSpreadsheetAPI(
+            client = AsyncGRID(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1072,7 +1070,7 @@ class TestAsyncSpreadsheetAPI:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncSpreadsheetAPI(
+            client = AsyncGRID(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1082,7 +1080,7 @@ class TestAsyncSpreadsheetAPI:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncSpreadsheetAPI(
+            client = AsyncGRID(
                 base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1093,7 +1091,7 @@ class TestAsyncSpreadsheetAPI:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncSpreadsheetAPI(
+                AsyncGRID(
                     base_url=base_url,
                     bearer_token=bearer_token,
                     _strict_response_validation=True,
@@ -1101,7 +1099,7 @@ class TestAsyncSpreadsheetAPI:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = AsyncSpreadsheetAPI(
+        client = AsyncGRID(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -1111,7 +1109,7 @@ class TestAsyncSpreadsheetAPI:
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncSpreadsheetAPI(
+        client2 = AsyncGRID(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -1125,7 +1123,7 @@ class TestAsyncSpreadsheetAPI:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = AsyncSpreadsheetAPI(
+        client = AsyncGRID(
             base_url=base_url,
             bearer_token=bearer_token,
             _strict_response_validation=True,
@@ -1242,7 +1240,7 @@ class TestAsyncSpreadsheetAPI:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncSpreadsheetAPI) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncGRID) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -1329,7 +1327,7 @@ class TestAsyncSpreadsheetAPI:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncSpreadsheetAPI(
+        client = AsyncGRID(
             base_url="https://example.com/from_init", bearer_token=bearer_token, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -1339,19 +1337,19 @@ class TestAsyncSpreadsheetAPI:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(SPREADSHEET_API_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncSpreadsheetAPI(bearer_token=bearer_token, _strict_response_validation=True)
+        with update_env(GRID_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncGRID(bearer_token=bearer_token, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncSpreadsheetAPI(
+            AsyncGRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            AsyncSpreadsheetAPI(
+            AsyncGRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -1360,7 +1358,7 @@ class TestAsyncSpreadsheetAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncSpreadsheetAPI) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncGRID) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1373,12 +1371,12 @@ class TestAsyncSpreadsheetAPI:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncSpreadsheetAPI(
+            AsyncGRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            AsyncSpreadsheetAPI(
+            AsyncGRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -1387,7 +1385,7 @@ class TestAsyncSpreadsheetAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncSpreadsheetAPI) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncGRID) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1400,12 +1398,12 @@ class TestAsyncSpreadsheetAPI:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncSpreadsheetAPI(
+            AsyncGRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
             ),
-            AsyncSpreadsheetAPI(
+            AsyncGRID(
                 base_url="http://localhost:5000/custom/path/",
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -1414,7 +1412,7 @@ class TestAsyncSpreadsheetAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncSpreadsheetAPI) -> None:
+    def test_absolute_request_url(self, client: AsyncGRID) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1425,7 +1423,7 @@ class TestAsyncSpreadsheetAPI:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncSpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncGRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1437,7 +1435,7 @@ class TestAsyncSpreadsheetAPI:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncSpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncGRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1459,7 +1457,7 @@ class TestAsyncSpreadsheetAPI:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncSpreadsheetAPI(
+            AsyncGRID(
                 base_url=base_url,
                 bearer_token=bearer_token,
                 _strict_response_validation=True,
@@ -1474,14 +1472,12 @@ class TestAsyncSpreadsheetAPI:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncSpreadsheetAPI(
-            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True
-        )
+        strict_client = AsyncGRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncSpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
+        client = AsyncGRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1510,14 +1506,14 @@ class TestAsyncSpreadsheetAPI:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncSpreadsheetAPI(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncGRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1532,7 +1528,7 @@ class TestAsyncSpreadsheetAPI:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/query").mock(return_value=httpx.Response(500))
@@ -1548,13 +1544,13 @@ class TestAsyncSpreadsheetAPI:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncSpreadsheetAPI,
+        async_client: AsyncGRID,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1580,11 +1576,11 @@ class TestAsyncSpreadsheetAPI:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
-        self, async_client: AsyncSpreadsheetAPI, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncGRID, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1606,11 +1602,11 @@ class TestAsyncSpreadsheetAPI:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("spreadsheet_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("grid_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncSpreadsheetAPI, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncGRID, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1642,8 +1638,8 @@ class TestAsyncSpreadsheetAPI:
         import nest_asyncio
         import threading
 
-        from spreadsheet_api._utils import asyncify
-        from spreadsheet_api._base_client import get_platform 
+        from grid_api._utils import asyncify
+        from grid_api._base_client import get_platform 
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
