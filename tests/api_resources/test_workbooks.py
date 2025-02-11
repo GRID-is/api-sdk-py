@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from grid_api import GRID, AsyncGRID
 from tests.utils import assert_matches_type
-from spreadsheet_api import SpreadsheetAPI, AsyncSpreadsheetAPI
-from spreadsheet_api.types import WorkbookQueryResponse
+from grid_api.types import WorkbookQueryResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,7 +19,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_query(self, client: SpreadsheetAPI) -> None:
+    def test_method_query(self, client: GRID) -> None:
         workbook = client.workbooks.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -28,7 +28,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_query_with_all_params(self, client: SpreadsheetAPI) -> None:
+    def test_method_query_with_all_params(self, client: GRID) -> None:
         workbook = client.workbooks.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -55,7 +55,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_query(self, client: SpreadsheetAPI) -> None:
+    def test_raw_response_query(self, client: GRID) -> None:
         response = client.workbooks.with_raw_response.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -68,7 +68,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_query(self, client: SpreadsheetAPI) -> None:
+    def test_streaming_response_query(self, client: GRID) -> None:
         with client.workbooks.with_streaming_response.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -83,7 +83,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_path_params_query(self, client: SpreadsheetAPI) -> None:
+    def test_path_params_query(self, client: GRID) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.workbooks.with_raw_response.query(
                 id="",
@@ -92,7 +92,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_render_chart(self, client: SpreadsheetAPI) -> None:
+    def test_method_render_chart(self, client: GRID) -> None:
         workbook = client.workbooks.render_chart(
             id="id",
             chart={"data": "=C2:C142"},
@@ -101,7 +101,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_render_chart_with_all_params(self, client: SpreadsheetAPI) -> None:
+    def test_method_render_chart_with_all_params(self, client: GRID) -> None:
         workbook = client.workbooks.render_chart(
             id="id",
             chart={
@@ -122,7 +122,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_render_chart(self, client: SpreadsheetAPI) -> None:
+    def test_raw_response_render_chart(self, client: GRID) -> None:
         response = client.workbooks.with_raw_response.render_chart(
             id="id",
             chart={"data": "=C2:C142"},
@@ -135,7 +135,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_render_chart(self, client: SpreadsheetAPI) -> None:
+    def test_streaming_response_render_chart(self, client: GRID) -> None:
         with client.workbooks.with_streaming_response.render_chart(
             id="id",
             chart={"data": "=C2:C142"},
@@ -150,7 +150,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_path_params_render_chart(self, client: SpreadsheetAPI) -> None:
+    def test_path_params_render_chart(self, client: GRID) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.workbooks.with_raw_response.render_chart(
                 id="",
@@ -163,7 +163,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_query(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_method_query(self, async_client: AsyncGRID) -> None:
         workbook = await async_client.workbooks.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -172,7 +172,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_query_with_all_params(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_method_query_with_all_params(self, async_client: AsyncGRID) -> None:
         workbook = await async_client.workbooks.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -199,7 +199,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_query(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_raw_response_query(self, async_client: AsyncGRID) -> None:
         response = await async_client.workbooks.with_raw_response.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -212,7 +212,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_query(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_streaming_response_query(self, async_client: AsyncGRID) -> None:
         async with async_client.workbooks.with_streaming_response.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -227,7 +227,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_path_params_query(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_path_params_query(self, async_client: AsyncGRID) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.workbooks.with_raw_response.query(
                 id="",
@@ -236,7 +236,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_render_chart(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_method_render_chart(self, async_client: AsyncGRID) -> None:
         workbook = await async_client.workbooks.render_chart(
             id="id",
             chart={"data": "=C2:C142"},
@@ -245,7 +245,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_render_chart_with_all_params(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_method_render_chart_with_all_params(self, async_client: AsyncGRID) -> None:
         workbook = await async_client.workbooks.render_chart(
             id="id",
             chart={
@@ -266,7 +266,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_render_chart(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_raw_response_render_chart(self, async_client: AsyncGRID) -> None:
         response = await async_client.workbooks.with_raw_response.render_chart(
             id="id",
             chart={"data": "=C2:C142"},
@@ -279,7 +279,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_render_chart(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_streaming_response_render_chart(self, async_client: AsyncGRID) -> None:
         async with async_client.workbooks.with_streaming_response.render_chart(
             id="id",
             chart={"data": "=C2:C142"},
@@ -294,7 +294,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_path_params_render_chart(self, async_client: AsyncSpreadsheetAPI) -> None:
+    async def test_path_params_render_chart(self, async_client: AsyncGRID) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.workbooks.with_raw_response.render_chart(
                 id="",

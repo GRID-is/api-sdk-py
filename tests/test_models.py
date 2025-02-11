@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from spreadsheet_api._utils import PropertyInfo
-from spreadsheet_api._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from spreadsheet_api._models import BaseModel, construct_type
+from grid_api._utils import PropertyInfo
+from grid_api._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from grid_api._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

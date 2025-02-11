@@ -1,8 +1,8 @@
-# Spreadsheet API Python API library
+# GRID Spreadsheet API API library
 
-[![PyPI version](https://img.shields.io/pypi/v/spreadsheet_api.svg)](https://pypi.org/project/spreadsheet_api/)
+[![PyPI version](https://img.shields.io/pypi/v/grid_api.svg)](https://pypi.org/project/grid_api/)
 
-The Spreadsheet API Python library provides convenient access to the Spreadsheet API REST API from any Python 3.8+
+The GRID Spreadsheet API library provides convenient access to the GRID REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [docs.spreadsheet-api.com](https://docs.spreadsheet-api.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [alpha.grid.is](https://alpha.grid.is/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -20,16 +20,16 @@ pip install git+ssh://git@github.com/stainless-sdks/spreadsheet-api-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre spreadsheet_api`
+> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre grid_api`
 
 ## Usage
 
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-from spreadsheet_api import SpreadsheetAPI
+from grid_api import GRID
 
-client = SpreadsheetAPI()
+client = GRID()
 
 response = client.workbooks.query(
     id="REPLACE_ME",
@@ -40,18 +40,18 @@ print(response.apply)
 
 While you can provide a `bearer_token` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `GRID_API_BEARER_TOKEN="My Bearer Token"` to your `.env` file
+to add `GRID_API_TOKEN="My Bearer Token"` to your `.env` file
 so that your Bearer Token is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncSpreadsheetAPI` instead of `SpreadsheetAPI` and use `await` with each API call:
+Simply import `AsyncGRID` instead of `GRID` and use `await` with each API call:
 
 ```python
 import asyncio
-from spreadsheet_api import AsyncSpreadsheetAPI
+from grid_api import AsyncGRID
 
-client = AsyncSpreadsheetAPI()
+client = AsyncGRID()
 
 
 async def main() -> None:
@@ -78,30 +78,30 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `spreadsheet_api.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `grid_api.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `spreadsheet_api.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `grid_api.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `spreadsheet_api.APIError`.
+All errors inherit from `grid_api.APIError`.
 
 ```python
-import spreadsheet_api
-from spreadsheet_api import SpreadsheetAPI
+import grid_api
+from grid_api import GRID
 
-client = SpreadsheetAPI()
+client = GRID()
 
 try:
     client.workbooks.query(
         id="REPLACE_ME",
         read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
     )
-except spreadsheet_api.APIConnectionError as e:
+except grid_api.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except spreadsheet_api.RateLimitError as e:
+except grid_api.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except spreadsheet_api.APIStatusError as e:
+except grid_api.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -129,10 +129,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from spreadsheet_api import SpreadsheetAPI
+from grid_api import GRID
 
 # Configure the default for all requests:
-client = SpreadsheetAPI(
+client = GRID(
     # default is 2
     max_retries=0,
 )
@@ -150,16 +150,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from spreadsheet_api import SpreadsheetAPI
+from grid_api import GRID
 
 # Configure the default for all requests:
-client = SpreadsheetAPI(
+client = GRID(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = SpreadsheetAPI(
+client = GRID(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -174,16 +174,30 @@ On timeout, an `APITimeoutError` is thrown.
 
 Note that requests that time out are [retried twice by default](#retries).
 
+## Default Headers
+
+We automatically send the `X-Client-Name` header set to `spreadsheet-api-node`.
+
+If you need to, you can override it by setting default headers per-request or on the client object.
+
+```python
+from grid_api import GRID
+
+client = GRID(
+    default_headers={"X-Client-Name": "My-Custom-Value"},
+)
+```
+
 ## Advanced
 
 ### Logging
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `SPREADSHEET_API_LOG` to `info`.
+You can enable logging by setting the environment variable `GRID_LOG` to `info`.
 
 ```shell
-$ export SPREADSHEET_API_LOG=info
+$ export GRID_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -205,9 +219,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from spreadsheet_api import SpreadsheetAPI
+from grid_api import GRID
 
-client = SpreadsheetAPI()
+client = GRID()
 response = client.workbooks.with_raw_response.query(
     id="REPLACE_ME",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -218,9 +232,9 @@ workbook = response.parse()  # get the object that `workbooks.query()` would hav
 print(workbook.apply)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/spreadsheet-api-python/tree/main/src/spreadsheet_api/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/spreadsheet-api-python/tree/main/src/grid_api/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/spreadsheet-api-python/tree/main/src/spreadsheet_api/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/spreadsheet-api-python/tree/main/src/grid_api/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -285,10 +299,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from spreadsheet_api import SpreadsheetAPI, DefaultHttpxClient
+from grid_api import GRID, DefaultHttpxClient
 
-client = SpreadsheetAPI(
-    # Or use the `SPREADSHEET_API_BASE_URL` env var
+client = GRID(
+    # Or use the `GRID_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -308,9 +322,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from spreadsheet_api import SpreadsheetAPI
+from grid_api import GRID
 
-with SpreadsheetAPI() as client:
+with GRID() as client:
   # make requests here
   ...
 
@@ -336,8 +350,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import spreadsheet_api
-print(spreadsheet_api.__version__)
+import grid_api
+print(grid_api.__version__)
 ```
 
 ## Requirements

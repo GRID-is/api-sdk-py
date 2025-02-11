@@ -1,4 +1,4 @@
-from spreadsheet_api._utils import deepcopy_minimal
+from grid_api._utils import deepcopy_minimal
 
 
 def assert_different_identities(obj1: object, obj2: object) -> None:
