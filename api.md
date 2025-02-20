@@ -3,10 +3,11 @@
 Types:
 
 ```python
-from grid_api.types import WorkbookQueryResponse, WorkbookRenderChartResponse
+from grid_api.types import WorkbookQueryResponse
 ```
 
 Methods:
 
+- <code title="post /v1/workbooks/{id}/export">client.workbooks.<a href="./src/grid_api/resources/workbooks.py">export</a>(id, \*\*<a href="src/grid_api/types/workbook_export_params.py">params</a>) -> BinaryAPIResponse</code>
 - <code title="post /v1/workbooks/{id}/query">client.workbooks.<a href="./src/grid_api/resources/workbooks.py">query</a>(id, \*\*<a href="src/grid_api/types/workbook_query_params.py">params</a>) -> <a href="./src/grid_api/types/workbook_query_response.py">WorkbookQueryResponse</a></code>
-- <code title="post /v1/workbooks/{id}/chart">client.workbooks.<a href="./src/grid_api/resources/workbooks.py">render_chart</a>(id, \*\*<a href="src/grid_api/types/workbook_render_chart_params.py">params</a>) -> <a href="./src/grid_api/types/workbook_render_chart_response.py">object</a></code>
+- <code title="post /v1/workbooks/{id}/chart">client.workbooks.<a href="./src/grid_api/resources/workbooks.py">render_chart</a>(id, \*\*<a href="src/grid_api/types/workbook_render_chart_params.py">params</a>) -> BinaryAPIResponse</code>
