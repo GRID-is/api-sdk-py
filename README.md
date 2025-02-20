@@ -2,7 +2,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/grid_api.svg)](https://pypi.org/project/grid_api/)
 
-The GRID Spreadsheet API library provides convenient access to the GRID REST API from any Python 3.8+
+The GRID Spreadsheet API library provides convenient access to the Grid REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -27,9 +27,9 @@ pip install git+ssh://git@github.com/stainless-sdks/spreadsheet-api-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-from grid_api import GRID
+from grid_api import Grid
 
-client = GRID()
+client = Grid()
 
 response = client.workbooks.query(
     id="REPLACE_ME",
@@ -45,13 +45,13 @@ so that your Bearer Token is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncGRID` instead of `GRID` and use `await` with each API call:
+Simply import `AsyncGrid` instead of `Grid` and use `await` with each API call:
 
 ```python
 import asyncio
-from grid_api import AsyncGRID
+from grid_api import AsyncGrid
 
-client = AsyncGRID()
+client = AsyncGrid()
 
 
 async def main() -> None:
@@ -87,9 +87,9 @@ All errors inherit from `grid_api.APIError`.
 
 ```python
 import grid_api
-from grid_api import GRID
+from grid_api import Grid
 
-client = GRID()
+client = Grid()
 
 try:
     client.workbooks.query(
@@ -129,10 +129,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from grid_api import GRID
+from grid_api import Grid
 
 # Configure the default for all requests:
-client = GRID(
+client = Grid(
     # default is 2
     max_retries=0,
 )
@@ -150,16 +150,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from grid_api import GRID
+from grid_api import Grid
 
 # Configure the default for all requests:
-client = GRID(
+client = Grid(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = GRID(
+client = Grid(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -181,9 +181,9 @@ We automatically send the `X-Client-Name` header set to `spreadsheet-api-node`.
 If you need to, you can override it by setting default headers per-request or on the client object.
 
 ```python
-from grid_api import GRID
+from grid_api import Grid
 
-client = GRID(
+client = Grid(
     default_headers={"X-Client-Name": "My-Custom-Value"},
 )
 ```
@@ -219,9 +219,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from grid_api import GRID
+from grid_api import Grid
 
-client = GRID()
+client = Grid()
 response = client.workbooks.with_raw_response.query(
     id="REPLACE_ME",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -299,9 +299,9 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from grid_api import GRID, DefaultHttpxClient
+from grid_api import Grid, DefaultHttpxClient
 
-client = GRID(
+client = Grid(
     # Or use the `GRID_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
@@ -322,9 +322,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from grid_api import GRID
+from grid_api import Grid
 
-with GRID() as client:
+with Grid() as client:
   # make requests here
   ...
 

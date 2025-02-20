@@ -9,7 +9,7 @@ import httpx
 import pytest
 from respx import MockRouter
 
-from grid_api import GRID, AsyncGRID
+from grid_api import Grid, AsyncGrid
 from tests.utils import assert_matches_type
 from grid_api.types import (
     WorkbookQueryResponse,
@@ -30,7 +30,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_export(self, client: GRID, respx_mock: MockRouter) -> None:
+    def test_method_export(self, client: Grid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/export").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = client.workbooks.export(
             id="id",
@@ -43,7 +43,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_export_with_all_params(self, client: GRID, respx_mock: MockRouter) -> None:
+    def test_method_export_with_all_params(self, client: Grid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/export").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = client.workbooks.export(
             id="id",
@@ -67,7 +67,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_export(self, client: GRID, respx_mock: MockRouter) -> None:
+    def test_raw_response_export(self, client: Grid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/export").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         workbook = client.workbooks.with_raw_response.export(
@@ -82,7 +82,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_export(self, client: GRID, respx_mock: MockRouter) -> None:
+    def test_streaming_response_export(self, client: Grid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/export").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         with client.workbooks.with_streaming_response.export(
             id="id",
@@ -99,7 +99,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_path_params_export(self, client: GRID) -> None:
+    def test_path_params_export(self, client: Grid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.workbooks.with_raw_response.export(
                 id="",
@@ -107,7 +107,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_query(self, client: GRID) -> None:
+    def test_method_query(self, client: Grid) -> None:
         workbook = client.workbooks.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -116,7 +116,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_query_with_all_params(self, client: GRID) -> None:
+    def test_method_query_with_all_params(self, client: Grid) -> None:
         workbook = client.workbooks.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -143,7 +143,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_query(self, client: GRID) -> None:
+    def test_raw_response_query(self, client: Grid) -> None:
         response = client.workbooks.with_raw_response.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -156,7 +156,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_query(self, client: GRID) -> None:
+    def test_streaming_response_query(self, client: Grid) -> None:
         with client.workbooks.with_streaming_response.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -171,7 +171,7 @@ class TestWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    def test_path_params_query(self, client: GRID) -> None:
+    def test_path_params_query(self, client: Grid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.workbooks.with_raw_response.query(
                 id="",
@@ -181,7 +181,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_render_chart(self, client: GRID, respx_mock: MockRouter) -> None:
+    def test_method_render_chart(self, client: Grid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = client.workbooks.render_chart(
             id="id",
@@ -195,7 +195,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_render_chart_with_all_params(self, client: GRID, respx_mock: MockRouter) -> None:
+    def test_method_render_chart_with_all_params(self, client: Grid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = client.workbooks.render_chart(
             id="id",
@@ -221,7 +221,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_render_chart(self, client: GRID, respx_mock: MockRouter) -> None:
+    def test_raw_response_render_chart(self, client: Grid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         workbook = client.workbooks.with_raw_response.render_chart(
@@ -237,7 +237,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_render_chart(self, client: GRID, respx_mock: MockRouter) -> None:
+    def test_streaming_response_render_chart(self, client: Grid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         with client.workbooks.with_streaming_response.render_chart(
             id="id",
@@ -255,7 +255,7 @@ class TestWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_path_params_render_chart(self, client: GRID) -> None:
+    def test_path_params_render_chart(self, client: Grid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.workbooks.with_raw_response.render_chart(
                 id="",
@@ -269,7 +269,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_export(self, async_client: AsyncGRID, respx_mock: MockRouter) -> None:
+    async def test_method_export(self, async_client: AsyncGrid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/export").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = await async_client.workbooks.export(
             id="id",
@@ -282,7 +282,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_export_with_all_params(self, async_client: AsyncGRID, respx_mock: MockRouter) -> None:
+    async def test_method_export_with_all_params(self, async_client: AsyncGrid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/export").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = await async_client.workbooks.export(
             id="id",
@@ -306,7 +306,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_export(self, async_client: AsyncGRID, respx_mock: MockRouter) -> None:
+    async def test_raw_response_export(self, async_client: AsyncGrid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/export").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         workbook = await async_client.workbooks.with_raw_response.export(
@@ -321,7 +321,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_export(self, async_client: AsyncGRID, respx_mock: MockRouter) -> None:
+    async def test_streaming_response_export(self, async_client: AsyncGrid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/export").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         async with async_client.workbooks.with_streaming_response.export(
             id="id",
@@ -338,7 +338,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_path_params_export(self, async_client: AsyncGRID) -> None:
+    async def test_path_params_export(self, async_client: AsyncGrid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.workbooks.with_raw_response.export(
                 id="",
@@ -346,7 +346,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_query(self, async_client: AsyncGRID) -> None:
+    async def test_method_query(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -355,7 +355,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_query_with_all_params(self, async_client: AsyncGRID) -> None:
+    async def test_method_query_with_all_params(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -382,7 +382,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_query(self, async_client: AsyncGRID) -> None:
+    async def test_raw_response_query(self, async_client: AsyncGrid) -> None:
         response = await async_client.workbooks.with_raw_response.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -395,7 +395,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_query(self, async_client: AsyncGRID) -> None:
+    async def test_streaming_response_query(self, async_client: AsyncGrid) -> None:
         async with async_client.workbooks.with_streaming_response.query(
             id="id",
             read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -410,7 +410,7 @@ class TestAsyncWorkbooks:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_path_params_query(self, async_client: AsyncGRID) -> None:
+    async def test_path_params_query(self, async_client: AsyncGrid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.workbooks.with_raw_response.query(
                 id="",
@@ -420,7 +420,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_render_chart(self, async_client: AsyncGRID, respx_mock: MockRouter) -> None:
+    async def test_method_render_chart(self, async_client: AsyncGrid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = await async_client.workbooks.render_chart(
             id="id",
@@ -434,7 +434,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_render_chart_with_all_params(self, async_client: AsyncGRID, respx_mock: MockRouter) -> None:
+    async def test_method_render_chart_with_all_params(self, async_client: AsyncGrid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = await async_client.workbooks.render_chart(
             id="id",
@@ -460,7 +460,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_render_chart(self, async_client: AsyncGRID, respx_mock: MockRouter) -> None:
+    async def test_raw_response_render_chart(self, async_client: AsyncGrid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         workbook = await async_client.workbooks.with_raw_response.render_chart(
@@ -476,7 +476,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_render_chart(self, async_client: AsyncGRID, respx_mock: MockRouter) -> None:
+    async def test_streaming_response_render_chart(self, async_client: AsyncGrid, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         async with async_client.workbooks.with_streaming_response.render_chart(
             id="id",
@@ -494,7 +494,7 @@ class TestAsyncWorkbooks:
     @pytest.mark.skip()
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_path_params_render_chart(self, async_client: AsyncGRID) -> None:
+    async def test_path_params_render_chart(self, async_client: AsyncGrid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.workbooks.with_raw_response.render_chart(
                 id="",

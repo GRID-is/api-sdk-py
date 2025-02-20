@@ -5,7 +5,7 @@ description = "The official Python library for the GRID API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "GRID", email = "info@grid.is" },
+{ name = "Grid", email = "info@grid.is" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",

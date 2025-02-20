@@ -6,7 +6,7 @@ import httpx
 import pytest
 import pydantic
 
-from grid_api import GRID, AsyncGRID, BaseModel
+from grid_api import Grid, AsyncGrid, BaseModel
 from grid_api._response import (
     APIResponse,
     BaseAPIResponse,
@@ -56,7 +56,7 @@ def test_extract_response_type_binary_response() -> None:
 class PydanticModel(pydantic.BaseModel): ...
 
 
-def test_response_parse_mismatched_basemodel(client: GRID) -> None:
+def test_response_parse_mismatched_basemodel(client: Grid) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -74,7 +74,7 @@ def test_response_parse_mismatched_basemodel(client: GRID) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_mismatched_basemodel(async_client: AsyncGRID) -> None:
+async def test_async_response_parse_mismatched_basemodel(async_client: AsyncGrid) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -91,7 +91,7 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncGRID
         await response.parse(to=PydanticModel)
 
 
-def test_response_parse_custom_stream(client: GRID) -> None:
+def test_response_parse_custom_stream(client: Grid) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -106,7 +106,7 @@ def test_response_parse_custom_stream(client: GRID) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_stream(async_client: AsyncGRID) -> None:
+async def test_async_response_parse_custom_stream(async_client: AsyncGrid) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -125,7 +125,7 @@ class CustomModel(BaseModel):
     bar: int
 
 
-def test_response_parse_custom_model(client: GRID) -> None:
+def test_response_parse_custom_model(client: Grid) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -141,7 +141,7 @@ def test_response_parse_custom_model(client: GRID) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_model(async_client: AsyncGRID) -> None:
+async def test_async_response_parse_custom_model(async_client: AsyncGrid) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -156,7 +156,7 @@ async def test_async_response_parse_custom_model(async_client: AsyncGRID) -> Non
     assert obj.bar == 2
 
 
-def test_response_parse_annotated_type(client: GRID) -> None:
+def test_response_parse_annotated_type(client: Grid) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -173,7 +173,7 @@ def test_response_parse_annotated_type(client: GRID) -> None:
     assert obj.bar == 2
 
 
-async def test_async_response_parse_annotated_type(async_client: AsyncGRID) -> None:
+async def test_async_response_parse_annotated_type(async_client: AsyncGrid) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -201,7 +201,7 @@ async def test_async_response_parse_annotated_type(async_client: AsyncGRID) -> N
         ("FalSe", False),
     ],
 )
-def test_response_parse_bool(client: GRID, content: str, expected: bool) -> None:
+def test_response_parse_bool(client: Grid, content: str, expected: bool) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=content),
         client=client,
@@ -226,7 +226,7 @@ def test_response_parse_bool(client: GRID, content: str, expected: bool) -> None
         ("FalSe", False),
     ],
 )
-async def test_async_response_parse_bool(client: AsyncGRID, content: str, expected: bool) -> None:
+async def test_async_response_parse_bool(client: AsyncGrid, content: str, expected: bool) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=content),
         client=client,
@@ -245,7 +245,7 @@ class OtherModel(BaseModel):
 
 
 @pytest.mark.parametrize("client", [False], indirect=True)  # loose validation
-def test_response_parse_expect_model_union_non_json_content(client: GRID) -> None:
+def test_response_parse_expect_model_union_non_json_content(client: Grid) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo", headers={"Content-Type": "application/text"}),
         client=client,
@@ -262,7 +262,7 @@ def test_response_parse_expect_model_union_non_json_content(client: GRID) -> Non
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("async_client", [False], indirect=True)  # loose validation
-async def test_async_response_parse_expect_model_union_non_json_content(async_client: AsyncGRID) -> None:
+async def test_async_response_parse_expect_model_union_non_json_content(async_client: AsyncGrid) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo", headers={"Content-Type": "application/text"}),
         client=async_client,
