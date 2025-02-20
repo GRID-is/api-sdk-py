@@ -6,7 +6,7 @@ from typing import List, Iterable, Optional
 
 import httpx
 
-from ..types import workbook_query_params, workbook_render_chart_params
+from ..types import workbook_query_params, workbook_export_params, workbook_render_chart_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -15,10 +15,18 @@ from .._utils import (
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
 from ..types.workbook_query_response import WorkbookQueryResponse
@@ -45,6 +53,60 @@ class WorkbooksResource(SyncAPIResource):
         For more information, see https://www.github.com/stainless-sdks/spreadsheet-api-python#with_streaming_response
         """
         return WorkbooksResourceWithStreamingResponse(self)
+
+    def export(
+        self,
+        id: str,
+        *,
+        apply: Optional[Iterable[workbook_export_params.Apply]] | NotGiven = NOT_GIVEN,
+        goal_seek: Optional[workbook_export_params.GoalSeek] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BinaryAPIResponse:
+        """Export a workbook as an .xlsx file.
+
+        Cells can be updated before the workbook is
+        exported.
+
+        Args:
+          apply: Cells to update before exporting
+
+          goal_seek: Goal seek. Use this to calculate the required input value for a formula to
+              achieve a specified target result. This is particularly useful when the desired
+              outcome is known, but the corresponding input is not.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {
+            "Accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            **(extra_headers or {}),
+        }
+        return self._post(
+            f"/v1/workbooks/{id}/export",
+            body=maybe_transform(
+                {
+                    "apply": apply,
+                    "goal_seek": goal_seek,
+                },
+                workbook_export_params.WorkbookExportParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BinaryAPIResponse,
+        )
 
     def query(
         self,
@@ -118,7 +180,7 @@ class WorkbooksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> BinaryAPIResponse:
         """
         Render a chart using workbook data
 
@@ -139,6 +201,7 @@ class WorkbooksResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "image/png", **(extra_headers or {})}
         return self._post(
             f"/v1/workbooks/{id}/chart",
             body=maybe_transform(
@@ -151,7 +214,7 @@ class WorkbooksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=BinaryAPIResponse,
         )
 
 
@@ -174,6 +237,60 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         For more information, see https://www.github.com/stainless-sdks/spreadsheet-api-python#with_streaming_response
         """
         return AsyncWorkbooksResourceWithStreamingResponse(self)
+
+    async def export(
+        self,
+        id: str,
+        *,
+        apply: Optional[Iterable[workbook_export_params.Apply]] | NotGiven = NOT_GIVEN,
+        goal_seek: Optional[workbook_export_params.GoalSeek] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncBinaryAPIResponse:
+        """Export a workbook as an .xlsx file.
+
+        Cells can be updated before the workbook is
+        exported.
+
+        Args:
+          apply: Cells to update before exporting
+
+          goal_seek: Goal seek. Use this to calculate the required input value for a formula to
+              achieve a specified target result. This is particularly useful when the desired
+              outcome is known, but the corresponding input is not.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {
+            "Accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            **(extra_headers or {}),
+        }
+        return await self._post(
+            f"/v1/workbooks/{id}/export",
+            body=await async_maybe_transform(
+                {
+                    "apply": apply,
+                    "goal_seek": goal_seek,
+                },
+                workbook_export_params.WorkbookExportParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncBinaryAPIResponse,
+        )
 
     async def query(
         self,
@@ -247,7 +364,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> AsyncBinaryAPIResponse:
         """
         Render a chart using workbook data
 
@@ -268,6 +385,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "image/png", **(extra_headers or {})}
         return await self._post(
             f"/v1/workbooks/{id}/chart",
             body=await async_maybe_transform(
@@ -280,7 +398,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=AsyncBinaryAPIResponse,
         )
 
 
@@ -288,11 +406,16 @@ class WorkbooksResourceWithRawResponse:
     def __init__(self, workbooks: WorkbooksResource) -> None:
         self._workbooks = workbooks
 
+        self.export = to_custom_raw_response_wrapper(
+            workbooks.export,
+            BinaryAPIResponse,
+        )
         self.query = to_raw_response_wrapper(
             workbooks.query,
         )
-        self.render_chart = to_raw_response_wrapper(
+        self.render_chart = to_custom_raw_response_wrapper(
             workbooks.render_chart,
+            BinaryAPIResponse,
         )
 
 
@@ -300,11 +423,16 @@ class AsyncWorkbooksResourceWithRawResponse:
     def __init__(self, workbooks: AsyncWorkbooksResource) -> None:
         self._workbooks = workbooks
 
+        self.export = async_to_custom_raw_response_wrapper(
+            workbooks.export,
+            AsyncBinaryAPIResponse,
+        )
         self.query = async_to_raw_response_wrapper(
             workbooks.query,
         )
-        self.render_chart = async_to_raw_response_wrapper(
+        self.render_chart = async_to_custom_raw_response_wrapper(
             workbooks.render_chart,
+            AsyncBinaryAPIResponse,
         )
 
 
@@ -312,11 +440,16 @@ class WorkbooksResourceWithStreamingResponse:
     def __init__(self, workbooks: WorkbooksResource) -> None:
         self._workbooks = workbooks
 
+        self.export = to_custom_streamed_response_wrapper(
+            workbooks.export,
+            StreamedBinaryAPIResponse,
+        )
         self.query = to_streamed_response_wrapper(
             workbooks.query,
         )
-        self.render_chart = to_streamed_response_wrapper(
+        self.render_chart = to_custom_streamed_response_wrapper(
             workbooks.render_chart,
+            StreamedBinaryAPIResponse,
         )
 
 
@@ -324,9 +457,14 @@ class AsyncWorkbooksResourceWithStreamingResponse:
     def __init__(self, workbooks: AsyncWorkbooksResource) -> None:
         self._workbooks = workbooks
 
+        self.export = async_to_custom_streamed_response_wrapper(
+            workbooks.export,
+            AsyncStreamedBinaryAPIResponse,
+        )
         self.query = async_to_streamed_response_wrapper(
             workbooks.query,
         )
-        self.render_chart = async_to_streamed_response_wrapper(
+        self.render_chart = async_to_custom_streamed_response_wrapper(
             workbooks.render_chart,
+            AsyncStreamedBinaryAPIResponse,
         )
