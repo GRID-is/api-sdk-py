@@ -26,20 +26,20 @@ from ._utils import (
 from ._version import __version__
 from .resources import workbooks
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import GRIDError, APIStatusError
+from ._exceptions import GridError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
 )
 
-__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "GRID", "AsyncGRID", "Client", "AsyncClient"]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Grid", "AsyncGrid", "Client", "AsyncClient"]
 
 
-class GRID(SyncAPIClient):
+class Grid(SyncAPIClient):
     workbooks: workbooks.WorkbooksResource
-    with_raw_response: GRIDWithRawResponse
-    with_streaming_response: GRIDWithStreamedResponse
+    with_raw_response: GridWithRawResponse
+    with_streaming_response: GridWithStreamedResponse
 
     # client options
     bearer_token: str
@@ -74,7 +74,7 @@ class GRID(SyncAPIClient):
         if bearer_token is None:
             bearer_token = os.environ.get("GRID_API_TOKEN")
         if bearer_token is None:
-            raise GRIDError(
+            raise GridError(
                 "The bearer_token client option must be set either by passing bearer_token to the client or by setting the GRID_API_TOKEN environment variable"
             )
         self.bearer_token = bearer_token
@@ -96,8 +96,8 @@ class GRID(SyncAPIClient):
         )
 
         self.workbooks = workbooks.WorkbooksResource(self)
-        self.with_raw_response = GRIDWithRawResponse(self)
-        self.with_streaming_response = GRIDWithStreamedResponse(self)
+        self.with_raw_response = GridWithRawResponse(self)
+        self.with_streaming_response = GridWithStreamedResponse(self)
 
     @property
     @override
@@ -205,10 +205,10 @@ class GRID(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncGRID(AsyncAPIClient):
+class AsyncGrid(AsyncAPIClient):
     workbooks: workbooks.AsyncWorkbooksResource
-    with_raw_response: AsyncGRIDWithRawResponse
-    with_streaming_response: AsyncGRIDWithStreamedResponse
+    with_raw_response: AsyncGridWithRawResponse
+    with_streaming_response: AsyncGridWithStreamedResponse
 
     # client options
     bearer_token: str
@@ -243,7 +243,7 @@ class AsyncGRID(AsyncAPIClient):
         if bearer_token is None:
             bearer_token = os.environ.get("GRID_API_TOKEN")
         if bearer_token is None:
-            raise GRIDError(
+            raise GridError(
                 "The bearer_token client option must be set either by passing bearer_token to the client or by setting the GRID_API_TOKEN environment variable"
             )
         self.bearer_token = bearer_token
@@ -265,8 +265,8 @@ class AsyncGRID(AsyncAPIClient):
         )
 
         self.workbooks = workbooks.AsyncWorkbooksResource(self)
-        self.with_raw_response = AsyncGRIDWithRawResponse(self)
-        self.with_streaming_response = AsyncGRIDWithStreamedResponse(self)
+        self.with_raw_response = AsyncGridWithRawResponse(self)
+        self.with_streaming_response = AsyncGridWithStreamedResponse(self)
 
     @property
     @override
@@ -374,26 +374,26 @@ class AsyncGRID(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class GRIDWithRawResponse:
-    def __init__(self, client: GRID) -> None:
+class GridWithRawResponse:
+    def __init__(self, client: Grid) -> None:
         self.workbooks = workbooks.WorkbooksResourceWithRawResponse(client.workbooks)
 
 
-class AsyncGRIDWithRawResponse:
-    def __init__(self, client: AsyncGRID) -> None:
+class AsyncGridWithRawResponse:
+    def __init__(self, client: AsyncGrid) -> None:
         self.workbooks = workbooks.AsyncWorkbooksResourceWithRawResponse(client.workbooks)
 
 
-class GRIDWithStreamedResponse:
-    def __init__(self, client: GRID) -> None:
+class GridWithStreamedResponse:
+    def __init__(self, client: Grid) -> None:
         self.workbooks = workbooks.WorkbooksResourceWithStreamingResponse(client.workbooks)
 
 
-class AsyncGRIDWithStreamedResponse:
-    def __init__(self, client: AsyncGRID) -> None:
+class AsyncGridWithStreamedResponse:
+    def __init__(self, client: AsyncGrid) -> None:
         self.workbooks = workbooks.AsyncWorkbooksResourceWithStreamingResponse(client.workbooks)
 
 
-Client = GRID
+Client = Grid
 
-AsyncClient = AsyncGRID
+AsyncClient = AsyncGrid

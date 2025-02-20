@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class GRIDError(Exception):
+class GridError(Exception):
     pass
 
 
-class APIError(GRIDError):
+class APIError(GridError):
     message: str
     request: httpx.Request
 

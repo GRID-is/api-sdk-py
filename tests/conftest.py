@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 import pytest
 from pytest_asyncio import is_async_test
 
-from grid_api import GRID, AsyncGRID
+from grid_api import Grid, AsyncGrid
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest
@@ -32,20 +32,20 @@ bearer_token = "My Bearer Token"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[GRID]:
+def client(request: FixtureRequest) -> Iterator[Grid]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with GRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict) as client:
+    with Grid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncGRID]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncGrid]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    async with AsyncGRID(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict) as client:
+    async with AsyncGrid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict) as client:
         yield client

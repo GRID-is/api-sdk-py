@@ -3,14 +3,14 @@
 from . import types
 from ._types import NOT_GIVEN, Omit, NoneType, NotGiven, Transport, ProxiesTypes
 from ._utils import file_from_path
-from ._client import GRID, Client, Stream, Timeout, AsyncGRID, Transport, AsyncClient, AsyncStream, RequestOptions
+from ._client import Grid, Client, Stream, Timeout, AsyncGrid, Transport, AsyncClient, AsyncStream, RequestOptions
 from ._models import BaseModel
 from ._version import __title__, __version__
 from ._response import APIResponse as APIResponse, AsyncAPIResponse as AsyncAPIResponse
 from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION_LIMITS
 from ._exceptions import (
     APIError,
-    GRIDError,
+    GridError,
     ConflictError,
     NotFoundError,
     APIStatusError,
@@ -37,7 +37,7 @@ __all__ = [
     "NotGiven",
     "NOT_GIVEN",
     "Omit",
-    "GRIDError",
+    "GridError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -57,8 +57,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "GRID",
-    "AsyncGRID",
+    "Grid",
+    "AsyncGrid",
     "file_from_path",
     "BaseModel",
     "DEFAULT_TIMEOUT",
