@@ -67,7 +67,7 @@ class Grid(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous GRID client instance.
+        """Construct a new synchronous Grid client instance.
 
         This automatically infers the `bearer_token` argument from the `GRID_API_TOKEN` environment variable if it is not provided.
         """
@@ -236,7 +236,7 @@ class AsyncGrid(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async GRID client instance.
+        """Construct a new async AsyncGrid client instance.
 
         This automatically infers the `bearer_token` argument from the `GRID_API_TOKEN` environment variable if it is not provided.
         """
