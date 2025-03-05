@@ -6,8 +6,14 @@ from typing import List, Iterable, Optional
 
 import httpx
 
-from ..types import workbook_query_params, workbook_export_params, workbook_render_chart_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..types import (
+    workbook_list_params,
+    workbook_query_params,
+    workbook_export_params,
+    workbook_upload_params,
+    workbook_render_chart_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
 from .._utils import (
     maybe_transform,
     async_maybe_transform,
@@ -29,7 +35,9 @@ from .._response import (
     async_to_custom_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.workbook_list_response import WorkbookListResponse
 from ..types.workbook_query_response import WorkbookQueryResponse
+from ..types.workbook_upload_response import WorkbookUploadResponse
 
 __all__ = ["WorkbooksResource", "AsyncWorkbooksResource"]
 
@@ -53,6 +61,55 @@ class WorkbooksResource(SyncAPIResource):
         For more information, see https://www.github.com/stainless-sdks/spreadsheet-api-python#with_streaming_response
         """
         return WorkbooksResourceWithStreamingResponse(self)
+
+    def list(
+        self,
+        *,
+        cursor: str | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkbookListResponse:
+        """
+        List the workbooks linked to an account.
+
+        This endpoint returns a paginated list of workbooks.
+
+        Args:
+          cursor: Cursor for the next page of items. If not provided, the first batch of items
+              will be returned.
+
+          limit: Number of items to return per page
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/v1/workbooks",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "limit": limit,
+                    },
+                    workbook_list_params.WorkbookListParams,
+                ),
+            ),
+            cast_to=WorkbookListResponse,
+        )
 
     def export(
         self,
@@ -217,6 +274,45 @@ class WorkbooksResource(SyncAPIResource):
             cast_to=BinaryAPIResponse,
         )
 
+    def upload(
+        self,
+        *,
+        body: FileTypes,
+        x_uploaded_filename: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkbookUploadResponse:
+        """
+        Upload an Excel workbook file and make it available in the API.
+
+        The workbook will be processed in the background. Once it's processed
+        successfully it will be available for querying and exporting.
+
+        Args:
+          x_uploaded_filename: The name of the workbook file
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"X-Uploaded-Filename": x_uploaded_filename, **(extra_headers or {})}
+        return self._post(
+            "/v1/workbooks",
+            body=maybe_transform(body, workbook_upload_params.WorkbookUploadParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkbookUploadResponse,
+        )
+
 
 class AsyncWorkbooksResource(AsyncAPIResource):
     @cached_property
@@ -237,6 +333,55 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         For more information, see https://www.github.com/stainless-sdks/spreadsheet-api-python#with_streaming_response
         """
         return AsyncWorkbooksResourceWithStreamingResponse(self)
+
+    async def list(
+        self,
+        *,
+        cursor: str | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkbookListResponse:
+        """
+        List the workbooks linked to an account.
+
+        This endpoint returns a paginated list of workbooks.
+
+        Args:
+          cursor: Cursor for the next page of items. If not provided, the first batch of items
+              will be returned.
+
+          limit: Number of items to return per page
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/v1/workbooks",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "limit": limit,
+                    },
+                    workbook_list_params.WorkbookListParams,
+                ),
+            ),
+            cast_to=WorkbookListResponse,
+        )
 
     async def export(
         self,
@@ -401,11 +546,53 @@ class AsyncWorkbooksResource(AsyncAPIResource):
             cast_to=AsyncBinaryAPIResponse,
         )
 
+    async def upload(
+        self,
+        *,
+        body: FileTypes,
+        x_uploaded_filename: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkbookUploadResponse:
+        """
+        Upload an Excel workbook file and make it available in the API.
+
+        The workbook will be processed in the background. Once it's processed
+        successfully it will be available for querying and exporting.
+
+        Args:
+          x_uploaded_filename: The name of the workbook file
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"X-Uploaded-Filename": x_uploaded_filename, **(extra_headers or {})}
+        return await self._post(
+            "/v1/workbooks",
+            body=await async_maybe_transform(body, workbook_upload_params.WorkbookUploadParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkbookUploadResponse,
+        )
+
 
 class WorkbooksResourceWithRawResponse:
     def __init__(self, workbooks: WorkbooksResource) -> None:
         self._workbooks = workbooks
 
+        self.list = to_raw_response_wrapper(
+            workbooks.list,
+        )
         self.export = to_custom_raw_response_wrapper(
             workbooks.export,
             BinaryAPIResponse,
@@ -417,12 +604,18 @@ class WorkbooksResourceWithRawResponse:
             workbooks.render_chart,
             BinaryAPIResponse,
         )
+        self.upload = to_raw_response_wrapper(
+            workbooks.upload,
+        )
 
 
 class AsyncWorkbooksResourceWithRawResponse:
     def __init__(self, workbooks: AsyncWorkbooksResource) -> None:
         self._workbooks = workbooks
 
+        self.list = async_to_raw_response_wrapper(
+            workbooks.list,
+        )
         self.export = async_to_custom_raw_response_wrapper(
             workbooks.export,
             AsyncBinaryAPIResponse,
@@ -434,12 +627,18 @@ class AsyncWorkbooksResourceWithRawResponse:
             workbooks.render_chart,
             AsyncBinaryAPIResponse,
         )
+        self.upload = async_to_raw_response_wrapper(
+            workbooks.upload,
+        )
 
 
 class WorkbooksResourceWithStreamingResponse:
     def __init__(self, workbooks: WorkbooksResource) -> None:
         self._workbooks = workbooks
 
+        self.list = to_streamed_response_wrapper(
+            workbooks.list,
+        )
         self.export = to_custom_streamed_response_wrapper(
             workbooks.export,
             StreamedBinaryAPIResponse,
@@ -451,12 +650,18 @@ class WorkbooksResourceWithStreamingResponse:
             workbooks.render_chart,
             StreamedBinaryAPIResponse,
         )
+        self.upload = to_streamed_response_wrapper(
+            workbooks.upload,
+        )
 
 
 class AsyncWorkbooksResourceWithStreamingResponse:
     def __init__(self, workbooks: AsyncWorkbooksResource) -> None:
         self._workbooks = workbooks
 
+        self.list = async_to_streamed_response_wrapper(
+            workbooks.list,
+        )
         self.export = async_to_custom_streamed_response_wrapper(
             workbooks.export,
             AsyncStreamedBinaryAPIResponse,
@@ -467,4 +672,7 @@ class AsyncWorkbooksResourceWithStreamingResponse:
         self.render_chart = async_to_custom_streamed_response_wrapper(
             workbooks.render_chart,
             AsyncStreamedBinaryAPIResponse,
+        )
+        self.upload = async_to_streamed_response_wrapper(
+            workbooks.upload,
         )

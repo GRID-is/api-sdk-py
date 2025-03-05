@@ -12,7 +12,9 @@ from respx import MockRouter
 from grid_api import Grid, AsyncGrid
 from tests.utils import assert_matches_type
 from grid_api.types import (
+    WorkbookListResponse,
     WorkbookQueryResponse,
+    WorkbookUploadResponse,
 )
 from grid_api._response import (
     BinaryAPIResponse,
@@ -26,6 +28,43 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestWorkbooks:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_list(self, client: Grid) -> None:
+        workbook = client.workbooks.list()
+        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_list_with_all_params(self, client: Grid) -> None:
+        workbook = client.workbooks.list(
+            cursor="cursor",
+            limit=0,
+        )
+        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_list(self, client: Grid) -> None:
+        response = client.workbooks.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workbook = response.parse()
+        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_list(self, client: Grid) -> None:
+        with client.workbooks.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workbook = response.parse()
+            assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize
@@ -262,9 +301,83 @@ class TestWorkbooks:
                 chart={"data": "=C2:C142"},
             )
 
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_upload(self, client: Grid) -> None:
+        workbook = client.workbooks.upload(
+            body=b"raw file contents",
+            x_uploaded_filename="X-Uploaded-Filename",
+        )
+        assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_upload(self, client: Grid) -> None:
+        response = client.workbooks.with_raw_response.upload(
+            body=b"raw file contents",
+            x_uploaded_filename="X-Uploaded-Filename",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workbook = response.parse()
+        assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_upload(self, client: Grid) -> None:
+        with client.workbooks.with_streaming_response.upload(
+            body=b"raw file contents",
+            x_uploaded_filename="X-Uploaded-Filename",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workbook = response.parse()
+            assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncWorkbooks:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_list(self, async_client: AsyncGrid) -> None:
+        workbook = await async_client.workbooks.list()
+        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncGrid) -> None:
+        workbook = await async_client.workbooks.list(
+            cursor="cursor",
+            limit=0,
+        )
+        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncGrid) -> None:
+        response = await async_client.workbooks.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workbook = await response.parse()
+        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncGrid) -> None:
+        async with async_client.workbooks.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workbook = await response.parse()
+            assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip()
     @parametrize
@@ -500,3 +613,40 @@ class TestAsyncWorkbooks:
                 id="",
                 chart={"data": "=C2:C142"},
             )
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_upload(self, async_client: AsyncGrid) -> None:
+        workbook = await async_client.workbooks.upload(
+            body=b"raw file contents",
+            x_uploaded_filename="X-Uploaded-Filename",
+        )
+        assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_upload(self, async_client: AsyncGrid) -> None:
+        response = await async_client.workbooks.with_raw_response.upload(
+            body=b"raw file contents",
+            x_uploaded_filename="X-Uploaded-Filename",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workbook = await response.parse()
+        assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_upload(self, async_client: AsyncGrid) -> None:
+        async with async_client.workbooks.with_streaming_response.upload(
+            body=b"raw file contents",
+            x_uploaded_filename="X-Uploaded-Filename",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workbook = await response.parse()
+            assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
