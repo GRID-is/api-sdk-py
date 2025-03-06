@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import List, Mapping, Iterable, Optional, cast
 
 import httpx
 
@@ -15,7 +15,9 @@ from ..types import (
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
 from .._utils import (
+    extract_files,
     maybe_transform,
+    deepcopy_minimal,
     async_maybe_transform,
 )
 from .._compat import cached_property
@@ -277,8 +279,8 @@ class WorkbooksResource(SyncAPIResource):
     def upload(
         self,
         *,
-        body: FileTypes,
-        x_uploaded_filename: str,
+        file: FileTypes,
+        filename: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -293,7 +295,7 @@ class WorkbooksResource(SyncAPIResource):
         successfully it will be available for querying and exporting.
 
         Args:
-          x_uploaded_filename: The name of the workbook file
+          filename: The name of the workbook file
 
           extra_headers: Send extra headers
 
@@ -303,10 +305,21 @@ class WorkbooksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"X-Uploaded-Filename": x_uploaded_filename, **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "file": file,
+                "filename": filename,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
             "/v1/workbooks",
             body=maybe_transform(body, workbook_upload_params.WorkbookUploadParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -549,8 +562,8 @@ class AsyncWorkbooksResource(AsyncAPIResource):
     async def upload(
         self,
         *,
-        body: FileTypes,
-        x_uploaded_filename: str,
+        file: FileTypes,
+        filename: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -565,7 +578,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         successfully it will be available for querying and exporting.
 
         Args:
-          x_uploaded_filename: The name of the workbook file
+          filename: The name of the workbook file
 
           extra_headers: Send extra headers
 
@@ -575,10 +588,21 @@ class AsyncWorkbooksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"X-Uploaded-Filename": x_uploaded_filename, **(extra_headers or {})}
+        body = deepcopy_minimal(
+            {
+                "file": file,
+                "filename": filename,
+            }
+        )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
             "/v1/workbooks",
             body=await async_maybe_transform(body, workbook_upload_params.WorkbookUploadParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

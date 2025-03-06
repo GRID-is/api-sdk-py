@@ -42,12 +42,12 @@ class Grid(SyncAPIClient):
     with_streaming_response: GridWithStreamedResponse
 
     # client options
-    bearer_token: str
+    api_key: str
 
     def __init__(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -69,15 +69,15 @@ class Grid(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Grid client instance.
 
-        This automatically infers the `bearer_token` argument from the `GRID_API_TOKEN` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `GRID_API_TOKEN` environment variable if it is not provided.
         """
-        if bearer_token is None:
-            bearer_token = os.environ.get("GRID_API_TOKEN")
-        if bearer_token is None:
+        if api_key is None:
+            api_key = os.environ.get("GRID_API_TOKEN")
+        if api_key is None:
             raise GridError(
-                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the GRID_API_TOKEN environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the GRID_API_TOKEN environment variable"
             )
-        self.bearer_token = bearer_token
+        self.api_key = api_key
 
         if base_url is None:
             base_url = os.environ.get("GRID_BASE_URL")
@@ -107,8 +107,8 @@ class Grid(SyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
-        bearer_token = self.bearer_token
-        return {"Authorization": f"Bearer {bearer_token}"}
+        api_key = self.api_key
+        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override
@@ -123,7 +123,7 @@ class Grid(SyncAPIClient):
     def copy(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -157,7 +157,7 @@ class Grid(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            bearer_token=bearer_token or self.bearer_token,
+            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -211,12 +211,12 @@ class AsyncGrid(AsyncAPIClient):
     with_streaming_response: AsyncGridWithStreamedResponse
 
     # client options
-    bearer_token: str
+    api_key: str
 
     def __init__(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -238,15 +238,15 @@ class AsyncGrid(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncGrid client instance.
 
-        This automatically infers the `bearer_token` argument from the `GRID_API_TOKEN` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `GRID_API_TOKEN` environment variable if it is not provided.
         """
-        if bearer_token is None:
-            bearer_token = os.environ.get("GRID_API_TOKEN")
-        if bearer_token is None:
+        if api_key is None:
+            api_key = os.environ.get("GRID_API_TOKEN")
+        if api_key is None:
             raise GridError(
-                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the GRID_API_TOKEN environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the GRID_API_TOKEN environment variable"
             )
-        self.bearer_token = bearer_token
+        self.api_key = api_key
 
         if base_url is None:
             base_url = os.environ.get("GRID_BASE_URL")
@@ -276,8 +276,8 @@ class AsyncGrid(AsyncAPIClient):
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
-        bearer_token = self.bearer_token
-        return {"Authorization": f"Bearer {bearer_token}"}
+        api_key = self.api_key
+        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override
@@ -292,7 +292,7 @@ class AsyncGrid(AsyncAPIClient):
     def copy(
         self,
         *,
-        bearer_token: str | None = None,
+        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -326,7 +326,7 @@ class AsyncGrid(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            bearer_token=bearer_token or self.bearer_token,
+            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,

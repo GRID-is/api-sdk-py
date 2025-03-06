@@ -38,7 +38,7 @@ from grid_api.types.workbook_query_params import WorkbookQueryParams
 from .utils import update_env
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
-bearer_token = "My Bearer Token"
+api_key = "My API Key"
 
 
 def _get_params(client: BaseClient[Any, Any]) -> dict[str, str]:
@@ -60,7 +60,7 @@ def _get_open_connections(client: Grid | AsyncGrid) -> int:
 
 
 class TestGrid:
-    client = Grid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+    client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -86,9 +86,9 @@ class TestGrid:
         copied = self.client.copy()
         assert id(copied) != id(self.client)
 
-        copied = self.client.copy(bearer_token="another My Bearer Token")
-        assert copied.bearer_token == "another My Bearer Token"
-        assert self.client.bearer_token == "My Bearer Token"
+        copied = self.client.copy(api_key="another My API Key")
+        assert copied.api_key == "another My API Key"
+        assert self.client.api_key == "My API Key"
 
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly
@@ -108,10 +108,7 @@ class TestGrid:
 
     def test_copy_default_headers(self) -> None:
         client = Grid(
-            base_url=base_url,
-            bearer_token=bearer_token,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -145,7 +142,7 @@ class TestGrid:
 
     def test_copy_default_query(self) -> None:
         client = Grid(
-            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, default_query={"foo": "bar"}
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -269,9 +266,7 @@ class TestGrid:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = Grid(
-            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
-        )
+        client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0))
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -280,9 +275,7 @@ class TestGrid:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = Grid(
-                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
-            )
+            client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -290,9 +283,7 @@ class TestGrid:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = Grid(
-                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
-            )
+            client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -300,9 +291,7 @@ class TestGrid:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = Grid(
-                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
-            )
+            client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
             timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -313,17 +302,14 @@ class TestGrid:
             async with httpx.AsyncClient() as http_client:
                 Grid(
                     base_url=base_url,
-                    bearer_token=bearer_token,
+                    api_key=api_key,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     def test_default_headers_option(self) -> None:
         client = Grid(
-            base_url=base_url,
-            bearer_token=bearer_token,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
@@ -331,7 +317,7 @@ class TestGrid:
 
         client2 = Grid(
             base_url=base_url,
-            bearer_token=bearer_token,
+            api_key=api_key,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -344,10 +330,7 @@ class TestGrid:
 
     def test_default_query_option(self) -> None:
         client = Grid(
-            base_url=base_url,
-            bearer_token=bearer_token,
-            _strict_response_validation=True,
-            default_query={"query_param": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
@@ -547,9 +530,7 @@ class TestGrid:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = Grid(
-            base_url="https://example.com/from_init", bearer_token=bearer_token, _strict_response_validation=True
-        )
+        client = Grid(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -558,20 +539,16 @@ class TestGrid:
 
     def test_base_url_env(self) -> None:
         with update_env(GRID_BASE_URL="http://localhost:5000/from/env"):
-            client = Grid(bearer_token=bearer_token, _strict_response_validation=True)
+            client = Grid(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
+            Grid(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             Grid(
                 base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
-                _strict_response_validation=True,
-            ),
-            Grid(
-                base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
+                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -591,14 +568,10 @@ class TestGrid:
     @pytest.mark.parametrize(
         "client",
         [
+            Grid(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             Grid(
                 base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
-                _strict_response_validation=True,
-            ),
-            Grid(
-                base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
+                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -618,14 +591,10 @@ class TestGrid:
     @pytest.mark.parametrize(
         "client",
         [
+            Grid(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             Grid(
                 base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
-                _strict_response_validation=True,
-            ),
-            Grid(
-                base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
+                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
@@ -643,7 +612,7 @@ class TestGrid:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = Grid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -654,7 +623,7 @@ class TestGrid:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = Grid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -675,12 +644,7 @@ class TestGrid:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            Grid(
-                base_url=base_url,
-                bearer_token=bearer_token,
-                _strict_response_validation=True,
-                max_retries=cast(Any, None),
-            )
+            Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -689,12 +653,12 @@ class TestGrid:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = Grid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        strict_client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = Grid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
+        client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -722,7 +686,7 @@ class TestGrid:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = Grid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = Grid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -840,7 +804,7 @@ class TestGrid:
 
 
 class TestAsyncGrid:
-    client = AsyncGrid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+    client = AsyncGrid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -868,9 +832,9 @@ class TestAsyncGrid:
         copied = self.client.copy()
         assert id(copied) != id(self.client)
 
-        copied = self.client.copy(bearer_token="another My Bearer Token")
-        assert copied.bearer_token == "another My Bearer Token"
-        assert self.client.bearer_token == "My Bearer Token"
+        copied = self.client.copy(api_key="another My API Key")
+        assert copied.api_key == "another My API Key"
+        assert self.client.api_key == "My API Key"
 
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly
@@ -890,10 +854,7 @@ class TestAsyncGrid:
 
     def test_copy_default_headers(self) -> None:
         client = AsyncGrid(
-            base_url=base_url,
-            bearer_token=bearer_token,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -927,7 +888,7 @@ class TestAsyncGrid:
 
     def test_copy_default_query(self) -> None:
         client = AsyncGrid(
-            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, default_query={"foo": "bar"}
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -1052,7 +1013,7 @@ class TestAsyncGrid:
 
     async def test_client_timeout_option(self) -> None:
         client = AsyncGrid(
-            base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, timeout=httpx.Timeout(0)
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1063,7 +1024,7 @@ class TestAsyncGrid:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
             client = AsyncGrid(
-                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
+                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1073,7 +1034,7 @@ class TestAsyncGrid:
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
             client = AsyncGrid(
-                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
+                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1083,7 +1044,7 @@ class TestAsyncGrid:
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
             client = AsyncGrid(
-                base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True, http_client=http_client
+                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1095,17 +1056,14 @@ class TestAsyncGrid:
             with httpx.Client() as http_client:
                 AsyncGrid(
                     base_url=base_url,
-                    bearer_token=bearer_token,
+                    api_key=api_key,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     def test_default_headers_option(self) -> None:
         client = AsyncGrid(
-            base_url=base_url,
-            bearer_token=bearer_token,
-            _strict_response_validation=True,
-            default_headers={"X-Foo": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
@@ -1113,7 +1071,7 @@ class TestAsyncGrid:
 
         client2 = AsyncGrid(
             base_url=base_url,
-            bearer_token=bearer_token,
+            api_key=api_key,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -1126,10 +1084,7 @@ class TestAsyncGrid:
 
     def test_default_query_option(self) -> None:
         client = AsyncGrid(
-            base_url=base_url,
-            bearer_token=bearer_token,
-            _strict_response_validation=True,
-            default_query={"query_param": "bar"},
+            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
@@ -1329,9 +1284,7 @@ class TestAsyncGrid:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncGrid(
-            base_url="https://example.com/from_init", bearer_token=bearer_token, _strict_response_validation=True
-        )
+        client = AsyncGrid(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -1340,20 +1293,16 @@ class TestAsyncGrid:
 
     def test_base_url_env(self) -> None:
         with update_env(GRID_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncGrid(bearer_token=bearer_token, _strict_response_validation=True)
+            client = AsyncGrid(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
+            AsyncGrid(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             AsyncGrid(
                 base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
-                _strict_response_validation=True,
-            ),
-            AsyncGrid(
-                base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
+                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1373,14 +1322,10 @@ class TestAsyncGrid:
     @pytest.mark.parametrize(
         "client",
         [
+            AsyncGrid(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             AsyncGrid(
                 base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
-                _strict_response_validation=True,
-            ),
-            AsyncGrid(
-                base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
+                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1400,14 +1345,10 @@ class TestAsyncGrid:
     @pytest.mark.parametrize(
         "client",
         [
+            AsyncGrid(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
             AsyncGrid(
                 base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
-                _strict_response_validation=True,
-            ),
-            AsyncGrid(
-                base_url="http://localhost:5000/custom/path/",
-                bearer_token=bearer_token,
+                api_key=api_key,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
@@ -1425,7 +1366,7 @@ class TestAsyncGrid:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncGrid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncGrid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1437,7 +1378,7 @@ class TestAsyncGrid:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncGrid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncGrid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1459,12 +1400,7 @@ class TestAsyncGrid:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncGrid(
-                base_url=base_url,
-                bearer_token=bearer_token,
-                _strict_response_validation=True,
-                max_retries=cast(Any, None),
-            )
+            AsyncGrid(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -1474,12 +1410,12 @@ class TestAsyncGrid:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncGrid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        strict_client = AsyncGrid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncGrid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=False)
+        client = AsyncGrid(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1508,7 +1444,7 @@ class TestAsyncGrid:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncGrid(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
+        client = AsyncGrid(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)

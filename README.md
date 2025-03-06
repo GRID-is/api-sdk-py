@@ -38,10 +38,10 @@ response = client.workbooks.query(
 print(response.apply)
 ```
 
-While you can provide a `bearer_token` keyword argument,
+While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `GRID_API_TOKEN="My Bearer Token"` to your `.env` file
-so that your Bearer Token is not stored in source control.
+to add `GRID_API_TOKEN="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
 
 ## Async usage
 
@@ -87,8 +87,8 @@ from grid_api import Grid
 client = Grid()
 
 client.workbooks.upload(
-    body=Path("/path/to/file"),
-    x_uploaded_filename="X-Uploaded-Filename",
+    file=Path("/path/to/file"),
+    filename="filename",
 )
 ```
 
