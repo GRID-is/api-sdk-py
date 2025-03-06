@@ -2,16 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Required, TypedDict
 
 from .._types import FileTypes
-from .._utils import PropertyInfo
 
 __all__ = ["WorkbookUploadParams"]
 
 
 class WorkbookUploadParams(TypedDict, total=False):
-    body: Required[FileTypes]
+    file: Required[FileTypes]
 
-    x_uploaded_filename: Required[Annotated[str, PropertyInfo(alias="X-Uploaded-Filename")]]
+    filename: Required[str]
     """The name of the workbook file"""
