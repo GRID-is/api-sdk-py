@@ -306,7 +306,6 @@ class TestWorkbooks:
     def test_method_upload(self, client: Grid) -> None:
         workbook = client.workbooks.upload(
             file=b"raw file contents",
-            filename="filename",
         )
         assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
 
@@ -315,7 +314,6 @@ class TestWorkbooks:
     def test_raw_response_upload(self, client: Grid) -> None:
         response = client.workbooks.with_raw_response.upload(
             file=b"raw file contents",
-            filename="filename",
         )
 
         assert response.is_closed is True
@@ -328,7 +326,6 @@ class TestWorkbooks:
     def test_streaming_response_upload(self, client: Grid) -> None:
         with client.workbooks.with_streaming_response.upload(
             file=b"raw file contents",
-            filename="filename",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -619,7 +616,6 @@ class TestAsyncWorkbooks:
     async def test_method_upload(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.upload(
             file=b"raw file contents",
-            filename="filename",
         )
         assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
 
@@ -628,7 +624,6 @@ class TestAsyncWorkbooks:
     async def test_raw_response_upload(self, async_client: AsyncGrid) -> None:
         response = await async_client.workbooks.with_raw_response.upload(
             file=b"raw file contents",
-            filename="filename",
         )
 
         assert response.is_closed is True
@@ -641,7 +636,6 @@ class TestAsyncWorkbooks:
     async def test_streaming_response_upload(self, async_client: AsyncGrid) -> None:
         async with async_client.workbooks.with_streaming_response.upload(
             file=b"raw file contents",
-            filename="filename",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

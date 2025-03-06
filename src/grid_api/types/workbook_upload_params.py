@@ -11,6 +11,3 @@ __all__ = ["WorkbookUploadParams"]
 
 class WorkbookUploadParams(TypedDict, total=False):
     file: Required[FileTypes]
-
-    filename: Required[str]
-    """The name of the workbook file"""
