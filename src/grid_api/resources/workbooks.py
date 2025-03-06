@@ -280,7 +280,6 @@ class WorkbooksResource(SyncAPIResource):
         self,
         *,
         file: FileTypes,
-        filename: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -295,8 +294,6 @@ class WorkbooksResource(SyncAPIResource):
         successfully it will be available for querying and exporting.
 
         Args:
-          filename: The name of the workbook file
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -305,12 +302,7 @@ class WorkbooksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal(
-            {
-                "file": file,
-                "filename": filename,
-            }
-        )
+        body = deepcopy_minimal({"file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -563,7 +555,6 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         self,
         *,
         file: FileTypes,
-        filename: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -578,8 +569,6 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         successfully it will be available for querying and exporting.
 
         Args:
-          filename: The name of the workbook file
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -588,12 +577,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal(
-            {
-                "file": file,
-                "filename": filename,
-            }
-        )
+        body = deepcopy_minimal({"file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.

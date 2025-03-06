@@ -88,7 +88,6 @@ client = Grid()
 
 client.workbooks.upload(
     file=Path("/path/to/file"),
-    filename="filename",
 )
 ```
 
