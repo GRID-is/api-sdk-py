@@ -190,7 +190,7 @@ Note that requests that time out are [retried twice by default](#retries).
 
 ## Default Headers
 
-We automatically send the `X-Client-Name` header set to `spreadsheet-api-node`.
+We automatically send the `X-Client-Name` header set to `api-sdk`.
 
 If you need to, you can override it by setting default headers per-request or on the client object.
 
