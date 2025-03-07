@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [alpha.grid.is](https://alpha.grid.is/). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.grid.is](https://docs.grid.is/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -32,7 +32,7 @@ from grid_api import Grid
 client = Grid()
 
 response = client.workbooks.query(
-    id="REPLACE_ME",
+    id="YOUR_WORKBOOK_ID",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
 )
 print(response.apply)
@@ -56,7 +56,7 @@ client = AsyncGrid()
 
 async def main() -> None:
     response = await client.workbooks.query(
-        id="REPLACE_ME",
+        id="YOUR_WORKBOOK_ID",
         read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
     )
     print(response.apply)
@@ -110,7 +110,7 @@ client = Grid()
 
 try:
     client.workbooks.query(
-        id="REPLACE_ME",
+        id="YOUR_WORKBOOK_ID",
         read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
     )
 except grid_api.APIConnectionError as e:
@@ -156,7 +156,7 @@ client = Grid(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).workbooks.query(
-    id="REPLACE_ME",
+    id="YOUR_WORKBOOK_ID",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
 )
 ```
@@ -182,7 +182,7 @@ client = Grid(
 
 # Override per-request:
 client.with_options(timeout=5.0).workbooks.query(
-    id="REPLACE_ME",
+    id="YOUR_WORKBOOK_ID",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
 )
 ```
@@ -193,7 +193,7 @@ Note that requests that time out are [retried twice by default](#retries).
 
 ## Default Headers
 
-We automatically send the `X-Client-Name` header set to `api-sdk`.
+We automatically send the `X-Client-Name` header set to `spreadsheet-api-node`.
 
 If you need to, you can override it by setting default headers per-request or on the client object.
 
@@ -240,7 +240,7 @@ from grid_api import Grid
 
 client = Grid()
 response = client.workbooks.with_raw_response.query(
-    id="REPLACE_ME",
+    id="YOUR_WORKBOOK_ID",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
 )
 print(response.headers.get('X-My-Header'))
@@ -261,7 +261,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.workbooks.with_streaming_response.query(
-    id="REPLACE_ME",
+    id="YOUR_WORKBOOK_ID",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
 ) as response:
     print(response.headers.get("X-My-Header"))

@@ -1,15 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["WorkbookListResponse"]
+__all__ = ["WorkbookListResponse", "Item", "Pagination"]
 
 
-class WorkbookListResponse(BaseModel):
+class Item(BaseModel):
     id: str
     """A workbook's unique identifier"""
 
@@ -41,3 +41,14 @@ class WorkbookListResponse(BaseModel):
 
     latest_ready_version: Optional[int] = None
     """The latest version of the workbook that has a 'ready' state"""
+
+
+class Pagination(BaseModel):
+    next_cursor: Optional[str] = None
+    """The cursor to pass on as query parameter for the next batch of items, if any"""
+
+
+class WorkbookListResponse(BaseModel):
+    items: List[Item]
+
+    pagination: Pagination
