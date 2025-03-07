@@ -22,6 +22,7 @@ from grid_api._response import (
     StreamedBinaryAPIResponse,
     AsyncStreamedBinaryAPIResponse,
 )
+from grid_api.pagination import SyncCursorPagination, AsyncCursorPagination
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -33,7 +34,7 @@ class TestWorkbooks:
     @parametrize
     def test_method_list(self, client: Grid) -> None:
         workbook = client.workbooks.list()
-        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+        assert_matches_type(SyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -42,7 +43,7 @@ class TestWorkbooks:
             cursor="cursor",
             limit=0,
         )
-        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+        assert_matches_type(SyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -52,7 +53,7 @@ class TestWorkbooks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         workbook = response.parse()
-        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+        assert_matches_type(SyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -62,7 +63,7 @@ class TestWorkbooks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             workbook = response.parse()
-            assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+            assert_matches_type(SyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -343,7 +344,7 @@ class TestAsyncWorkbooks:
     @parametrize
     async def test_method_list(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.list()
-        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+        assert_matches_type(AsyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -352,7 +353,7 @@ class TestAsyncWorkbooks:
             cursor="cursor",
             limit=0,
         )
-        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+        assert_matches_type(AsyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -362,7 +363,7 @@ class TestAsyncWorkbooks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         workbook = await response.parse()
-        assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+        assert_matches_type(AsyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -372,7 +373,7 @@ class TestAsyncWorkbooks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             workbook = await response.parse()
-            assert_matches_type(WorkbookListResponse, workbook, path=["response"])
+            assert_matches_type(AsyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
