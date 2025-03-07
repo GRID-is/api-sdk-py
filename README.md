@@ -73,6 +73,77 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Pagination
+
+List methods in the Grid API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
+from grid_api import Grid
+
+client = Grid()
+
+all_workbooks = []
+# Automatically fetches more pages as needed.
+for workbook in client.workbooks.list(
+    limit=50,
+):
+    # Do something with workbook here
+    all_workbooks.append(workbook)
+print(all_workbooks)
+```
+
+Or, asynchronously:
+
+```python
+import asyncio
+from grid_api import AsyncGrid
+
+client = AsyncGrid()
+
+
+async def main() -> None:
+    all_workbooks = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for workbook in client.workbooks.list(
+        limit=50,
+    ):
+        all_workbooks.append(workbook)
+    print(all_workbooks)
+
+
+asyncio.run(main())
+```
+
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+
+```python
+first_page = await client.workbooks.list(
+    limit=50,
+)
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.items)}")
+
+# Remove `await` for non-async usage.
+```
+
+Or just work directly with the returned data:
+
+```python
+first_page = await client.workbooks.list(
+    limit=50,
+)
+
+print(f"next page cursor: {first_page.pagination.next_cursor}")  # => "next page cursor: ..."
+for workbook in first_page.items:
+    print(workbook.id)
+
+# Remove `await` for non-async usage.
+```
+
 ## File uploads
 
 Request parameters that correspond to file uploads can be passed as `bytes`, a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
