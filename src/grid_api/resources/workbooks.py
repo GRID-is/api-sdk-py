@@ -36,8 +36,7 @@ from .._response import (
     async_to_custom_raw_response_wrapper,
     async_to_custom_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPagination, AsyncCursorPagination
-from .._base_client import AsyncPaginator, make_request_options
+from .._base_client import make_request_options
 from ..types.workbook_list_response import WorkbookListResponse
 from ..types.workbook_query_response import WorkbookQueryResponse
 from ..types.workbook_upload_response import WorkbookUploadResponse
@@ -76,7 +75,7 @@ class WorkbooksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPagination[WorkbookListResponse]:
+    ) -> WorkbookListResponse:
         """
         List the workbooks linked to an account.
 
@@ -96,9 +95,8 @@ class WorkbooksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._get(
             "/v1/workbooks",
-            page=SyncCursorPagination[WorkbookListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -112,7 +110,7 @@ class WorkbooksResource(SyncAPIResource):
                     workbook_list_params.WorkbookListParams,
                 ),
             ),
-            model=WorkbookListResponse,
+            cast_to=WorkbookListResponse,
         )
 
     def export(
@@ -341,7 +339,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         """
         return AsyncWorkbooksResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         *,
         cursor: str | NotGiven = NOT_GIVEN,
@@ -352,7 +350,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[WorkbookListResponse, AsyncCursorPagination[WorkbookListResponse]]:
+    ) -> WorkbookListResponse:
         """
         List the workbooks linked to an account.
 
@@ -372,15 +370,14 @@ class AsyncWorkbooksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._get(
             "/v1/workbooks",
-            page=AsyncCursorPagination[WorkbookListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "cursor": cursor,
                         "limit": limit,
@@ -388,7 +385,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
                     workbook_list_params.WorkbookListParams,
                 ),
             ),
-            model=WorkbookListResponse,
+            cast_to=WorkbookListResponse,
         )
 
     async def export(
