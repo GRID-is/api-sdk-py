@@ -116,7 +116,7 @@ class Grid(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
-            "X-Client-Name": "spreadsheet-api-node",
+            "X-Client-Name": "api-sdk",
             **self._custom_headers,
         }
 
@@ -285,7 +285,7 @@ class AsyncGrid(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
-            "X-Client-Name": "spreadsheet-api-node",
+            "X-Client-Name": "api-sdk",
             **self._custom_headers,
         }
 
