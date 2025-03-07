@@ -32,7 +32,7 @@ response = client.workbooks.query(
     id="YOUR_WORKBOOK_ID",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
 )
-print(response.apply)
+print(response.read)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -56,7 +56,7 @@ async def main() -> None:
         id="YOUR_WORKBOOK_ID",
         read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
     )
-    print(response.apply)
+    print(response.read)
 
 
 asyncio.run(main())
@@ -314,7 +314,7 @@ response = client.workbooks.with_raw_response.query(
 print(response.headers.get('X-My-Header'))
 
 workbook = response.parse()  # get the object that `workbooks.query()` would have returned
-print(workbook.apply)
+print(workbook.read)
 ```
 
 These methods return an [`APIResponse`](https://github.com/GRID-is/api-sdk-py/tree/main/src/grid_api/_response.py) object.
