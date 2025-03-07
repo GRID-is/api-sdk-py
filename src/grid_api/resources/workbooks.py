@@ -51,7 +51,7 @@ class WorkbooksResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/spreadsheet-api-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/GRID-is/api-sdk-py#accessing-raw-response-data-eg-headers
         """
         return WorkbooksResourceWithRawResponse(self)
 
@@ -60,7 +60,7 @@ class WorkbooksResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/spreadsheet-api-python#with_streaming_response
+        For more information, see https://www.github.com/GRID-is/api-sdk-py#with_streaming_response
         """
         return WorkbooksResourceWithStreamingResponse(self)
 
@@ -326,7 +326,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/spreadsheet-api-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/GRID-is/api-sdk-py#accessing-raw-response-data-eg-headers
         """
         return AsyncWorkbooksResourceWithRawResponse(self)
 
@@ -335,7 +335,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/spreadsheet-api-python#with_streaming_response
+        For more information, see https://www.github.com/GRID-is/api-sdk-py#with_streaming_response
         """
         return AsyncWorkbooksResourceWithStreamingResponse(self)
 
