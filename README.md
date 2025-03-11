@@ -147,6 +147,26 @@ for workbook in first_page.items:
 # Remove `await` for non-async usage.
 ```
 
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from grid_api import Grid
+
+client = Grid()
+
+response = client.workbooks.export(
+    id="id",
+    goal_seek={
+        "control_cell": "controlCell",
+        "target_cell": "targetCell",
+        "target_value": 0,
+    },
+)
+print(response.goal_seek)
+```
+
 ## File uploads
 
 Request parameters that correspond to file uploads can be passed as `bytes`, a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
