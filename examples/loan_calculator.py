@@ -1,3 +1,12 @@
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "fastapi[standard]",
+#     "grid-api",
+#     "uvicorn",
+# ]
+# ///
+import uvicorn
 from fastapi import FastAPI
 from grid_api import Grid, APIConnectionError, APIStatusError, RateLimitError
 
@@ -33,3 +42,6 @@ async def get_loan_calculations(loan_amount: float = 100000.0, years: int = 25, 
     rows = [[cell.v for cell in row] for row in response.read[1].data]
 
     return {"monthly_payments": monthly_payments, "payment_schedule": rows}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
