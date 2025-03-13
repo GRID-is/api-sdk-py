@@ -8,7 +8,8 @@
 # ///
 import uvicorn
 from fastapi import FastAPI
-from grid_api import Grid, APIConnectionError, APIStatusError, RateLimitError
+
+from grid_api import Grid, APIStatusError, RateLimitError, APIConnectionError
 
 app = FastAPI()
 
