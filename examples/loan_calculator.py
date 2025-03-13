@@ -7,12 +7,13 @@ app = FastAPI()
 async def get_loan_calculations(loan_amount: float = 100000.0, years: int = 25, interest_rate: float = 2.5):
     client = Grid()
 
+    loan_calculator_spreadsheet_id = "REPLACE_WITH_YOUR_SPREADSHEET_ID"
     first_row_to_read = 14
     end_row_to_read = years * 12 + first_row_to_read - 1
 
     try:
         response = client.workbooks.query(
-            id="82012e4a-a2bf-4d4a-97e6-93ebf31704d5",
+            id=loan_calculator_spreadsheet_id,
             apply=[
                 {"target": "'Loan calculator'!D3", "value": loan_amount},
                 {"target": "'Loan calculator'!D4", "value": interest_rate / 100},
