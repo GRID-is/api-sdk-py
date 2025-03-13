@@ -12,6 +12,7 @@ from grid_api import Grid, APIConnectionError, APIStatusError, RateLimitError
 
 app = FastAPI()
 
+
 @app.get("/")
 async def get_loan_calculations(loan_amount: float = 100000.0, years: int = 25, interest_rate: float = 2.5):
     client = Grid()
@@ -26,9 +27,12 @@ async def get_loan_calculations(loan_amount: float = 100000.0, years: int = 25, 
             apply=[
                 {"target": "'Loan calculator'!D3", "value": loan_amount},
                 {"target": "'Loan calculator'!D4", "value": interest_rate / 100},
-                {"target": "'Loan calculator'!D5", "value": years}
+                {"target": "'Loan calculator'!D5", "value": years},
             ],
-            read=["'Loan calculator'!D8", f"'Loan calculator'!B{first_row_to_read}:'Loan calculator'!H{end_row_to_read}"]
+            read=[
+                "'Loan calculator'!D8",
+                f"'Loan calculator'!B{first_row_to_read}:'Loan calculator'!H{end_row_to_read}",
+            ],
         )
     except APIConnectionError as e:
         return {"error": "The server could not be reached."}
@@ -37,11 +41,11 @@ async def get_loan_calculations(loan_amount: float = 100000.0, years: int = 25, 
     except APIStatusError as e:
         return {"error": e.message}
 
-
     monthly_payments = response.read[0].data[0][0].v
     rows = [[cell.v for cell in row] for row in response.read[1].data]
 
     return {"monthly_payments": monthly_payments, "payment_schedule": rows}
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
