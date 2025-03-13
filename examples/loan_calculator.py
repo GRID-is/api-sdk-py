@@ -35,9 +35,9 @@ async def get_loan_calculations(loan_amount: float = 100000.0, years: int = 25, 
                 f"'Loan calculator'!B{first_row_to_read}:'Loan calculator'!H{end_row_to_read}",
             ],
         )
-    except APIConnectionError as e:
+    except APIConnectionError:
         return {"error": "The server could not be reached."}
-    except RateLimitError as e:
+    except RateLimitError:
         return {"error", "A 429 status code was received; we should back off a bit."}
     except APIStatusError as e:
         return {"error": e.message}
