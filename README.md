@@ -26,7 +26,10 @@ The full API of this library can be found in [api.md](api.md).
 ```python
 from grid_api import Grid
 
-client = Grid()
+client = Grid(
+    # Defaults to os.environ.get("GRID_API_KEY")
+    api_key="YOUR_API_KEY",
+)
 
 response = client.workbooks.query(
     id="YOUR_WORKBOOK_ID",
@@ -82,10 +85,7 @@ This library provides auto-paginating iterators with each list response, so you 
 ```python
 from grid_api import Grid
 
-client = Grid(
-    # Defaults to os.environ.get("GRID_API_KEY")
-    api_key="YOUR_API_KEY",
-)
+client = Grid()
 
 all_workbooks = []
 # Automatically fetches more pages as needed.
