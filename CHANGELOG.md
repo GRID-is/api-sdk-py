@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.0.0-rc.3 (2025-03-15)
+
+Full Changelog: [v1.0.0-rc.2...v1.0.0-rc.3](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.2...v1.0.0-rc.3)
+
+### Bug Fixes
+
+* **types:** handle more discriminated union shapes ([#17](https://github.com/GRID-is/api-sdk-py/issues/17)) ([d90101f](https://github.com/GRID-is/api-sdk-py/commit/d90101fcddc4a7ad95e53861cd302ceb84daf725))
+
+
+### Chores
+
+* **internal:** bump rye to 0.44.0 ([#16](https://github.com/GRID-is/api-sdk-py/issues/16)) ([be32796](https://github.com/GRID-is/api-sdk-py/commit/be32796ac850815a6711849c2c2d3de303e3aaf1))
+* **internal:** codegen related update ([#10](https://github.com/GRID-is/api-sdk-py/issues/10)) ([9a11ff7](https://github.com/GRID-is/api-sdk-py/commit/9a11ff7603f77f05d1044dce0a18657af7960edc))
+* **internal:** codegen related update ([#15](https://github.com/GRID-is/api-sdk-py/issues/15)) ([51c6545](https://github.com/GRID-is/api-sdk-py/commit/51c654504b23c3286fd6d8a462c44e7ccfa95cf8))
+* **internal:** remove extra empty newlines ([#14](https://github.com/GRID-is/api-sdk-py/issues/14)) ([7e2cfb7](https://github.com/GRID-is/api-sdk-py/commit/7e2cfb70e7c6d24c8258f03a43ca871f3ba22375))
+
+
+### Documentation
+
+* Explain how to use client api_key param ([8284d9e](https://github.com/GRID-is/api-sdk-py/commit/8284d9efa7618af844a50fa56c9edcd1f3a9c14d))
+* Explain how to use client api_key param ([1e78269](https://github.com/GRID-is/api-sdk-py/commit/1e78269a70aaa215097bb0dd74f538291d8e92f1))
+
 ## 1.0.0-rc.2 (2025-03-07)
 
 Full Changelog: [v1.0.0-rc.1...v1.0.0-rc.2](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.1...v1.0.0-rc.2)
