@@ -82,7 +82,7 @@ class Grid(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("GRID_BASE_URL")
         if base_url is None:
-            base_url = f"https://api-alpha.grid.is"
+            base_url = f"https://api.grid.is"
 
         super().__init__(
             version=__version__,
@@ -245,7 +245,7 @@ class AsyncGrid(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("GRID_BASE_URL")
         if base_url is None:
-            base_url = f"https://api-alpha.grid.is"
+            base_url = f"https://api.grid.is"
 
         super().__init__(
             version=__version__,
