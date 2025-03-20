@@ -82,7 +82,7 @@ class Grid(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("GRID_BASE_URL")
         if base_url is None:
-            base_url = f"https://api-alpha.grid.is"
+            base_url = f"https://api.grid.is"
 
         super().__init__(
             version=__version__,
@@ -103,12 +103,6 @@ class Grid(SyncAPIClient):
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
-
-    @property
-    @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override
@@ -251,7 +245,7 @@ class AsyncGrid(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("GRID_BASE_URL")
         if base_url is None:
-            base_url = f"https://api-alpha.grid.is"
+            base_url = f"https://api.grid.is"
 
         super().__init__(
             version=__version__,
@@ -272,12 +266,6 @@ class AsyncGrid(AsyncAPIClient):
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
-
-    @property
-    @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override

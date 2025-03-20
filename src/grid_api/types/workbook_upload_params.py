@@ -11,3 +11,4 @@ __all__ = ["WorkbookUploadParams"]
 
 class WorkbookUploadParams(TypedDict, total=False):
     file: Required[FileTypes]
+    """Excel (.xlsx) file"""

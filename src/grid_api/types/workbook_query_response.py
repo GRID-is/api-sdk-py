@@ -39,8 +39,10 @@ __all__ = [
 
 class Apply(BaseModel):
     target: str
+    """A1-style reference for the cell that was updated"""
 
     value: Union[float, str, bool, None] = None
+    """New value of the cell"""
 
     original_value: Union[float, str, bool, None] = FieldInfo(alias="originalValue", default=None)
     """Original value of the cell before applying the new value"""
@@ -48,26 +50,27 @@ class Apply(BaseModel):
 
 class ReadDataTableDataValueCell(BaseModel):
     t: Literal["b", "n", "d", "s"]
-    """Specifies the type of a workbook cell.
-
-    Possible values include `b` (boolean), `n` (number), `d` (date), and `s`
-    (string).
-    """
+    """Data type of the cell value (e.g. boolean, number, text)"""
 
     v: Union[float, str, bool, None] = None
+    """Underlying cell value"""
 
     r: Optional[str] = None
     """Relative A1-based cell reference"""
 
     w: Optional[str] = None
+    """Formatted cell value"""
 
     z: Optional[str] = None
+    """Number format associated with the cell"""
 
 
 class ReadDataTableDataErrorCell(BaseModel):
     t: Literal["e"]
+    """Data type of the cell value (always 'e' for 'error')"""
 
     v: str
+    """Underlying cell value"""
 
     e: Optional[str] = None
     """Description of the error"""
@@ -78,6 +81,7 @@ class ReadDataTableDataErrorCell(BaseModel):
 
 class ReadDataTableDataEmptyCell(BaseModel):
     t: Literal["z"]
+    """Data type of the cell value (always 'z' for 'empty cell')"""
 
 
 ReadDataTableData: TypeAlias = Union[ReadDataTableDataValueCell, ReadDataTableDataErrorCell, ReadDataTableDataEmptyCell]
@@ -87,32 +91,34 @@ class ReadDataTable(BaseModel):
     data: List[List[ReadDataTableData]]
 
     source: str
+    """A1-style reference for the cell or cells that were updated"""
 
     type: Literal["dataTable"]
 
 
 class ReadDataListDataValueCell(BaseModel):
     t: Literal["b", "n", "d", "s"]
-    """Specifies the type of a workbook cell.
-
-    Possible values include `b` (boolean), `n` (number), `d` (date), and `s`
-    (string).
-    """
+    """Data type of the cell value (e.g. boolean, number, text)"""
 
     v: Union[float, str, bool, None] = None
+    """Underlying cell value"""
 
     r: Optional[str] = None
     """Relative A1-based cell reference"""
 
     w: Optional[str] = None
+    """Formatted cell value"""
 
     z: Optional[str] = None
+    """Number format associated with the cell"""
 
 
 class ReadDataListDataErrorCell(BaseModel):
     t: Literal["e"]
+    """Data type of the cell value (always 'e' for 'error')"""
 
     v: str
+    """Underlying cell value"""
 
     e: Optional[str] = None
     """Description of the error"""
@@ -123,6 +129,7 @@ class ReadDataListDataErrorCell(BaseModel):
 
 class ReadDataListDataEmptyCell(BaseModel):
     t: Literal["z"]
+    """Data type of the cell value (always 'z' for 'empty cell')"""
 
 
 ReadDataListData: TypeAlias = Union[ReadDataListDataValueCell, ReadDataListDataErrorCell, ReadDataListDataEmptyCell]
@@ -132,32 +139,34 @@ class ReadDataList(BaseModel):
     data: List[ReadDataListData]
 
     source: str
+    """A1-style reference for the cell or cells that were updated"""
 
     type: Literal["dataList"]
 
 
 class ReadDataCellDataValueCell(BaseModel):
     t: Literal["b", "n", "d", "s"]
-    """Specifies the type of a workbook cell.
-
-    Possible values include `b` (boolean), `n` (number), `d` (date), and `s`
-    (string).
-    """
+    """Data type of the cell value (e.g. boolean, number, text)"""
 
     v: Union[float, str, bool, None] = None
+    """Underlying cell value"""
 
     r: Optional[str] = None
     """Relative A1-based cell reference"""
 
     w: Optional[str] = None
+    """Formatted cell value"""
 
     z: Optional[str] = None
+    """Number format associated with the cell"""
 
 
 class ReadDataCellDataErrorCell(BaseModel):
     t: Literal["e"]
+    """Data type of the cell value (always 'e' for 'error')"""
 
     v: str
+    """Underlying cell value"""
 
     e: Optional[str] = None
     """Description of the error"""
@@ -168,6 +177,7 @@ class ReadDataCellDataErrorCell(BaseModel):
 
 class ReadDataCellDataEmptyCell(BaseModel):
     t: Literal["z"]
+    """Data type of the cell value (always 'z' for 'empty cell')"""
 
 
 ReadDataCellData: TypeAlias = Union[ReadDataCellDataValueCell, ReadDataCellDataErrorCell, ReadDataCellDataEmptyCell]
@@ -181,6 +191,7 @@ class ReadDataCell(BaseModel):
     """
 
     source: str
+    """A1-style reference for the cell or cells that were updated"""
 
     type: Literal["cell"]
 
@@ -189,6 +200,7 @@ class ReadValueTable(BaseModel):
     data: List[List[Union[float, str, bool, None]]]
 
     source: str
+    """A1-style reference for the cell or cells that were updated"""
 
     type: Literal["valueTable"]
 
@@ -197,6 +209,7 @@ class ReadValueList(BaseModel):
     data: List[Union[float, str, bool, None]]
 
     source: str
+    """A1-style reference for the cell or cells that were updated"""
 
     type: Literal["valueList"]
 
@@ -205,6 +218,7 @@ class ReadValue(BaseModel):
     data: Union[float, str, bool, None] = None
 
     source: str
+    """A1-style reference for the cell or cells that were updated"""
 
     type: Literal["value"]
 
@@ -213,6 +227,7 @@ class ReadFormattedValueTable(BaseModel):
     data: List[List[str]]
 
     source: str
+    """A1-style reference for the cell or cells that were updated"""
 
     type: Literal["formattedValueTable"]
 
@@ -221,6 +236,7 @@ class ReadFormattedValueList(BaseModel):
     data: List[str]
 
     source: str
+    """A1-style reference for the cell or cells that were updated"""
 
     type: Literal["formattedValueList"]
 
@@ -229,6 +245,7 @@ class ReadFormattedValue(BaseModel):
     data: str
 
     source: str
+    """A1-style reference for the cell or cells that were updated"""
 
     type: Literal["formattedValue"]
 
@@ -259,7 +276,7 @@ class GoalSeek(BaseModel):
     target_value: float = FieldInfo(alias="targetValue")
     """The value you wanted the formula to return"""
 
-    solution: Union[float, str, bool, None] = None
+    solution: Optional[float] = None
     """The result of the formula"""
 
 

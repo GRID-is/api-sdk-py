@@ -1,6 +1,6 @@
 [project]
 name = "grid_api"
-version = "1.0.0-rc.2"
+version = "1.0.0-rc.3"
 description = "The official Python library for the GRID API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -36,7 +36,6 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/GRID-is/api-sdk-py"
 Repository = "https://github.com/GRID-is/api-sdk-py"
-
 
 
 [tool.rye]
@@ -87,7 +86,7 @@ typecheck = { chain = [
 "typecheck:mypy" = "mypy ."
 
 [build-system]
-requires = ["hatchling", "hatch-fancy-pypi-readme"]
+requires = ["hatchling==1.26.3", "hatch-fancy-pypi-readme"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
@@ -152,7 +151,6 @@ reportImplicitOverride = true
 
 reportImportCycles = false
 reportPrivateUsage = false
-
 
 [tool.ruff]
 line-length = 120
