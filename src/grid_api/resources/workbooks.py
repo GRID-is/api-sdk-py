@@ -296,6 +296,8 @@ class WorkbooksResource(SyncAPIResource):
         successfully it will be available for querying and exporting.
 
         Args:
+          file: Excel (.xlsx) file
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -572,6 +574,8 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         successfully it will be available for querying and exporting.
 
         Args:
+          file: Excel (.xlsx) file
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
