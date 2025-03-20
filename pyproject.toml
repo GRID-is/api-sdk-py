@@ -144,6 +144,7 @@ exclude = [
     "_dev",
     ".venv",
     ".nox",
+    "examples/**"
 ]
 
 reportImplicitOverride = true

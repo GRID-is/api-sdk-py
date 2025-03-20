@@ -1,8 +1,8 @@
-# GRID Spreadsheet API API library
+# GRID Spreadsheet API library
 
 [![PyPI version](https://img.shields.io/pypi/v/grid_api.svg)](https://pypi.org/project/grid_api/)
 
-The GRID Spreadsheet API library provides convenient access to the Grid REST API from any Python 3.8+
+This library provides convenient access to the Grid REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [docs.grid.is](https://docs.grid.is/). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.grid.is](https://docs.grid.is/). The full API of this library can be found in [api.md](api.md). Your spreadsheets dashboard can be found at [app.grid.is](https://app.grid.is/).
 
 ## Installation
 
@@ -26,7 +26,10 @@ The full API of this library can be found in [api.md](api.md).
 ```python
 from grid_api import Grid
 
-client = Grid()
+client = Grid(
+    # Defaults to os.environ.get("GRID_API_KEY")
+    api_key="YOUR_API_KEY",
+)
 
 response = client.workbooks.query(
     id="YOUR_WORKBOOK_ID",
