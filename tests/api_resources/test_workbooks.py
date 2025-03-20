@@ -245,6 +245,7 @@ class TestWorkbooks:
                 "labels": "=B2:B142",
                 "title": "=A1",
                 "type": "line",
+                "values": "none",
             },
             apply=[
                 {
@@ -555,6 +556,7 @@ class TestAsyncWorkbooks:
                 "labels": "=B2:B142",
                 "title": "=A1",
                 "type": "line",
+                "values": "none",
             },
             apply=[
                 {

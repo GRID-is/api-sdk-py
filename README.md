@@ -26,7 +26,9 @@ The full API of this library can be found in [api.md](api.md).
 ```python
 from grid_api import Grid
 
-client = Grid()
+client = Grid(
+    api_key="My API Key",
+)
 
 response = client.workbooks.query(
     id="YOUR_WORKBOOK_ID",
@@ -34,11 +36,6 @@ response = client.workbooks.query(
 )
 print(response.read)
 ```
-
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `GRID_API_TOKEN="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
 
 ## Async usage
 
@@ -48,7 +45,9 @@ Simply import `AsyncGrid` instead of `Grid` and use `await` with each API call:
 import asyncio
 from grid_api import AsyncGrid
 
-client = AsyncGrid()
+client = AsyncGrid(
+    api_key="My API Key",
+)
 
 
 async def main() -> None:
@@ -82,7 +81,9 @@ This library provides auto-paginating iterators with each list response, so you 
 ```python
 from grid_api import Grid
 
-client = Grid()
+client = Grid(
+    api_key="My API Key",
+)
 
 all_workbooks = []
 # Automatically fetches more pages as needed.
@@ -100,7 +101,9 @@ Or, asynchronously:
 import asyncio
 from grid_api import AsyncGrid
 
-client = AsyncGrid()
+client = AsyncGrid(
+    api_key="My API Key",
+)
 
 
 async def main() -> None:
@@ -151,7 +154,9 @@ Nested parameters are dictionaries, typed using `TypedDict`, for example:
 ```python
 from grid_api import Grid
 
-client = Grid()
+client = Grid(
+    api_key="My API Key",
+)
 
 response = client.workbooks.export(
     id="id",
@@ -172,7 +177,9 @@ Request parameters that correspond to file uploads can be passed as `bytes`, a [
 from pathlib import Path
 from grid_api import Grid
 
-client = Grid()
+client = Grid(
+    api_key="My API Key",
+)
 
 client.workbooks.upload(
     file=Path("/path/to/file"),
@@ -194,7 +201,9 @@ All errors inherit from `grid_api.APIError`.
 import grid_api
 from grid_api import Grid
 
-client = Grid()
+client = Grid(
+    api_key="My API Key",
+)
 
 try:
     client.workbooks.query(
@@ -240,6 +249,7 @@ from grid_api import Grid
 client = Grid(
     # default is 2
     max_retries=0,
+    api_key="My API Key",
 )
 
 # Or, configure per-request:
@@ -261,11 +271,13 @@ from grid_api import Grid
 client = Grid(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
+    api_key="My API Key",
 )
 
 # More granular control:
 client = Grid(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
+    api_key="My API Key",
 )
 
 # Override per-request:
@@ -290,6 +302,7 @@ from grid_api import Grid
 
 client = Grid(
     default_headers={"X-Client-Name": "My-Custom-Value"},
+    api_key="My API Key",
 )
 ```
 
@@ -326,7 +339,9 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from grid_api import Grid
 
-client = Grid()
+client = Grid(
+    api_key="My API Key",
+)
 response = client.workbooks.with_raw_response.query(
     id="YOUR_WORKBOOK_ID",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
@@ -413,6 +428,7 @@ client = Grid(
         proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
+    api_key="My API Key",
 )
 ```
 
@@ -429,7 +445,9 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from grid_api import Grid
 
-with Grid() as client:
+with Grid(
+    api_key="My API Key",
+) as client:
   # make requests here
   ...
 
