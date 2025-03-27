@@ -41,6 +41,9 @@ class Chart(TypedDict, total=False):
     type: Literal["line", "column"]
     """Type of chart to render"""
 
+    values: Literal["none", "selective", "all"]
+    """How to label individual data values on the chart"""
+
 
 class Apply(TypedDict, total=False):
     target: Required[str]
