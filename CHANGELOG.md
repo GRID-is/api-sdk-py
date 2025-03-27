@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0-rc.4 (2025-03-27)
+
+Full Changelog: [v1.0.0-rc.3...v1.0.0-rc.4](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.3...v1.0.0-rc.4)
+
+### Features
+
+* **api:** finish renaming of HTTPBearer to apiKey ([#26](https://github.com/GRID-is/api-sdk-py/issues/26)) ([a504d33](https://github.com/GRID-is/api-sdk-py/commit/a504d33b95d33e6e43c80b43c055b18d7ad77256))
+
 ## 1.0.0-rc.3 (2025-03-27)
 
 Full Changelog: [v1.0.0-rc.2...v1.0.0-rc.3](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.2...v1.0.0-rc.3)
