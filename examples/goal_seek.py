@@ -19,7 +19,7 @@ async def seek_interests(target_amount: float):
 
     try:
         response = client.workbooks.query(
-            id="353ed262-930c-4872-a585-fe82203066ae",
+            id="REPLACE_WITH_YOUR_SPREADSHEET_ID",
             goal_seek={
                 "targetCell": "Sheet1!C7",
                 "targetValue": target_amount,
@@ -45,7 +45,7 @@ async def seek_years(target_amount: float):
 
     try:
         response = client.workbooks.query(
-            id="353ed262-930c-4872-a585-fe82203066ae",
+            id="REPLACE_WITH_YOUR_SPREADSHEET_ID",
             goal_seek={
                 "targetCell": "Sheet1!C7",
                 "targetValue": target_amount,
