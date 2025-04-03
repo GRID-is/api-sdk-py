@@ -7,11 +7,12 @@
 # ]
 # ///
 import uvicorn
-
 from fastapi import FastAPI
+
 from grid_api import Grid, APIConnectionError, APIStatusError, RateLimitError
 
 app = FastAPI()
+
 
 @app.get("/seek_interests")
 async def seek_interests(target_amount: float):
