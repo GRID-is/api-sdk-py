@@ -1577,7 +1577,7 @@ class TestAsyncGrid:
         import threading
 
         from grid_api._utils import asyncify
-        from grid_api._base_client import get_platform 
+        from grid_api._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()

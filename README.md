@@ -156,8 +156,9 @@ from grid_api import Grid
 
 client = Grid()
 
-response = client.workbooks.export(
+response = client.workbooks.query(
     id="id",
+    read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
     goal_seek={
         "control_cell": "controlCell",
         "target_cell": "targetCell",
