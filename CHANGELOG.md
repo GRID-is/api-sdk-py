@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0-rc.5 (2025-04-05)
+
+Full Changelog: [v1.0.0-rc.4...v1.0.0-rc.5](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.4...v1.0.0-rc.5)
+
+### Chores
+
+* **internal:** remove trailing character ([#32](https://github.com/GRID-is/api-sdk-py/issues/32)) ([151151a](https://github.com/GRID-is/api-sdk-py/commit/151151a3ca30ec80a14fbda35c5390e265c91a3d))
+
+
+### Documentation
+
+* swap examples used in readme ([#33](https://github.com/GRID-is/api-sdk-py/issues/33)) ([717e3d8](https://github.com/GRID-is/api-sdk-py/commit/717e3d8578f6d2871f5b493aa23f42d163563713))
+
 ## 1.0.0-rc.4 (2025-03-27)
 
 Full Changelog: [v1.0.0-rc.3...v1.0.0-rc.4](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.3...v1.0.0-rc.4)
