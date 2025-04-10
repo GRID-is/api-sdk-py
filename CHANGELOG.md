@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.0-rc.6 (2025-04-10)
+
+Full Changelog: [v1.0.0-rc.5...v1.0.0-rc.6](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.5...v1.0.0-rc.6)
+
+### Chores
+
+* **internal:** expand CI branch coverage ([f22e6d8](https://github.com/GRID-is/api-sdk-py/commit/f22e6d8c3e2bec48a2913b17dcd259101080ef3b))
+* **internal:** reduce CI branch coverage ([3b9e183](https://github.com/GRID-is/api-sdk-py/commit/3b9e183586ba75a9bc328839cd2c615ef8ca813a))
+* **internal:** slight transform perf improvement ([#34](https://github.com/GRID-is/api-sdk-py/issues/34)) ([d791043](https://github.com/GRID-is/api-sdk-py/commit/d7910433219333d4c4b30f3b6c32a71d5d843c3c))
+* slight wording improvement in README ([#35](https://github.com/GRID-is/api-sdk-py/issues/35)) ([57af86f](https://github.com/GRID-is/api-sdk-py/commit/57af86f171c0b95b08bc75009d10aae2bcc920c1))
+
 ## 1.0.0-rc.5 (2025-04-05)
 
 Full Changelog: [v1.0.0-rc.4...v1.0.0-rc.5](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.4...v1.0.0-rc.5)
