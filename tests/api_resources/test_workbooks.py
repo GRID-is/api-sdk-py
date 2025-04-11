@@ -94,8 +94,8 @@ class TestWorkbooks:
                 }
             ],
             goal_seek={
-                "control_cell": "controlCell",
-                "target_cell": "targetCell",
+                "control_cell": "Sheet1!A1:B2",
+                "target_cell": "Sheet1!A1:B2",
                 "target_value": 0,
             },
         )
@@ -167,8 +167,8 @@ class TestWorkbooks:
                 }
             ],
             goal_seek={
-                "control_cell": "controlCell",
-                "target_cell": "targetCell",
+                "control_cell": "Sheet1!A1:B2",
+                "target_cell": "Sheet1!A1:B2",
                 "target_value": 0,
             },
             options={
@@ -405,8 +405,8 @@ class TestAsyncWorkbooks:
                 }
             ],
             goal_seek={
-                "control_cell": "controlCell",
-                "target_cell": "targetCell",
+                "control_cell": "Sheet1!A1:B2",
+                "target_cell": "Sheet1!A1:B2",
                 "target_value": 0,
             },
         )
@@ -478,8 +478,8 @@ class TestAsyncWorkbooks:
                 }
             ],
             goal_seek={
-                "control_cell": "controlCell",
-                "target_cell": "targetCell",
+                "control_cell": "Sheet1!A1:B2",
+                "target_cell": "Sheet1!A1:B2",
                 "target_value": 0,
             },
             options={
