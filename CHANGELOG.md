@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0-rc.7 (2025-04-11)
+
+Full Changelog: [v1.0.0-rc.6...v1.0.0-rc.7](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.6...v1.0.0-rc.7)
+
+### Features
+
+* **api:** api update ([57475c7](https://github.com/GRID-is/api-sdk-py/commit/57475c765051f0d59e66a3cf798b7589d50dba44))
+
 ## 1.0.0-rc.6 (2025-04-10)
 
 Full Changelog: [v1.0.0-rc.5...v1.0.0-rc.6](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.5...v1.0.0-rc.6)
