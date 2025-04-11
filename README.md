@@ -160,8 +160,8 @@ response = client.workbooks.query(
     id="id",
     read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
     goal_seek={
-        "control_cell": "controlCell",
-        "target_cell": "targetCell",
+        "control_cell": "Sheet1!A1:B2",
+        "target_cell": "Sheet1!A1:B2",
         "target_value": 0,
     },
 )

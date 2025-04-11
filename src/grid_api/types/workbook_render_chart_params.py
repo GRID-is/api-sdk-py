@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-__all__ = ["WorkbookRenderChartParams", "Chart", "Apply"]
+__all__ = ["WorkbookRenderChartParams", "Chart", "Apply", "ApplyTarget", "ApplyTargetReferenceObject"]
 
 
 class WorkbookRenderChartParams(TypedDict, total=False):
@@ -45,9 +45,20 @@ class Chart(TypedDict, total=False):
     """How to label individual data values on the chart"""
 
 
+class ApplyTargetReferenceObject(TypedDict, total=False):
+    cells: Required[str]
+    """Unprefixed A1-style range, id, or name"""
+
+    sheet: Required[Optional[str]]
+    """Name of the sheet to reference"""
+
+
+ApplyTarget: TypeAlias = Union[str, ApplyTargetReferenceObject]
+
+
 class Apply(TypedDict, total=False):
-    target: Required[str]
-    """A1-style reference for the cell to write to"""
+    target: Required[ApplyTarget]
+    """Reference for the cell to write to"""
 
     value: Required[Union[float, str, bool, None]]
     """Value to write to the target cell"""
