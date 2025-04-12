@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.0-rc.8 (2025-04-12)
+
+Full Changelog: [v1.0.0-rc.7...v1.0.0-rc.8](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.7...v1.0.0-rc.8)
+
+### Bug Fixes
+
+* **perf:** optimize some hot paths ([398eb34](https://github.com/GRID-is/api-sdk-py/commit/398eb34c7ea0a12b62d024197137414c0783fc8e))
+* **perf:** skip traversing types for NotGiven values ([eaef067](https://github.com/GRID-is/api-sdk-py/commit/eaef067e2c8263f40fb78455c2329642fe3907b8))
+
 ## 1.0.0-rc.7 (2025-04-11)
 
 Full Changelog: [v1.0.0-rc.6...v1.0.0-rc.7](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.6...v1.0.0-rc.7)
