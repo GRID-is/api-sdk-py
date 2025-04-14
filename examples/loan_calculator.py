@@ -9,21 +9,21 @@
 import uvicorn
 from fastapi import FastAPI
 
-from grid_api import Grid, APIStatusError, RateLimitError, APIConnectionError
+from grid_api import AsyncGrid, APIStatusError, RateLimitError, APIConnectionError
 
 app = FastAPI()
 
 
 @app.get("/")
 async def get_loan_calculations(loan_amount: float = 100000.0, years: int = 25, interest_rate: float = 2.5):
-    client = Grid()
+    client = AsyncGrid()
 
     loan_calculator_spreadsheet_id = "REPLACE_WITH_YOUR_SPREADSHEET_ID"
     first_row_to_read = 14
     end_row_to_read = years * 12 + first_row_to_read - 1
 
     try:
-        response = client.workbooks.query(
+        response = await client.workbooks.query(
             id=loan_calculator_spreadsheet_id,
             apply=[
                 {"target": "'Loan calculator'!D3", "value": loan_amount},
