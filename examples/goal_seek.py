@@ -9,17 +9,17 @@
 import uvicorn
 from fastapi import FastAPI
 
-from grid_api import Grid, APIStatusError, RateLimitError, APIConnectionError
+from grid_api import APIConnectionError, APIStatusError, AsyncGrid, RateLimitError
 
 app = FastAPI()
 
 
 @app.get("/seek_interests")
 async def seek_interests(target_amount: float):
-    client = Grid()
+    client = AsyncGrid()
 
     try:
-        response = client.workbooks.query(
+        response = await client.workbooks.query(
             id="REPLACE_WITH_YOUR_SPREADSHEET_ID",
             goal_seek={
                 "targetCell": "Sheet1!C7",
@@ -42,10 +42,10 @@ async def seek_interests(target_amount: float):
 
 @app.get("/seek_years")
 async def seek_years(target_amount: float):
-    client = Grid()
+    client = AsyncGrid()
 
     try:
-        response = client.workbooks.query(
+        response = await client.workbooks.query(
             id="REPLACE_WITH_YOUR_SPREADSHEET_ID",
             goal_seek={
                 "targetCell": "Sheet1!C7",
@@ -57,7 +57,7 @@ async def seek_years(target_amount: float):
     except APIConnectionError as e:
         return {"error": "The server could not be reached."}
     except RateLimitError as e:
-        return {"error", "A 429 status code was received; we should back off a bit."}
+        return {"error": "A 429 status code was received; we should back off a bit."}
     except APIStatusError as e:
         return {"error": e.message}
 
