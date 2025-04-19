@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.0-rc.9 (2025-04-19)
+
+Full Changelog: [v1.0.0-rc.8...v1.0.0-rc.9](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.8...v1.0.0-rc.9)
+
+### Chores
+
+* **client:** minor internal fixes ([566fed9](https://github.com/GRID-is/api-sdk-py/commit/566fed90bf3cd2b4bcbb40e52107c6cecfb5f9b1))
+* **internal:** base client updates ([c665a92](https://github.com/GRID-is/api-sdk-py/commit/c665a920b75380481bc8fbc43ca651807b58a7b0))
+* **internal:** bump pyright version ([afe83fd](https://github.com/GRID-is/api-sdk-py/commit/afe83fd136a17f7fe4e6baf5a1a029e193fb6806))
+* **internal:** update models test ([4c11f26](https://github.com/GRID-is/api-sdk-py/commit/4c11f2691818dda4d84373505d43460a99cc0619))
+* **internal:** update pyright settings ([cc40184](https://github.com/GRID-is/api-sdk-py/commit/cc40184ddcb27d897140f173937af8a7264bec46))
+
 ## 1.0.0-rc.8 (2025-04-12)
 
 Full Changelog: [v1.0.0-rc.7...v1.0.0-rc.8](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.7...v1.0.0-rc.8)
