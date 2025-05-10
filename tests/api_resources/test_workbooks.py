@@ -225,7 +225,7 @@ class TestWorkbooks:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = client.workbooks.render_chart(
             id="id",
-            chart={"data": "=C2:C142"},
+            chart={},
         )
         assert workbook.is_closed
         assert workbook.json() == {"foo": "bar"}
@@ -240,11 +240,40 @@ class TestWorkbooks:
         workbook = client.workbooks.render_chart(
             id="id",
             chart={
+                "axis_dim": {
+                    "number_format": "#,##0.0",
+                    "reverse": "false",
+                    "title": "=C4",
+                },
+                "axis_value": {
+                    "clip": "false",
+                    "max": 0,
+                    "min": 0,
+                    "number_format": "#,##0.0",
+                    "reverse": "false",
+                    "title": "=C4",
+                    "type": "linear",
+                },
+                "blanks": "gap",
+                "chart_colors": '={"#C40";"#03F"}',
+                "color_by_point": "colorByPoint",
                 "data": "=C2:C142",
+                "data_lines": "=C2:C142",
+                "dir": "row",
+                "footnote": "=H13",
                 "format": "png",
+                "interpolate": "linear",
                 "labels": "=B2:B142",
+                "legend": "=D2:D142",
+                "legend_lines": "=E2:E142",
+                "legend_visible": "false",
+                "number_format": "#,##0.0",
+                "sort_by": 0,
+                "sort_order": "",
+                "stacked": "false",
+                "subtitle": "=B4",
                 "title": "=A1",
-                "type": "line",
+                "type": "area",
                 "values": "none",
             },
             apply=[
@@ -267,7 +296,7 @@ class TestWorkbooks:
 
         workbook = client.workbooks.with_raw_response.render_chart(
             id="id",
-            chart={"data": "=C2:C142"},
+            chart={},
         )
 
         assert workbook.is_closed is True
@@ -282,7 +311,7 @@ class TestWorkbooks:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         with client.workbooks.with_streaming_response.render_chart(
             id="id",
-            chart={"data": "=C2:C142"},
+            chart={},
         ) as workbook:
             assert not workbook.is_closed
             assert workbook.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -300,7 +329,7 @@ class TestWorkbooks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.workbooks.with_raw_response.render_chart(
                 id="",
-                chart={"data": "=C2:C142"},
+                chart={},
             )
 
     @pytest.mark.skip()
@@ -536,7 +565,7 @@ class TestAsyncWorkbooks:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         workbook = await async_client.workbooks.render_chart(
             id="id",
-            chart={"data": "=C2:C142"},
+            chart={},
         )
         assert workbook.is_closed
         assert await workbook.json() == {"foo": "bar"}
@@ -551,11 +580,40 @@ class TestAsyncWorkbooks:
         workbook = await async_client.workbooks.render_chart(
             id="id",
             chart={
+                "axis_dim": {
+                    "number_format": "#,##0.0",
+                    "reverse": "false",
+                    "title": "=C4",
+                },
+                "axis_value": {
+                    "clip": "false",
+                    "max": 0,
+                    "min": 0,
+                    "number_format": "#,##0.0",
+                    "reverse": "false",
+                    "title": "=C4",
+                    "type": "linear",
+                },
+                "blanks": "gap",
+                "chart_colors": '={"#C40";"#03F"}',
+                "color_by_point": "colorByPoint",
                 "data": "=C2:C142",
+                "data_lines": "=C2:C142",
+                "dir": "row",
+                "footnote": "=H13",
                 "format": "png",
+                "interpolate": "linear",
                 "labels": "=B2:B142",
+                "legend": "=D2:D142",
+                "legend_lines": "=E2:E142",
+                "legend_visible": "false",
+                "number_format": "#,##0.0",
+                "sort_by": 0,
+                "sort_order": "",
+                "stacked": "false",
+                "subtitle": "=B4",
                 "title": "=A1",
-                "type": "line",
+                "type": "area",
                 "values": "none",
             },
             apply=[
@@ -578,7 +636,7 @@ class TestAsyncWorkbooks:
 
         workbook = await async_client.workbooks.with_raw_response.render_chart(
             id="id",
-            chart={"data": "=C2:C142"},
+            chart={},
         )
 
         assert workbook.is_closed is True
@@ -593,7 +651,7 @@ class TestAsyncWorkbooks:
         respx_mock.post("/v1/workbooks/id/chart").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         async with async_client.workbooks.with_streaming_response.render_chart(
             id="id",
-            chart={"data": "=C2:C142"},
+            chart={},
         ) as workbook:
             assert not workbook.is_closed
             assert workbook.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -611,7 +669,7 @@ class TestAsyncWorkbooks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.workbooks.with_raw_response.render_chart(
                 id="",
-                chart={"data": "=C2:C142"},
+                chart={},
             )
 
     @pytest.mark.skip()
