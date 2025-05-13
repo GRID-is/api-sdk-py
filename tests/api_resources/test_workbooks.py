@@ -171,13 +171,7 @@ class TestWorkbooks:
                 "target_cell": "Sheet1!A1:B2",
                 "target_value": 0,
             },
-            options={
-                "axis": "rows",
-                "originals": "off",
-                "refs": "off",
-                "structure": "single",
-                "values": "full",
-            },
+            options={"axis": "rows"},
         )
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
@@ -511,13 +505,7 @@ class TestAsyncWorkbooks:
                 "target_cell": "Sheet1!A1:B2",
                 "target_value": 0,
             },
-            options={
-                "axis": "rows",
-                "originals": "off",
-                "refs": "off",
-                "structure": "single",
-                "values": "full",
-            },
+            options={"axis": "rows"},
         )
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
