@@ -43,7 +43,7 @@ class WorkbookQueryParams(TypedDict, total=False):
     """
 
     options: Optional[Options]
-    """Defines settings for formatting and structuring query results."""
+    """Defines settings for configuring query results."""
 
 
 class ReadReferenceObject(TypedDict, total=False):
@@ -112,24 +112,3 @@ class GoalSeek(TypedDict, total=False):
 class Options(TypedDict, total=False):
     axis: Optional[Literal["rows", "columns"]]
     """Determines if data is outputted as rows or columns"""
-
-    originals: Optional[Literal["off", "on"]]
-    """
-    When "originals" option is "on", include original values for cells you apply
-    values to
-    """
-
-    refs: Optional[Literal["off", "on"]]
-    """When "refs" option is "on", include cell addresses (e.g.
-
-    A1) in each cell object as the "r" property
-    """
-
-    structure: Optional[Literal["single", "list", "table"]]
-    """Specifies if read values are returned as a single value, a list, or a 2D table"""
-
-    values: Optional[Literal["full", "raw", "formatted"]]
-    """
-    Defines if individual cell values are returned in full (JSON objects), raw (just
-    the value), or formatted (with number formatting applied)
-    """

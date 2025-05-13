@@ -195,7 +195,7 @@ class WorkbooksResource(SyncAPIResource):
               achieve a specified target result. This is particularly useful when the desired
               outcome is known, but the corresponding input is not.
 
-          options: Defines settings for formatting and structuring query results.
+          options: Defines settings for configuring query results.
 
           extra_headers: Send extra headers
 
@@ -473,7 +473,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
               achieve a specified target result. This is particularly useful when the desired
               outcome is known, but the corresponding input is not.
 
-          options: Defines settings for formatting and structuring query results.
+          options: Defines settings for configuring query results.
 
           extra_headers: Send extra headers
 
