@@ -14,12 +14,7 @@ from ..types import (
     workbook_render_chart_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
-from .._utils import (
-    extract_files,
-    maybe_transform,
-    deepcopy_minimal,
-    async_maybe_transform,
-)
+from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -200,7 +195,7 @@ class WorkbooksResource(SyncAPIResource):
               achieve a specified target result. This is particularly useful when the desired
               outcome is known, but the corresponding input is not.
 
-          options: Defines settings for formatting and structuring query results.
+          options: Defines settings for configuring query results.
 
           extra_headers: Send extra headers
 
@@ -478,7 +473,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
               achieve a specified target result. This is particularly useful when the desired
               outcome is known, but the corresponding input is not.
 
-          options: Defines settings for formatting and structuring query results.
+          options: Defines settings for configuring query results.
 
           extra_headers: Send extra headers
 
