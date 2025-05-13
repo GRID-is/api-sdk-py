@@ -27,7 +27,7 @@ The full API of this library can be found in [api.md](api.md).
 from grid_api import Grid
 
 client = Grid(
-    # Defaults to os.environ.get("GRID_API_KEY")
+    # Defaults to os.environ.get("GRID_API_TOKEN")
     api_key="YOUR_API_KEY",
 )
 
