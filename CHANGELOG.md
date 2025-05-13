@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.0.0 (2025-05-13)
+
+Full Changelog: [v1.0.0-rc.9...v1.0.0](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.9...v1.0.0)
+
+### Features
+
+* **api:** api update ([9169dad](https://github.com/GRID-is/api-sdk-py/commit/9169dadf1222c8ac5ffdc2c87962aa51fde116a9))
+* **api:** api update ([16ef1a8](https://github.com/GRID-is/api-sdk-py/commit/16ef1a81fbff57d845f76f34dde1fcd3a7ffc4d2))
+
+
+### Bug Fixes
+
+* **package:** support direct resource imports ([d1ae5b7](https://github.com/GRID-is/api-sdk-py/commit/d1ae5b7090a19875c90b0b82ffe613e87a7dfb16))
+* **pydantic v1:** more robust ModelField.annotation check ([3ebe568](https://github.com/GRID-is/api-sdk-py/commit/3ebe568c76ea5a9cb661c3adaafb786616f89639))
+
+
+### Chores
+
+* broadly detect json family of content-type headers ([04db2e4](https://github.com/GRID-is/api-sdk-py/commit/04db2e4b38c1248f35eec3cdb2dc99c471aa0762))
+* **ci:** add timeout thresholds for CI jobs ([5c76451](https://github.com/GRID-is/api-sdk-py/commit/5c76451b9350bc64be13a26641104cd9f4e369ed))
+* **ci:** only use depot for staging repos ([5304e84](https://github.com/GRID-is/api-sdk-py/commit/5304e840bdd4ea5dac3b9c2269d80db47c2e6a20))
+* **internal:** avoid errors for isinstance checks on proxies ([10c673b](https://github.com/GRID-is/api-sdk-py/commit/10c673b162551aba429fd5aaf83739c041d71a30))
+* **internal:** codegen related update ([8831d75](https://github.com/GRID-is/api-sdk-py/commit/8831d75a26499b0df9df8c7ed32e69730b5b6177))
+* **internal:** fix list file params ([a447537](https://github.com/GRID-is/api-sdk-py/commit/a447537d02ea1ad06fa0b24a6138cfab6818551d))
+* **internal:** import reformatting ([500031e](https://github.com/GRID-is/api-sdk-py/commit/500031efa529a1422892e4137db74091ee66d1e7))
+* **internal:** minor formatting changes ([929061c](https://github.com/GRID-is/api-sdk-py/commit/929061c95b05ef3c19b3bd9f5b8353e57f1b72b3))
+* **internal:** refactor retries to not use recursion ([befb573](https://github.com/GRID-is/api-sdk-py/commit/befb573276a96eb4fef2128dd30ca45b9738e1de))
+
 ## 1.0.0-rc.9 (2025-04-19)
 
 Full Changelog: [v1.0.0-rc.8...v1.0.0-rc.9](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.8...v1.0.0-rc.9)

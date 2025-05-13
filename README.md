@@ -16,7 +16,7 @@ The REST API documentation can be found on [docs.grid.is](https://docs.grid.is/)
 
 ```sh
 # install from PyPI
-pip install --pre grid_api
+pip install grid_api
 ```
 
 ## Usage
