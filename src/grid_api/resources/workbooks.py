@@ -2,15 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Mapping, Iterable, Optional, cast
+from typing import Dict, List, Union, Mapping, Iterable, Optional, cast
 
 import httpx
 
 from ..types import (
+    workbook_calc_params,
     workbook_list_params,
     workbook_query_params,
     workbook_export_params,
     workbook_upload_params,
+    workbook_values_params,
     workbook_render_chart_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
@@ -33,9 +35,11 @@ from .._response import (
 )
 from ..pagination import SyncCursorPagination, AsyncCursorPagination
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.workbook_calc_response import WorkbookCalcResponse
 from ..types.workbook_list_response import WorkbookListResponse
 from ..types.workbook_query_response import WorkbookQueryResponse
 from ..types.workbook_upload_response import WorkbookUploadResponse
+from ..types.workbook_values_response import WorkbookValuesResponse
 
 __all__ = ["WorkbooksResource", "AsyncWorkbooksResource"]
 
@@ -108,6 +112,48 @@ class WorkbooksResource(SyncAPIResource):
                 ),
             ),
             model=WorkbookListResponse,
+        )
+
+    def calc(
+        self,
+        id: str,
+        *,
+        read: List[str],
+        apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkbookCalcResponse:
+        """
+        Run calculations in a workbook and retrieve cell objects.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/v1/workbooks/{id}/calc",
+            body=maybe_transform(
+                {
+                    "read": read,
+                    "apply": apply,
+                },
+                workbook_calc_params.WorkbookCalcParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkbookCalcResponse,
         )
 
     def export(
@@ -317,6 +363,48 @@ class WorkbooksResource(SyncAPIResource):
             cast_to=WorkbookUploadResponse,
         )
 
+    def values(
+        self,
+        id: str,
+        *,
+        read: List[str],
+        apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkbookValuesResponse:
+        """
+        Run calculations in a workbook and retrieve cell values.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/v1/workbooks/{id}/values",
+            body=maybe_transform(
+                {
+                    "read": read,
+                    "apply": apply,
+                },
+                workbook_values_params.WorkbookValuesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkbookValuesResponse,
+        )
+
 
 class AsyncWorkbooksResource(AsyncAPIResource):
     @cached_property
@@ -386,6 +474,48 @@ class AsyncWorkbooksResource(AsyncAPIResource):
                 ),
             ),
             model=WorkbookListResponse,
+        )
+
+    async def calc(
+        self,
+        id: str,
+        *,
+        read: List[str],
+        apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkbookCalcResponse:
+        """
+        Run calculations in a workbook and retrieve cell objects.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/v1/workbooks/{id}/calc",
+            body=await async_maybe_transform(
+                {
+                    "read": read,
+                    "apply": apply,
+                },
+                workbook_calc_params.WorkbookCalcParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkbookCalcResponse,
         )
 
     async def export(
@@ -595,6 +725,48 @@ class AsyncWorkbooksResource(AsyncAPIResource):
             cast_to=WorkbookUploadResponse,
         )
 
+    async def values(
+        self,
+        id: str,
+        *,
+        read: List[str],
+        apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> WorkbookValuesResponse:
+        """
+        Run calculations in a workbook and retrieve cell values.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/v1/workbooks/{id}/values",
+            body=await async_maybe_transform(
+                {
+                    "read": read,
+                    "apply": apply,
+                },
+                workbook_values_params.WorkbookValuesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=WorkbookValuesResponse,
+        )
+
 
 class WorkbooksResourceWithRawResponse:
     def __init__(self, workbooks: WorkbooksResource) -> None:
@@ -602,6 +774,9 @@ class WorkbooksResourceWithRawResponse:
 
         self.list = to_raw_response_wrapper(
             workbooks.list,
+        )
+        self.calc = to_raw_response_wrapper(
+            workbooks.calc,
         )
         self.export = to_custom_raw_response_wrapper(
             workbooks.export,
@@ -617,6 +792,9 @@ class WorkbooksResourceWithRawResponse:
         self.upload = to_raw_response_wrapper(
             workbooks.upload,
         )
+        self.values = to_raw_response_wrapper(
+            workbooks.values,
+        )
 
 
 class AsyncWorkbooksResourceWithRawResponse:
@@ -625,6 +803,9 @@ class AsyncWorkbooksResourceWithRawResponse:
 
         self.list = async_to_raw_response_wrapper(
             workbooks.list,
+        )
+        self.calc = async_to_raw_response_wrapper(
+            workbooks.calc,
         )
         self.export = async_to_custom_raw_response_wrapper(
             workbooks.export,
@@ -640,6 +821,9 @@ class AsyncWorkbooksResourceWithRawResponse:
         self.upload = async_to_raw_response_wrapper(
             workbooks.upload,
         )
+        self.values = async_to_raw_response_wrapper(
+            workbooks.values,
+        )
 
 
 class WorkbooksResourceWithStreamingResponse:
@@ -648,6 +832,9 @@ class WorkbooksResourceWithStreamingResponse:
 
         self.list = to_streamed_response_wrapper(
             workbooks.list,
+        )
+        self.calc = to_streamed_response_wrapper(
+            workbooks.calc,
         )
         self.export = to_custom_streamed_response_wrapper(
             workbooks.export,
@@ -663,6 +850,9 @@ class WorkbooksResourceWithStreamingResponse:
         self.upload = to_streamed_response_wrapper(
             workbooks.upload,
         )
+        self.values = to_streamed_response_wrapper(
+            workbooks.values,
+        )
 
 
 class AsyncWorkbooksResourceWithStreamingResponse:
@@ -671,6 +861,9 @@ class AsyncWorkbooksResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             workbooks.list,
+        )
+        self.calc = async_to_streamed_response_wrapper(
+            workbooks.calc,
         )
         self.export = async_to_custom_streamed_response_wrapper(
             workbooks.export,
@@ -685,4 +878,7 @@ class AsyncWorkbooksResourceWithStreamingResponse:
         )
         self.upload = async_to_streamed_response_wrapper(
             workbooks.upload,
+        )
+        self.values = async_to_streamed_response_wrapper(
+            workbooks.values,
         )
