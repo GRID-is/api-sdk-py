@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.1 (2025-05-15)
+
+Full Changelog: [v1.0.0...v1.0.1](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0...v1.0.1)
+
+### Bug Fixes
+
+* **stainless:** configure calc and values endpoints ([165ad42](https://github.com/GRID-is/api-sdk-py/commit/165ad4236f257d68f25d60e367590de34fff054f))
+
+
+### Chores
+
+* **ci:** upload sdks to package manager ([7da0ed9](https://github.com/GRID-is/api-sdk-py/commit/7da0ed9be88b954c2ea315b46d61667040913601))
+
 ## 1.0.0 (2025-05-13)
 
 Full Changelog: [v1.0.0-rc.9...v1.0.0](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0-rc.9...v1.0.0)
