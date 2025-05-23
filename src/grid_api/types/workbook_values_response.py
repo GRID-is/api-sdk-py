@@ -5,4 +5,4 @@ from typing_extensions import TypeAlias
 
 __all__ = ["WorkbookValuesResponse"]
 
-WorkbookValuesResponse: TypeAlias = Dict[str, Union[float, str, bool, List[Union[float, str, bool, None]], None]]
+WorkbookValuesResponse: TypeAlias = Dict[str, Union[int, float, str, bool, None, List[Union[float, str, bool, None]]]]
