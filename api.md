@@ -27,10 +27,15 @@ Methods:
 Types:
 
 ```python
-from grid_api.types import BetaGetWorkbookLabelsResponse, BetaSearchLabelsResponse
+from grid_api.types import (
+    BetaGetWorkbookLabelsResponse,
+    BetaGetWorkbookParametersResponse,
+    BetaSearchLabelsResponse,
+)
 ```
 
 Methods:
 
 - <code title="get /v1/workbooks/{id}/labels">client.beta.<a href="./src/grid_api/resources/beta.py">get_workbook_labels</a>(id) -> <a href="./src/grid_api/types/beta_get_workbook_labels_response.py">BetaGetWorkbookLabelsResponse</a></code>
+- <code title="get /v1/workbooks/{id}/parameters">client.beta.<a href="./src/grid_api/resources/beta.py">get_workbook_parameters</a>(id) -> <a href="./src/grid_api/types/beta_get_workbook_parameters_response.py">BetaGetWorkbookParametersResponse</a></code>
 - <code title="post /v1/workbooks/search/labels">client.beta.<a href="./src/grid_api/resources/beta.py">search_labels</a>(\*\*<a href="src/grid_api/types/beta_search_labels_params.py">params</a>) -> <a href="./src/grid_api/types/beta_search_labels_response.py">BetaSearchLabelsResponse</a></code>
