@@ -20,6 +20,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.beta_search_labels_response import BetaSearchLabelsResponse
 from ..types.beta_get_workbook_labels_response import BetaGetWorkbookLabelsResponse
+from ..types.beta_get_workbook_parameters_response import BetaGetWorkbookParametersResponse
 
 __all__ = ["BetaResource", "AsyncBetaResource"]
 
@@ -75,6 +76,39 @@ class BetaResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=BetaGetWorkbookLabelsResponse,
+        )
+
+    def get_workbook_parameters(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BetaGetWorkbookParametersResponse:
+        """
+        Retrieve labels automatically detected for cells and ranges in the workbook.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            f"/v1/workbooks/{id}/parameters",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BetaGetWorkbookParametersResponse,
         )
 
     def search_labels(
@@ -176,6 +210,39 @@ class AsyncBetaResource(AsyncAPIResource):
             cast_to=BetaGetWorkbookLabelsResponse,
         )
 
+    async def get_workbook_parameters(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BetaGetWorkbookParametersResponse:
+        """
+        Retrieve labels automatically detected for cells and ranges in the workbook.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            f"/v1/workbooks/{id}/parameters",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BetaGetWorkbookParametersResponse,
+        )
+
     async def search_labels(
         self,
         *,
@@ -229,6 +296,9 @@ class BetaResourceWithRawResponse:
         self.get_workbook_labels = to_raw_response_wrapper(
             beta.get_workbook_labels,
         )
+        self.get_workbook_parameters = to_raw_response_wrapper(
+            beta.get_workbook_parameters,
+        )
         self.search_labels = to_raw_response_wrapper(
             beta.search_labels,
         )
@@ -240,6 +310,9 @@ class AsyncBetaResourceWithRawResponse:
 
         self.get_workbook_labels = async_to_raw_response_wrapper(
             beta.get_workbook_labels,
+        )
+        self.get_workbook_parameters = async_to_raw_response_wrapper(
+            beta.get_workbook_parameters,
         )
         self.search_labels = async_to_raw_response_wrapper(
             beta.search_labels,
@@ -253,6 +326,9 @@ class BetaResourceWithStreamingResponse:
         self.get_workbook_labels = to_streamed_response_wrapper(
             beta.get_workbook_labels,
         )
+        self.get_workbook_parameters = to_streamed_response_wrapper(
+            beta.get_workbook_parameters,
+        )
         self.search_labels = to_streamed_response_wrapper(
             beta.search_labels,
         )
@@ -264,6 +340,9 @@ class AsyncBetaResourceWithStreamingResponse:
 
         self.get_workbook_labels = async_to_streamed_response_wrapper(
             beta.get_workbook_labels,
+        )
+        self.get_workbook_parameters = async_to_streamed_response_wrapper(
+            beta.get_workbook_parameters,
         )
         self.search_labels = async_to_streamed_response_wrapper(
             beta.search_labels,
