@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 (2025-05-23)
+
+Full Changelog: [v1.1.0...v1.1.1](https://github.com/GRID-is/api-sdk-py/compare/v1.1.0...v1.1.1)
+
+### Bug Fixes
+
+* **api:** Add label parameters endpoint ([6f784a5](https://github.com/GRID-is/api-sdk-py/commit/6f784a53a783d60a7137060a8ad9c96e05a47d17))
+
 ## 1.1.0 (2025-05-23)
 
 Full Changelog: [v1.0.1...v1.1.0](https://github.com/GRID-is/api-sdk-py/compare/v1.0.1...v1.1.0)
