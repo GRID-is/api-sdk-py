@@ -21,3 +21,16 @@ Methods:
 - <code title="post /v1/workbooks/{id}/chart">client.workbooks.<a href="./src/grid_api/resources/workbooks.py">render_chart</a>(id, \*\*<a href="src/grid_api/types/workbook_render_chart_params.py">params</a>) -> BinaryAPIResponse</code>
 - <code title="post /v1/workbooks">client.workbooks.<a href="./src/grid_api/resources/workbooks.py">upload</a>(\*\*<a href="src/grid_api/types/workbook_upload_params.py">params</a>) -> <a href="./src/grid_api/types/workbook_upload_response.py">WorkbookUploadResponse</a></code>
 - <code title="post /v1/workbooks/{id}/values">client.workbooks.<a href="./src/grid_api/resources/workbooks.py">values</a>(id, \*\*<a href="src/grid_api/types/workbook_values_params.py">params</a>) -> <a href="./src/grid_api/types/workbook_values_response.py">WorkbookValuesResponse</a></code>
+
+# Beta
+
+Types:
+
+```python
+from grid_api.types import BetaGetWorkbookLabelsResponse, BetaSearchLabelsResponse
+```
+
+Methods:
+
+- <code title="get /v1/workbooks/{id}/labels">client.beta.<a href="./src/grid_api/resources/beta.py">get_workbook_labels</a>(id) -> <a href="./src/grid_api/types/beta_get_workbook_labels_response.py">BetaGetWorkbookLabelsResponse</a></code>
+- <code title="post /v1/workbooks/search/labels">client.beta.<a href="./src/grid_api/resources/beta.py">search_labels</a>(\*\*<a href="src/grid_api/types/beta_search_labels_params.py">params</a>) -> <a href="./src/grid_api/types/beta_search_labels_response.py">BetaSearchLabelsResponse</a></code>

@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.0 (2025-05-23)
+
+Full Changelog: [v1.0.1...v1.1.0](https://github.com/GRID-is/api-sdk-py/compare/v1.0.1...v1.1.0)
+
+### Features
+
+* **api:** add beta label endpoints ([c24387c](https://github.com/GRID-is/api-sdk-py/commit/c24387c8b4179c1faa69811ba35389fbf09d3446))
+
+
+### Chores
+
+* **ci:** fix installation instructions ([8d1ae96](https://github.com/GRID-is/api-sdk-py/commit/8d1ae96853d64a373bb089d3ab98b18b57259e95))
+* **docs:** grammar improvements ([fcb3bf4](https://github.com/GRID-is/api-sdk-py/commit/fcb3bf46caa1a95d76f971359a73b6a867f88bee))
+
 ## 1.0.1 (2025-05-15)
 
 Full Changelog: [v1.0.0...v1.0.1](https://github.com/GRID-is/api-sdk-py/compare/v1.0.0...v1.0.1)

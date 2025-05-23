@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import workbooks
+from .resources import beta, workbooks
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import GridError, APIStatusError
 from ._base_client import (
@@ -35,6 +35,7 @@ __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Grid", "As
 
 class Grid(SyncAPIClient):
     workbooks: workbooks.WorkbooksResource
+    beta: beta.BetaResource
     with_raw_response: GridWithRawResponse
     with_streaming_response: GridWithStreamedResponse
 
@@ -93,6 +94,7 @@ class Grid(SyncAPIClient):
         )
 
         self.workbooks = workbooks.WorkbooksResource(self)
+        self.beta = beta.BetaResource(self)
         self.with_raw_response = GridWithRawResponse(self)
         self.with_streaming_response = GridWithStreamedResponse(self)
 
@@ -204,6 +206,7 @@ class Grid(SyncAPIClient):
 
 class AsyncGrid(AsyncAPIClient):
     workbooks: workbooks.AsyncWorkbooksResource
+    beta: beta.AsyncBetaResource
     with_raw_response: AsyncGridWithRawResponse
     with_streaming_response: AsyncGridWithStreamedResponse
 
@@ -262,6 +265,7 @@ class AsyncGrid(AsyncAPIClient):
         )
 
         self.workbooks = workbooks.AsyncWorkbooksResource(self)
+        self.beta = beta.AsyncBetaResource(self)
         self.with_raw_response = AsyncGridWithRawResponse(self)
         self.with_streaming_response = AsyncGridWithStreamedResponse(self)
 
@@ -374,21 +378,25 @@ class AsyncGrid(AsyncAPIClient):
 class GridWithRawResponse:
     def __init__(self, client: Grid) -> None:
         self.workbooks = workbooks.WorkbooksResourceWithRawResponse(client.workbooks)
+        self.beta = beta.BetaResourceWithRawResponse(client.beta)
 
 
 class AsyncGridWithRawResponse:
     def __init__(self, client: AsyncGrid) -> None:
         self.workbooks = workbooks.AsyncWorkbooksResourceWithRawResponse(client.workbooks)
+        self.beta = beta.AsyncBetaResourceWithRawResponse(client.beta)
 
 
 class GridWithStreamedResponse:
     def __init__(self, client: Grid) -> None:
         self.workbooks = workbooks.WorkbooksResourceWithStreamingResponse(client.workbooks)
+        self.beta = beta.BetaResourceWithStreamingResponse(client.beta)
 
 
 class AsyncGridWithStreamedResponse:
     def __init__(self, client: AsyncGrid) -> None:
         self.workbooks = workbooks.AsyncWorkbooksResourceWithStreamingResponse(client.workbooks)
+        self.beta = beta.AsyncBetaResourceWithStreamingResponse(client.beta)
 
 
 Client = Grid
