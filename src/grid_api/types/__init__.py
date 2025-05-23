@@ -17,3 +17,6 @@ from .beta_search_labels_params import BetaSearchLabelsParams as BetaSearchLabel
 from .beta_search_labels_response import BetaSearchLabelsResponse as BetaSearchLabelsResponse
 from .workbook_render_chart_params import WorkbookRenderChartParams as WorkbookRenderChartParams
 from .beta_get_workbook_labels_response import BetaGetWorkbookLabelsResponse as BetaGetWorkbookLabelsResponse
+from .beta_get_workbook_parameters_response import (
+    BetaGetWorkbookParametersResponse as BetaGetWorkbookParametersResponse,
+)
