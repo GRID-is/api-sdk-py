@@ -43,6 +43,9 @@ class Result(BaseModel):
     filename: str
     """Original filename of the workbook"""
 
+    labels: List[ResultLabel]
+    """Array of labels within the workbook that match the search query"""
+
     latest_version: int
     """Most recent version number of the workbook"""
 
@@ -51,8 +54,6 @@ class Result(BaseModel):
 
     workbook_id: str
     """UUID for the workbook"""
-
-    labels: Optional[List[ResultLabel]] = None
 
     score: Optional[float] = None
     """
