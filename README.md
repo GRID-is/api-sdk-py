@@ -24,11 +24,11 @@ pip install grid_api
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from grid_api import Grid
 
 client = Grid(
-    # Defaults to os.environ.get("GRID_API_TOKEN")
-    api_key="YOUR_API_KEY",
+    api_key=os.environ.get("GRID_API_TOKEN"),  # This is the default and can be omitted
 )
 
 response = client.workbooks.query(
@@ -48,10 +48,13 @@ so that your API Key is not stored in source control.
 Simply import `AsyncGrid` instead of `Grid` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from grid_api import AsyncGrid
 
-client = AsyncGrid()
+client = AsyncGrid(
+    api_key=os.environ.get("GRID_API_TOKEN"),  # This is the default and can be omitted
+)
 
 
 async def main() -> None:

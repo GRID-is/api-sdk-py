@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.2.0 (2025-06-13)
+
+Full Changelog: [v1.1.2...v1.2.0](https://github.com/GRID-is/api-sdk-py/compare/v1.1.2...v1.2.0)
+
+### Features
+
+* **client:** add follow_redirects request option ([7154df6](https://github.com/GRID-is/api-sdk-py/commit/7154df67405d7c130cd27127aaf77fc3b912380a))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([ece61b6](https://github.com/GRID-is/api-sdk-py/commit/ece61b6af6c41164d1dd40b26008a49130d85785))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([6dc6cf1](https://github.com/GRID-is/api-sdk-py/commit/6dc6cf11fd3f887cc0069dc40cc916304e1f60e9))
+* **internal:** codegen related update ([9093fc0](https://github.com/GRID-is/api-sdk-py/commit/9093fc03f4f579fae4da1177502ab461015826a9))
+* **tests:** run tests in parallel ([7b9550c](https://github.com/GRID-is/api-sdk-py/commit/7b9550c9f70e5b91f7b874b89a159445aadf7e2a))
+
 ## 1.1.2 (2025-05-27)
 
 Full Changelog: [v1.1.1...v1.1.2](https://github.com/GRID-is/api-sdk-py/compare/v1.1.1...v1.1.2)
