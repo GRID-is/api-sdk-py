@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.3.0 (2025-06-21)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/GRID-is/api-sdk-py/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **client:** add support for aiohttp ([a9b8ed3](https://github.com/GRID-is/api-sdk-py/commit/a9b8ed3beb44e46e181cbe49912655f13be0c903))
+
+
+### Bug Fixes
+
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([9a58f1f](https://github.com/GRID-is/api-sdk-py/commit/9a58f1fe5ef22f3fc6a7845e00cf3ca4afabf2b7))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([b236e91](https://github.com/GRID-is/api-sdk-py/commit/b236e918c09758eaf3e7c578d9274867112ccb95))
+* **internal:** update conftest.py ([ccb4ee4](https://github.com/GRID-is/api-sdk-py/commit/ccb4ee4378e63e421ee1c2998e183ff027afcc8f))
+* **readme:** update badges ([725de9c](https://github.com/GRID-is/api-sdk-py/commit/725de9c4df16aab6e736aee65ec22b38b79e1d30))
+* **tests:** add tests for httpx client instantiation & proxies ([b4d8d52](https://github.com/GRID-is/api-sdk-py/commit/b4d8d5221fce1958f633eea12c6e52598c3f47fd))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([b3d9d93](https://github.com/GRID-is/api-sdk-py/commit/b3d9d934f291fe805dc2ceef6a5e29cd2c50581f))
+
 ## 1.2.0 (2025-06-13)
 
 Full Changelog: [v1.1.2...v1.2.0](https://github.com/GRID-is/api-sdk-py/compare/v1.1.2...v1.2.0)
