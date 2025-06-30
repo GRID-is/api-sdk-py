@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.3.1 (2025-06-30)
+
+Full Changelog: [v1.3.0...v1.3.1](https://github.com/GRID-is/api-sdk-py/compare/v1.3.0...v1.3.1)
+
+### Bug Fixes
+
+* **ci:** correct conditional ([ec7ad05](https://github.com/GRID-is/api-sdk-py/commit/ec7ad0559078ba69197953e7f33f652c283d6dff))
+* **ci:** release-doctor — report correct token name ([28e054f](https://github.com/GRID-is/api-sdk-py/commit/28e054f80e4a71a641737ce2f8886e079adad438))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([db922e2](https://github.com/GRID-is/api-sdk-py/commit/db922e2f05204059277d34878637a5f50bb4c8de))
+* **tests:** skip some failing tests on the latest python versions ([7449172](https://github.com/GRID-is/api-sdk-py/commit/7449172d1aa289cd6c02340eb2f4453584beb3ce))
+
 ## 1.3.0 (2025-06-21)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/GRID-is/api-sdk-py/compare/v1.2.0...v1.3.0)
