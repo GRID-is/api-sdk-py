@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.2 (2025-07-02)
+
+Full Changelog: [v1.3.1...v1.3.2](https://github.com/GRID-is/api-sdk-py/compare/v1.3.1...v1.3.2)
+
+### Chores
+
+* **ci:** change upload type ([88d4f3f](https://github.com/GRID-is/api-sdk-py/commit/88d4f3fdf939fc2f87683126bcf5cdf3f4a6498c))
+
 ## 1.3.1 (2025-06-30)
 
 Full Changelog: [v1.3.0...v1.3.1](https://github.com/GRID-is/api-sdk-py/compare/v1.3.0...v1.3.1)
