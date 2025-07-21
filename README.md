@@ -1,6 +1,7 @@
 # GRID Spreadsheet API library
 
-[![PyPI version](<https://img.shields.io/pypi/v/grid_api.svg?label=pypi%20(stable)>)](https://pypi.org/project/grid_api/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/grid_api.svg?label=pypi%20(stable))](https://pypi.org/project/grid_api/)
 
 This library provides convenient access to the Grid REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -84,7 +85,6 @@ pip install grid_api[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from grid_api import DefaultAioHttpClient
 from grid_api import AsyncGrid
@@ -92,7 +92,7 @@ from grid_api import AsyncGrid
 
 async def main() -> None:
     async with AsyncGrid(
-        api_key=os.environ.get("GRID_API_TOKEN"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.workbooks.query(

@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.4.0 (2025-07-15)
+
+Full Changelog: [v1.3.1...v1.4.0](https://github.com/GRID-is/api-sdk-py/compare/v1.3.1...v1.4.0)
+
+### Features
+
+* clean up environment call outs ([e567d38](https://github.com/GRID-is/api-sdk-py/commit/e567d383cde39c8f3df3facaea75d03f4c77b820))
+
+
+### Bug Fixes
+
+* **client:** don't send Content-Type header on GET requests ([e83a775](https://github.com/GRID-is/api-sdk-py/commit/e83a77545f0d2b9f651381cc53c72b9605a28cc7))
+* **parsing:** correctly handle nested discriminated unions ([ba4c542](https://github.com/GRID-is/api-sdk-py/commit/ba4c54231aa508bc637824cb3db0ebb6d7d35cce))
+
+
+### Chores
+
+* **ci:** change upload type ([88d4f3f](https://github.com/GRID-is/api-sdk-py/commit/88d4f3fdf939fc2f87683126bcf5cdf3f4a6498c))
+* **internal:** bump pinned h11 dep ([174da39](https://github.com/GRID-is/api-sdk-py/commit/174da393ffaeab03f17ad8961a43e7b9ee992715))
+* **internal:** codegen related update ([0232dae](https://github.com/GRID-is/api-sdk-py/commit/0232daefd3235ce165d796c07b0219e38bd999d8))
+* **package:** mark python 3.13 as supported ([efd6017](https://github.com/GRID-is/api-sdk-py/commit/efd60178d934283acba6db07a95b8ff1cf022cf9))
+* **readme:** fix version rendering on pypi ([71c5198](https://github.com/GRID-is/api-sdk-py/commit/71c51980028d935e77a3fc2655abad2f422efe3d))
+
 ## 1.3.1 (2025-06-30)
 
 Full Changelog: [v1.3.0...v1.3.1](https://github.com/GRID-is/api-sdk-py/compare/v1.3.0...v1.3.1)
