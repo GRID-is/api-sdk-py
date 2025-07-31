@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.5.0 (2025-07-31)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/GRID-is/api-sdk-py/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* **client:** support file upload requests ([d397e17](https://github.com/GRID-is/api-sdk-py/commit/d397e17f77364bc32e218fb1150c8025c64142a8))
+
+
+### Bug Fixes
+
+* **parsing:** ignore empty metadata ([06f7815](https://github.com/GRID-is/api-sdk-py/commit/06f78159f245ba0f507a72938b043f55f21158b5))
+* **parsing:** parse extra field types ([d775cee](https://github.com/GRID-is/api-sdk-py/commit/d775cee17b1229ac3cf2325dff248ea8c668c876))
+
+
+### Chores
+
+* **project:** add settings file for vscode ([ed9fc24](https://github.com/GRID-is/api-sdk-py/commit/ed9fc246ccb026f04f45111c4ae53ad8ec4bc62f))
+
 ## 1.4.0 (2025-07-15)
 
 Full Changelog: [v1.3.1...v1.4.0](https://github.com/GRID-is/api-sdk-py/compare/v1.3.1...v1.4.0)
