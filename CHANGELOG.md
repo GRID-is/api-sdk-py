@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.5.1 (2025-08-09)
+
+Full Changelog: [v1.5.0...v1.5.1](https://github.com/GRID-is/api-sdk-py/compare/v1.5.0...v1.5.1)
+
+### Chores
+
+* **internal:** fix ruff target version ([3f18ec2](https://github.com/GRID-is/api-sdk-py/commit/3f18ec2df732ba83dfae6038a1b4aa765df81d6f))
+* update @stainless-api/prism-cli to v5.15.0 ([181e638](https://github.com/GRID-is/api-sdk-py/commit/181e6382154c2ed67bc19c55ed2849670399ebbe))
+
 ## 1.5.0 (2025-07-31)
 
 Full Changelog: [v1.4.0...v1.5.0](https://github.com/GRID-is/api-sdk-py/compare/v1.4.0...v1.5.0)
