@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestBeta:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_get_workbook_labels(self, client: Grid) -> None:
         beta = client.beta.get_workbook_labels(
@@ -29,7 +29,7 @@ class TestBeta:
         )
         assert_matches_type(BetaGetWorkbookLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_get_workbook_labels(self, client: Grid) -> None:
         response = client.beta.with_raw_response.get_workbook_labels(
@@ -41,7 +41,7 @@ class TestBeta:
         beta = response.parse()
         assert_matches_type(BetaGetWorkbookLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_get_workbook_labels(self, client: Grid) -> None:
         with client.beta.with_streaming_response.get_workbook_labels(
@@ -55,7 +55,7 @@ class TestBeta:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_get_workbook_labels(self, client: Grid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -63,7 +63,7 @@ class TestBeta:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_get_workbook_parameters(self, client: Grid) -> None:
         beta = client.beta.get_workbook_parameters(
@@ -71,7 +71,7 @@ class TestBeta:
         )
         assert_matches_type(BetaGetWorkbookParametersResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_get_workbook_parameters(self, client: Grid) -> None:
         response = client.beta.with_raw_response.get_workbook_parameters(
@@ -83,7 +83,7 @@ class TestBeta:
         beta = response.parse()
         assert_matches_type(BetaGetWorkbookParametersResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_get_workbook_parameters(self, client: Grid) -> None:
         with client.beta.with_streaming_response.get_workbook_parameters(
@@ -97,7 +97,7 @@ class TestBeta:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_get_workbook_parameters(self, client: Grid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -105,7 +105,7 @@ class TestBeta:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_search_labels(self, client: Grid) -> None:
         beta = client.beta.search_labels(
@@ -113,7 +113,7 @@ class TestBeta:
         )
         assert_matches_type(BetaSearchLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_search_labels_with_all_params(self, client: Grid) -> None:
         beta = client.beta.search_labels(
@@ -123,7 +123,7 @@ class TestBeta:
         )
         assert_matches_type(BetaSearchLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_search_labels(self, client: Grid) -> None:
         response = client.beta.with_raw_response.search_labels(
@@ -135,7 +135,7 @@ class TestBeta:
         beta = response.parse()
         assert_matches_type(BetaSearchLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_search_labels(self, client: Grid) -> None:
         with client.beta.with_streaming_response.search_labels(
@@ -155,7 +155,7 @@ class TestAsyncBeta:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_get_workbook_labels(self, async_client: AsyncGrid) -> None:
         beta = await async_client.beta.get_workbook_labels(
@@ -163,7 +163,7 @@ class TestAsyncBeta:
         )
         assert_matches_type(BetaGetWorkbookLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_get_workbook_labels(self, async_client: AsyncGrid) -> None:
         response = await async_client.beta.with_raw_response.get_workbook_labels(
@@ -175,7 +175,7 @@ class TestAsyncBeta:
         beta = await response.parse()
         assert_matches_type(BetaGetWorkbookLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_get_workbook_labels(self, async_client: AsyncGrid) -> None:
         async with async_client.beta.with_streaming_response.get_workbook_labels(
@@ -189,7 +189,7 @@ class TestAsyncBeta:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_get_workbook_labels(self, async_client: AsyncGrid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -197,7 +197,7 @@ class TestAsyncBeta:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_get_workbook_parameters(self, async_client: AsyncGrid) -> None:
         beta = await async_client.beta.get_workbook_parameters(
@@ -205,7 +205,7 @@ class TestAsyncBeta:
         )
         assert_matches_type(BetaGetWorkbookParametersResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_get_workbook_parameters(self, async_client: AsyncGrid) -> None:
         response = await async_client.beta.with_raw_response.get_workbook_parameters(
@@ -217,7 +217,7 @@ class TestAsyncBeta:
         beta = await response.parse()
         assert_matches_type(BetaGetWorkbookParametersResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_get_workbook_parameters(self, async_client: AsyncGrid) -> None:
         async with async_client.beta.with_streaming_response.get_workbook_parameters(
@@ -231,7 +231,7 @@ class TestAsyncBeta:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_get_workbook_parameters(self, async_client: AsyncGrid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -239,7 +239,7 @@ class TestAsyncBeta:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_search_labels(self, async_client: AsyncGrid) -> None:
         beta = await async_client.beta.search_labels(
@@ -247,7 +247,7 @@ class TestAsyncBeta:
         )
         assert_matches_type(BetaSearchLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_search_labels_with_all_params(self, async_client: AsyncGrid) -> None:
         beta = await async_client.beta.search_labels(
@@ -257,7 +257,7 @@ class TestAsyncBeta:
         )
         assert_matches_type(BetaSearchLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_search_labels(self, async_client: AsyncGrid) -> None:
         response = await async_client.beta.with_raw_response.search_labels(
@@ -269,7 +269,7 @@ class TestAsyncBeta:
         beta = await response.parse()
         assert_matches_type(BetaSearchLabelsResponse, beta, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_search_labels(self, async_client: AsyncGrid) -> None:
         async with async_client.beta.with_streaming_response.search_labels(
