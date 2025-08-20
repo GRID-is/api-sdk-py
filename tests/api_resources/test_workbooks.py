@@ -312,7 +312,6 @@ class TestWorkbooks:
                 "legend": "=D2:D142",
                 "legend_lines": "=E2:E142",
                 "legend_visible": "false",
-                "matte": "#FFFFFF",
                 "number_format": "#,##0.0",
                 "sort_by": 0,
                 "sort_order": "",
@@ -328,6 +327,7 @@ class TestWorkbooks:
                     "value": 1234,
                 }
             ],
+            matte="#FFFFFF",
         )
         assert workbook.is_closed
         assert workbook.json() == {"foo": "bar"}
@@ -751,7 +751,6 @@ class TestAsyncWorkbooks:
                 "legend": "=D2:D142",
                 "legend_lines": "=E2:E142",
                 "legend_visible": "false",
-                "matte": "#FFFFFF",
                 "number_format": "#,##0.0",
                 "sort_by": 0,
                 "sort_order": "",
@@ -767,6 +766,7 @@ class TestAsyncWorkbooks:
                     "value": 1234,
                 }
             ],
+            matte="#FFFFFF",
         )
         assert workbook.is_closed
         assert await workbook.json() == {"foo": "bar"}

@@ -32,6 +32,13 @@ class WorkbookRenderChartParams(TypedDict, total=False):
     Changes are discarded at the end of the request
     """
 
+    matte: Optional[str]
+    """Hex color code for the chart's background matte, e.g.
+
+    '#FFFFFF' for white, if not specified, the chart will have a transparent
+    background. Note, this is currently only supported for PNG images.
+    """
+
 
 class ChartAxisDim(TypedDict, total=False):
     number_format: Annotated[Optional[str], PropertyInfo(alias="numberFormat")]
@@ -131,13 +138,6 @@ class Chart(TypedDict, total=False):
 
     legend_visible: Annotated[Optional[Literal["false", "true"]], PropertyInfo(alias="legendVisible")]
     """Whether to display a chart legend"""
-
-    matte: Optional[str]
-    """Hex color code for the chart's background matte, e.g.
-
-    '#FFFFFF' for white, if not specified, the chart will have a transparent
-    background. Note, this is currently only supported for PNG images.
-    """
 
     number_format: Annotated[Optional[str], PropertyInfo(alias="numberFormat")]
     """Number format pattern used for formatting labels on the chart."""

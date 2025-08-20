@@ -276,6 +276,7 @@ class WorkbooksResource(SyncAPIResource):
         *,
         chart: workbook_render_chart_params.Chart,
         apply: Optional[Iterable[workbook_render_chart_params.Apply]] | NotGiven = NOT_GIVEN,
+        matte: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -292,6 +293,10 @@ class WorkbooksResource(SyncAPIResource):
 
           apply: Cells to update before rendering the chart. Changes are discarded at the end of
               the request
+
+          matte: Hex color code for the chart's background matte, e.g. '#FFFFFF' for white, if
+              not specified, the chart will have a transparent background. Note, this is
+              currently only supported for PNG images.
 
           extra_headers: Send extra headers
 
@@ -310,6 +315,7 @@ class WorkbooksResource(SyncAPIResource):
                 {
                     "chart": chart,
                     "apply": apply,
+                    "matte": matte,
                 },
                 workbook_render_chart_params.WorkbookRenderChartParams,
             ),
@@ -638,6 +644,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         *,
         chart: workbook_render_chart_params.Chart,
         apply: Optional[Iterable[workbook_render_chart_params.Apply]] | NotGiven = NOT_GIVEN,
+        matte: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -654,6 +661,10 @@ class AsyncWorkbooksResource(AsyncAPIResource):
 
           apply: Cells to update before rendering the chart. Changes are discarded at the end of
               the request
+
+          matte: Hex color code for the chart's background matte, e.g. '#FFFFFF' for white, if
+              not specified, the chart will have a transparent background. Note, this is
+              currently only supported for PNG images.
 
           extra_headers: Send extra headers
 
@@ -672,6 +683,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
                 {
                     "chart": chart,
                     "apply": apply,
+                    "matte": matte,
                 },
                 workbook_render_chart_params.WorkbookRenderChartParams,
             ),
