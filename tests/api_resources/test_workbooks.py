@@ -328,6 +328,7 @@ class TestWorkbooks:
                 }
             ],
             matte="#FFFFFF",
+            width=0,
         )
         assert workbook.is_closed
         assert workbook.json() == {"foo": "bar"}
@@ -767,6 +768,7 @@ class TestAsyncWorkbooks:
                 }
             ],
             matte="#FFFFFF",
+            width=0,
         )
         assert workbook.is_closed
         assert await workbook.json() == {"foo": "bar"}
