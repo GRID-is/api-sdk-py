@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.1 (2025-08-22)
+
+Full Changelog: [v1.7.0...v1.7.1](https://github.com/GRID-is/api-sdk-py/compare/v1.7.0...v1.7.1)
+
+### Chores
+
+* update github action ([8d15170](https://github.com/GRID-is/api-sdk-py/commit/8d15170470775c8c23ac7ddeb91ab29ebaa2851b))
+
 ## 1.7.0 (2025-08-20)
 
 Full Changelog: [v1.6.1...v1.7.0](https://github.com/GRID-is/api-sdk-py/compare/v1.6.1...v1.7.0)
