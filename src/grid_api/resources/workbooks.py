@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Mapping, Iterable, Optional, cast
+from typing import Dict, Union, Mapping, Iterable, Optional, cast
 
 import httpx
 
@@ -15,7 +15,7 @@ from ..types import (
     workbook_values_params,
     workbook_render_chart_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes, SequenceNotStr
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -118,7 +118,7 @@ class WorkbooksResource(SyncAPIResource):
         self,
         id: str,
         *,
-        read: List[str],
+        read: SequenceNotStr[str],
         apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -214,7 +214,7 @@ class WorkbooksResource(SyncAPIResource):
         self,
         id: str,
         *,
-        read: List[workbook_query_params.Read],
+        read: SequenceNotStr[workbook_query_params.Read],
         apply: Optional[Iterable[workbook_query_params.Apply]] | NotGiven = NOT_GIVEN,
         goal_seek: Optional[workbook_query_params.GoalSeek] | NotGiven = NOT_GIVEN,
         options: Optional[workbook_query_params.Options] | NotGiven = NOT_GIVEN,
@@ -379,7 +379,7 @@ class WorkbooksResource(SyncAPIResource):
         self,
         id: str,
         *,
-        read: List[str],
+        read: SequenceNotStr[str],
         apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -492,7 +492,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        read: List[str],
+        read: SequenceNotStr[str],
         apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -588,7 +588,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        read: List[workbook_query_params.Read],
+        read: SequenceNotStr[workbook_query_params.Read],
         apply: Optional[Iterable[workbook_query_params.Apply]] | NotGiven = NOT_GIVEN,
         goal_seek: Optional[workbook_query_params.GoalSeek] | NotGiven = NOT_GIVEN,
         options: Optional[workbook_query_params.Options] | NotGiven = NOT_GIVEN,
@@ -753,7 +753,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        read: List[str],
+        read: SequenceNotStr[str],
         apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

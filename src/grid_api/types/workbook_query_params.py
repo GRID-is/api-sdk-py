@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = [
@@ -24,7 +25,7 @@ __all__ = [
 
 
 class WorkbookQueryParams(TypedDict, total=False):
-    read: Required[List[Read]]
+    read: Required[SequenceNotStr[Read]]
     """Cell references to read from the workbook and return to the client"""
 
     apply: Optional[Iterable[Apply]]
