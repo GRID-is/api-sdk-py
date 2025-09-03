@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, Union, Optional
 from typing_extensions import Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["WorkbookValuesParams"]
 
 
 class WorkbookValuesParams(TypedDict, total=False):
-    read: Required[List[str]]
+    read: Required[SequenceNotStr[str]]
 
     apply: Optional[Dict[str, Union[float, str, bool, None]]]
