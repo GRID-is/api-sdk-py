@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.8.0 (2025-09-15)
+
+Full Changelog: [v1.7.0...v1.8.0](https://github.com/GRID-is/api-sdk-py/compare/v1.7.0...v1.8.0)
+
+### Features
+
+* improve future compat with pydantic v3 ([0a08691](https://github.com/GRID-is/api-sdk-py/commit/0a08691df0dda690a0bd2482e5236463b527c202))
+* **types:** replace List[str] with SequenceNotStr in params ([0b48994](https://github.com/GRID-is/api-sdk-py/commit/0b48994c1676d71d1d69a7b6d05ca9aa57ca846f))
+
+
+### Bug Fixes
+
+* avoid newer type syntax ([02b4ff1](https://github.com/GRID-is/api-sdk-py/commit/02b4ff1604bf3ee57b386ad207ccc0b35e438349))
+
+
+### Chores
+
+* **internal:** add Sequence related utils ([ee8f98e](https://github.com/GRID-is/api-sdk-py/commit/ee8f98e356eb7a936f1b9d1903031075289d63a8))
+* **internal:** change ci workflow machines ([883586d](https://github.com/GRID-is/api-sdk-py/commit/883586d1d2a902a7c02430bea0eead580fb6309c))
+* **internal:** move mypy configurations to `pyproject.toml` file ([c8be74c](https://github.com/GRID-is/api-sdk-py/commit/c8be74c073cd5466efd708e83c8a3220a6ef075f))
+* **internal:** update pyright exclude list ([df56c6f](https://github.com/GRID-is/api-sdk-py/commit/df56c6f85d691b66dc816e849ebaeb6f2ca9e65e))
+* **tests:** simplify `get_platform` test ([1838149](https://github.com/GRID-is/api-sdk-py/commit/1838149ff9f7b7500d73a88deffcb818048bb9e9))
+* update github action ([8d15170](https://github.com/GRID-is/api-sdk-py/commit/8d15170470775c8c23ac7ddeb91ab29ebaa2851b))
+
 ## 1.7.0 (2025-08-20)
 
 Full Changelog: [v1.6.1...v1.7.0](https://github.com/GRID-is/api-sdk-py/compare/v1.6.1...v1.7.0)
