@@ -15,7 +15,7 @@ from ..types import (
     workbook_values_params,
     workbook_render_chart_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
 from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -67,14 +67,14 @@ class WorkbooksResource(SyncAPIResource):
     def list(
         self,
         *,
-        cursor: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
+        cursor: str | Omit = omit,
+        limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPagination[WorkbookListResponse]:
         """
         List the workbooks linked to an account.
@@ -119,13 +119,13 @@ class WorkbooksResource(SyncAPIResource):
         id: str,
         *,
         read: SequenceNotStr[str],
-        apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
+        apply: Optional[Dict[str, Union[float, str, bool, None]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkbookCalcResponse:
         """
         Run calculations in a workbook and retrieve cell objects.
@@ -160,14 +160,14 @@ class WorkbooksResource(SyncAPIResource):
         self,
         id: str,
         *,
-        apply: Optional[Iterable[workbook_export_params.Apply]] | NotGiven = NOT_GIVEN,
-        goal_seek: Optional[workbook_export_params.GoalSeek] | NotGiven = NOT_GIVEN,
+        apply: Optional[Iterable[workbook_export_params.Apply]] | Omit = omit,
+        goal_seek: Optional[workbook_export_params.GoalSeek] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """Export a workbook as an .xlsx file.
 
@@ -215,15 +215,15 @@ class WorkbooksResource(SyncAPIResource):
         id: str,
         *,
         read: SequenceNotStr[workbook_query_params.Read],
-        apply: Optional[Iterable[workbook_query_params.Apply]] | NotGiven = NOT_GIVEN,
-        goal_seek: Optional[workbook_query_params.GoalSeek] | NotGiven = NOT_GIVEN,
-        options: Optional[workbook_query_params.Options] | NotGiven = NOT_GIVEN,
+        apply: Optional[Iterable[workbook_query_params.Apply]] | Omit = omit,
+        goal_seek: Optional[workbook_query_params.GoalSeek] | Omit = omit,
+        options: Optional[workbook_query_params.Options] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkbookQueryResponse:
         """
         Read cell data or apply temporary changes.
@@ -275,15 +275,15 @@ class WorkbooksResource(SyncAPIResource):
         id: str,
         *,
         chart: workbook_render_chart_params.Chart,
-        apply: Optional[Iterable[workbook_render_chart_params.Apply]] | NotGiven = NOT_GIVEN,
-        matte: Optional[str] | NotGiven = NOT_GIVEN,
-        width: Optional[int] | NotGiven = NOT_GIVEN,
+        apply: Optional[Iterable[workbook_render_chart_params.Apply]] | Omit = omit,
+        matte: Optional[str] | Omit = omit,
+        width: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BinaryAPIResponse:
         """
         Render a chart using workbook data
@@ -340,7 +340,7 @@ class WorkbooksResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkbookUploadResponse:
         """
         Upload an Excel workbook file and make it available in the API.
@@ -380,13 +380,13 @@ class WorkbooksResource(SyncAPIResource):
         id: str,
         *,
         read: SequenceNotStr[str],
-        apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
+        apply: Optional[Dict[str, Union[float, str, bool, None]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkbookValuesResponse:
         """
         Run calculations in a workbook and retrieve cell values.
@@ -441,14 +441,14 @@ class AsyncWorkbooksResource(AsyncAPIResource):
     def list(
         self,
         *,
-        cursor: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
+        cursor: str | Omit = omit,
+        limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[WorkbookListResponse, AsyncCursorPagination[WorkbookListResponse]]:
         """
         List the workbooks linked to an account.
@@ -493,13 +493,13 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         id: str,
         *,
         read: SequenceNotStr[str],
-        apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
+        apply: Optional[Dict[str, Union[float, str, bool, None]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkbookCalcResponse:
         """
         Run calculations in a workbook and retrieve cell objects.
@@ -534,14 +534,14 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        apply: Optional[Iterable[workbook_export_params.Apply]] | NotGiven = NOT_GIVEN,
-        goal_seek: Optional[workbook_export_params.GoalSeek] | NotGiven = NOT_GIVEN,
+        apply: Optional[Iterable[workbook_export_params.Apply]] | Omit = omit,
+        goal_seek: Optional[workbook_export_params.GoalSeek] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """Export a workbook as an .xlsx file.
 
@@ -589,15 +589,15 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         id: str,
         *,
         read: SequenceNotStr[workbook_query_params.Read],
-        apply: Optional[Iterable[workbook_query_params.Apply]] | NotGiven = NOT_GIVEN,
-        goal_seek: Optional[workbook_query_params.GoalSeek] | NotGiven = NOT_GIVEN,
-        options: Optional[workbook_query_params.Options] | NotGiven = NOT_GIVEN,
+        apply: Optional[Iterable[workbook_query_params.Apply]] | Omit = omit,
+        goal_seek: Optional[workbook_query_params.GoalSeek] | Omit = omit,
+        options: Optional[workbook_query_params.Options] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkbookQueryResponse:
         """
         Read cell data or apply temporary changes.
@@ -649,15 +649,15 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         id: str,
         *,
         chart: workbook_render_chart_params.Chart,
-        apply: Optional[Iterable[workbook_render_chart_params.Apply]] | NotGiven = NOT_GIVEN,
-        matte: Optional[str] | NotGiven = NOT_GIVEN,
-        width: Optional[int] | NotGiven = NOT_GIVEN,
+        apply: Optional[Iterable[workbook_render_chart_params.Apply]] | Omit = omit,
+        matte: Optional[str] | Omit = omit,
+        width: Optional[int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncBinaryAPIResponse:
         """
         Render a chart using workbook data
@@ -714,7 +714,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkbookUploadResponse:
         """
         Upload an Excel workbook file and make it available in the API.
@@ -754,13 +754,13 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         id: str,
         *,
         read: SequenceNotStr[str],
-        apply: Optional[Dict[str, Union[float, str, bool, None]]] | NotGiven = NOT_GIVEN,
+        apply: Optional[Dict[str, Union[float, str, bool, None]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorkbookValuesResponse:
         """
         Run calculations in a workbook and retrieve cell values.
