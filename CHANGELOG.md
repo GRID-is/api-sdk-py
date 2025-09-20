@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.8.1 (2025-09-20)
+
+Full Changelog: [v1.8.0...v1.8.1](https://github.com/GRID-is/api-sdk-py/compare/v1.8.0...v1.8.1)
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([fc64cf4](https://github.com/GRID-is/api-sdk-py/commit/fc64cf4ec5226af7dd31e9c61f59a5b15bbfa70b))
+* **internal:** update pydantic dependency ([96eb756](https://github.com/GRID-is/api-sdk-py/commit/96eb756ef7c3b163b0102af73fb1129bb23a2fc0))
+* **types:** change optional parameter type from NotGiven to Omit ([65042e5](https://github.com/GRID-is/api-sdk-py/commit/65042e58c76c40160e3a24cf3c213b67f8c6463d))
+
 ## 1.8.0 (2025-09-15)
 
 Full Changelog: [v1.7.0...v1.8.0](https://github.com/GRID-is/api-sdk-py/compare/v1.7.0...v1.8.0)
