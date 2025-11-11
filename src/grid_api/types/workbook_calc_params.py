@@ -14,3 +14,16 @@ class WorkbookCalcParams(TypedDict, total=False):
     read: Required[SequenceNotStr[str]]
 
     apply: Optional[Dict[str, Union[float, str, bool, None]]]
+    """Map of cell references to values.
+
+    The values are written to cells in the spreadsheet before performing the read
+    operation. You can write numbers, strings, and booleans. Any updated values are
+    discarded at the end of the request.
+
+    ```json
+    {
+      "apply": { "A1": 10, "A2": 2.718, "A3": "Total", "A4": true, "A5": null }
+      // ...
+    }
+    ```
+    """

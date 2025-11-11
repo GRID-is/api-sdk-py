@@ -22,7 +22,7 @@ __all__ = [
 
 class WorkbookExportParams(TypedDict, total=False):
     apply: Optional[Iterable[Apply]]
-    """Cells to update before exporting"""
+    """Cells to update before exporting."""
 
     goal_seek: Annotated[Optional[GoalSeek], PropertyInfo(alias="goalSeek")]
     """Goal seek.
