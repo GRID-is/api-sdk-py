@@ -131,6 +131,18 @@ class WorkbooksResource(SyncAPIResource):
         Run calculations in a workbook and retrieve cell objects.
 
         Args:
+          apply: Map of cell references to values. The values are written to cells in the
+              spreadsheet before performing the read operation. You can write numbers,
+              strings, and booleans. Any updated values are discarded at the end of the
+              request.
+
+              ```json
+              {
+                "apply": { "A1": 10, "A2": 2.718, "A3": "Total", "A4": true, "A5": null }
+                // ...
+              }
+              ```
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -175,7 +187,7 @@ class WorkbooksResource(SyncAPIResource):
         exported.
 
         Args:
-          apply: Cells to update before exporting
+          apply: Cells to update before exporting.
 
           goal_seek: Goal seek. Use this to calculate the required input value for a formula to
               achieve a specified target result. This is particularly useful when the desired
@@ -292,8 +304,7 @@ class WorkbooksResource(SyncAPIResource):
           chart: Options for rendering a chart from workbook data. Specify the data range, chart
               type, image output format, and title and axis labels.
 
-          apply: Cells to update before rendering the chart. Changes are discarded at the end of
-              the request
+          apply: Cells to update before rendering the chart.
 
           matte: Hex color code for the chart's background matte, e.g. '#FFFFFF' for white, if
               not specified, the chart will have a transparent background. Note, this is
@@ -392,6 +403,18 @@ class WorkbooksResource(SyncAPIResource):
         Run calculations in a workbook and retrieve cell values.
 
         Args:
+          apply: Map of cell references to values. The values are written to cells in the
+              spreadsheet before performing the read operation. You can write numbers,
+              strings, and booleans. Any updated values are discarded at the end of the
+              request.
+
+              ```json
+              {
+                "apply": { "A1": 10, "A2": 2.718, "A3": "Total", "A4": true, "A5": null }
+                // ...
+              }
+              ```
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -505,6 +528,18 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         Run calculations in a workbook and retrieve cell objects.
 
         Args:
+          apply: Map of cell references to values. The values are written to cells in the
+              spreadsheet before performing the read operation. You can write numbers,
+              strings, and booleans. Any updated values are discarded at the end of the
+              request.
+
+              ```json
+              {
+                "apply": { "A1": 10, "A2": 2.718, "A3": "Total", "A4": true, "A5": null }
+                // ...
+              }
+              ```
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -549,7 +584,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         exported.
 
         Args:
-          apply: Cells to update before exporting
+          apply: Cells to update before exporting.
 
           goal_seek: Goal seek. Use this to calculate the required input value for a formula to
               achieve a specified target result. This is particularly useful when the desired
@@ -666,8 +701,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
           chart: Options for rendering a chart from workbook data. Specify the data range, chart
               type, image output format, and title and axis labels.
 
-          apply: Cells to update before rendering the chart. Changes are discarded at the end of
-              the request
+          apply: Cells to update before rendering the chart.
 
           matte: Hex color code for the chart's background matte, e.g. '#FFFFFF' for white, if
               not specified, the chart will have a transparent background. Note, this is
@@ -766,6 +800,18 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         Run calculations in a workbook and retrieve cell values.
 
         Args:
+          apply: Map of cell references to values. The values are written to cells in the
+              spreadsheet before performing the read operation. You can write numbers,
+              strings, and booleans. Any updated values are discarded at the end of the
+              request.
+
+              ```json
+              {
+                "apply": { "A1": 10, "A2": 2.718, "A3": "Total", "A4": true, "A5": null }
+                // ...
+              }
+              ```
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
