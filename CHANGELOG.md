@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.8.2 (2025-11-04)
+
+Full Changelog: [v1.8.1...v1.8.2](https://github.com/GRID-is/api-sdk-py/compare/v1.8.1...v1.8.2)
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([8906ad6](https://github.com/GRID-is/api-sdk-py/commit/8906ad6b2eb942ceec099ddb19040ef73fd8288d))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([fb5ad9f](https://github.com/GRID-is/api-sdk-py/commit/fb5ad9fc4c21ce76d2d78a59ae1e485ce7f15a37))
+* **internal/tests:** avoid race condition with implicit client cleanup ([27e2ad9](https://github.com/GRID-is/api-sdk-py/commit/27e2ad987e5ba355f7690df185b061a478c70e20))
+* **internal:** detect missing future annotations with ruff ([f9403b6](https://github.com/GRID-is/api-sdk-py/commit/f9403b6252a4110eb83881bc3b59c61920289823))
+* **internal:** grammar fix (it's -&gt; its) ([2f19622](https://github.com/GRID-is/api-sdk-py/commit/2f19622fcb12ee76a137a4a67924f233204d0343))
+
 ## 1.8.1 (2025-09-20)
 
 Full Changelog: [v1.8.0...v1.8.1](https://github.com/GRID-is/api-sdk-py/compare/v1.8.0...v1.8.1)
