@@ -27,10 +27,7 @@ class WorkbookRenderChartParams(TypedDict, total=False):
     """
 
     apply: Optional[Iterable[Apply]]
-    """Cells to update before rendering the chart.
-
-    Changes are discarded at the end of the request
-    """
+    """Cells to update before rendering the chart."""
 
     matte: Optional[str]
     """Hex color code for the chart's background matte, e.g.

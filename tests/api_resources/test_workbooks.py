@@ -84,7 +84,12 @@ class TestWorkbooks:
         workbook = client.workbooks.calc(
             id="id",
             read=["A1"],
-            apply={"foo": 1234},
+            apply={
+                "A1": 100,
+                "A2": 2.718,
+                "A3": "Total",
+                "A4": True,
+            },
         )
         assert_matches_type(WorkbookCalcResponse, workbook, path=["response"])
 
@@ -425,7 +430,12 @@ class TestWorkbooks:
         workbook = client.workbooks.values(
             id="id",
             read=["A1"],
-            apply={"foo": 1234},
+            apply={
+                "A1": 100,
+                "A2": 2.718,
+                "A3": "Total",
+                "A4": True,
+            },
         )
         assert_matches_type(WorkbookValuesResponse, workbook, path=["response"])
 
@@ -524,7 +534,12 @@ class TestAsyncWorkbooks:
         workbook = await async_client.workbooks.calc(
             id="id",
             read=["A1"],
-            apply={"foo": 1234},
+            apply={
+                "A1": 100,
+                "A2": 2.718,
+                "A3": "Total",
+                "A4": True,
+            },
         )
         assert_matches_type(WorkbookCalcResponse, workbook, path=["response"])
 
@@ -865,7 +880,12 @@ class TestAsyncWorkbooks:
         workbook = await async_client.workbooks.values(
             id="id",
             read=["A1"],
-            apply={"foo": 1234},
+            apply={
+                "A1": 100,
+                "A2": 2.718,
+                "A3": "Total",
+                "A4": True,
+            },
         )
         assert_matches_type(WorkbookValuesResponse, workbook, path=["response"])
 
