@@ -1,6 +1,6 @@
 [project]
 name = "grid_api"
-version = "1.8.2"
+version = "1.9.0"
 description = "The official Python library for the GRID API"
 dynamic = ["readme"]
 license = "Apache-2.0"
