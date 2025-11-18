@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.9.0 (2025-11-18)
+
+Full Changelog: [v1.8.2...v1.9.0](https://github.com/GRID-is/api-sdk-py/compare/v1.8.2...v1.9.0)
+
+### Features
+
+* **api:** api update ([1fa7527](https://github.com/GRID-is/api-sdk-py/commit/1fa752707eb9544e405847003849ae89930b6779))
+* **api:** api update ([7fec694](https://github.com/GRID-is/api-sdk-py/commit/7fec69437520ff1fc08583df288d319150d0f48d))
+
+
+### Bug Fixes
+
+* compat with Python 3.14 ([bf3e37a](https://github.com/GRID-is/api-sdk-py/commit/bf3e37a063d9476179b244fd24c6234366420bae))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([43cb15d](https://github.com/GRID-is/api-sdk-py/commit/43cb15dc4f97a8b4ab20ac930092d8bfe0756fe4))
+
+
+### Chores
+
+* **package:** drop Python 3.8 support ([1629ff2](https://github.com/GRID-is/api-sdk-py/commit/1629ff2e7ecf1722a847f2f91a5405a50918e9e6))
+
 ## 1.8.2 (2025-11-04)
 
 Full Changelog: [v1.8.1...v1.8.2](https://github.com/GRID-is/api-sdk-py/compare/v1.8.1...v1.8.2)
