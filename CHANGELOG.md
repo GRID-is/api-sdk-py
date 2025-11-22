@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.9.1 (2025-11-22)
+
+Full Changelog: [v1.9.0...v1.9.1](https://github.com/GRID-is/api-sdk-py/compare/v1.9.0...v1.9.1)
+
+### Chores
+
+* add Python 3.14 classifier and testing ([51cbaa4](https://github.com/GRID-is/api-sdk-py/commit/51cbaa46941a35c0051305413a1b1ab18fecf39a))
+
 ## 1.9.0 (2025-11-18)
 
 Full Changelog: [v1.8.2...v1.9.0](https://github.com/GRID-is/api-sdk-py/compare/v1.8.2...v1.9.0)
