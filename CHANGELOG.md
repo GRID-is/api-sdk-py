@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.9.1 (2025-12-03)
+
+Full Changelog: [v1.9.0...v1.9.1](https://github.com/GRID-is/api-sdk-py/compare/v1.9.0...v1.9.1)
+
+### Bug Fixes
+
+* ensure streams are always closed ([c828938](https://github.com/GRID-is/api-sdk-py/commit/c82893814a3e4ca8ad094271d756b46b4935d1bb))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([51cbaa4](https://github.com/GRID-is/api-sdk-py/commit/51cbaa46941a35c0051305413a1b1ab18fecf39a))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([6043b4b](https://github.com/GRID-is/api-sdk-py/commit/6043b4b538a6a2378a78ac52a38cd16d5e8f3f5f))
+* update lockfile ([d1b2b59](https://github.com/GRID-is/api-sdk-py/commit/d1b2b59b5be3884dd107850438f938010d794d3d))
+
 ## 1.9.0 (2025-11-18)
 
 Full Changelog: [v1.8.2...v1.9.0](https://github.com/GRID-is/api-sdk-py/compare/v1.8.2...v1.9.0)
