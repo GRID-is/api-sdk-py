@@ -46,6 +46,8 @@ class WorkbookRenderChartParams(TypedDict, total=False):
 
 
 class ChartAxisDim(TypedDict, total=False):
+    """How an axis representing dimensional categories is presented."""
+
     number_format: Annotated[Optional[str], PropertyInfo(alias="numberFormat")]
     """Number format pattern used for formatting the axis labels."""
 
@@ -57,6 +59,8 @@ class ChartAxisDim(TypedDict, total=False):
 
 
 class ChartAxisValue(TypedDict, total=False):
+    """How an axis representing value magnitudes is presented."""
+
     clip: Optional[Literal["false", "true"]]
     """
     If true, any graphics outside the min or max boundaries of the axes are
@@ -83,6 +87,12 @@ class ChartAxisValue(TypedDict, total=False):
 
 
 class Chart(TypedDict, total=False):
+    """Options for rendering a chart from workbook data.
+
+    Specify the data
+    range, chart type, image output format, and title and axis labels.
+    """
+
     axis_dim: Annotated[Optional[ChartAxisDim], PropertyInfo(alias="axisDim")]
     """How an axis representing dimensional categories is presented."""
 
@@ -178,6 +188,8 @@ class Chart(TypedDict, total=False):
 
 
 class ApplyTargetReferenceObject(TypedDict, total=False):
+    """A reference to a range of spreadsheet cells."""
+
     cells: Required[str]
     """Unprefixed A1-style range, id, or name"""
 
@@ -189,6 +201,11 @@ ApplyTarget: TypeAlias = Union[str, ApplyTargetReferenceObject]
 
 
 class Apply(TypedDict, total=False):
+    """
+    Specifies a temporary change to a workbook cell, including the `target` cell reference and the
+    `value` to apply. The API has no state, and so any changes made are cleared after each request.
+    """
+
     target: Required[ApplyTarget]
     """Reference for the cell to write to"""
 
