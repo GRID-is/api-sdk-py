@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import beta, workbooks
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import GridError, APIStatusError
 from ._base_client import (
@@ -30,15 +30,15 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
+if TYPE_CHECKING:
+    from .resources import beta, workbooks
+    from .resources.beta import BetaResource, AsyncBetaResource
+    from .resources.workbooks import WorkbooksResource, AsyncWorkbooksResource
+
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Grid", "AsyncGrid", "Client", "AsyncClient"]
 
 
 class Grid(SyncAPIClient):
-    workbooks: workbooks.WorkbooksResource
-    beta: beta.BetaResource
-    with_raw_response: GridWithRawResponse
-    with_streaming_response: GridWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -93,10 +93,25 @@ class Grid(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.workbooks = workbooks.WorkbooksResource(self)
-        self.beta = beta.BetaResource(self)
-        self.with_raw_response = GridWithRawResponse(self)
-        self.with_streaming_response = GridWithStreamedResponse(self)
+    @cached_property
+    def workbooks(self) -> WorkbooksResource:
+        from .resources.workbooks import WorkbooksResource
+
+        return WorkbooksResource(self)
+
+    @cached_property
+    def beta(self) -> BetaResource:
+        from .resources.beta import BetaResource
+
+        return BetaResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> GridWithRawResponse:
+        return GridWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> GridWithStreamedResponse:
+        return GridWithStreamedResponse(self)
 
     @property
     @override
@@ -205,11 +220,6 @@ class Grid(SyncAPIClient):
 
 
 class AsyncGrid(AsyncAPIClient):
-    workbooks: workbooks.AsyncWorkbooksResource
-    beta: beta.AsyncBetaResource
-    with_raw_response: AsyncGridWithRawResponse
-    with_streaming_response: AsyncGridWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -264,10 +274,25 @@ class AsyncGrid(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.workbooks = workbooks.AsyncWorkbooksResource(self)
-        self.beta = beta.AsyncBetaResource(self)
-        self.with_raw_response = AsyncGridWithRawResponse(self)
-        self.with_streaming_response = AsyncGridWithStreamedResponse(self)
+    @cached_property
+    def workbooks(self) -> AsyncWorkbooksResource:
+        from .resources.workbooks import AsyncWorkbooksResource
+
+        return AsyncWorkbooksResource(self)
+
+    @cached_property
+    def beta(self) -> AsyncBetaResource:
+        from .resources.beta import AsyncBetaResource
+
+        return AsyncBetaResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncGridWithRawResponse:
+        return AsyncGridWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncGridWithStreamedResponse:
+        return AsyncGridWithStreamedResponse(self)
 
     @property
     @override
@@ -376,27 +401,79 @@ class AsyncGrid(AsyncAPIClient):
 
 
 class GridWithRawResponse:
+    _client: Grid
+
     def __init__(self, client: Grid) -> None:
-        self.workbooks = workbooks.WorkbooksResourceWithRawResponse(client.workbooks)
-        self.beta = beta.BetaResourceWithRawResponse(client.beta)
+        self._client = client
+
+    @cached_property
+    def workbooks(self) -> workbooks.WorkbooksResourceWithRawResponse:
+        from .resources.workbooks import WorkbooksResourceWithRawResponse
+
+        return WorkbooksResourceWithRawResponse(self._client.workbooks)
+
+    @cached_property
+    def beta(self) -> beta.BetaResourceWithRawResponse:
+        from .resources.beta import BetaResourceWithRawResponse
+
+        return BetaResourceWithRawResponse(self._client.beta)
 
 
 class AsyncGridWithRawResponse:
+    _client: AsyncGrid
+
     def __init__(self, client: AsyncGrid) -> None:
-        self.workbooks = workbooks.AsyncWorkbooksResourceWithRawResponse(client.workbooks)
-        self.beta = beta.AsyncBetaResourceWithRawResponse(client.beta)
+        self._client = client
+
+    @cached_property
+    def workbooks(self) -> workbooks.AsyncWorkbooksResourceWithRawResponse:
+        from .resources.workbooks import AsyncWorkbooksResourceWithRawResponse
+
+        return AsyncWorkbooksResourceWithRawResponse(self._client.workbooks)
+
+    @cached_property
+    def beta(self) -> beta.AsyncBetaResourceWithRawResponse:
+        from .resources.beta import AsyncBetaResourceWithRawResponse
+
+        return AsyncBetaResourceWithRawResponse(self._client.beta)
 
 
 class GridWithStreamedResponse:
+    _client: Grid
+
     def __init__(self, client: Grid) -> None:
-        self.workbooks = workbooks.WorkbooksResourceWithStreamingResponse(client.workbooks)
-        self.beta = beta.BetaResourceWithStreamingResponse(client.beta)
+        self._client = client
+
+    @cached_property
+    def workbooks(self) -> workbooks.WorkbooksResourceWithStreamingResponse:
+        from .resources.workbooks import WorkbooksResourceWithStreamingResponse
+
+        return WorkbooksResourceWithStreamingResponse(self._client.workbooks)
+
+    @cached_property
+    def beta(self) -> beta.BetaResourceWithStreamingResponse:
+        from .resources.beta import BetaResourceWithStreamingResponse
+
+        return BetaResourceWithStreamingResponse(self._client.beta)
 
 
 class AsyncGridWithStreamedResponse:
+    _client: AsyncGrid
+
     def __init__(self, client: AsyncGrid) -> None:
-        self.workbooks = workbooks.AsyncWorkbooksResourceWithStreamingResponse(client.workbooks)
-        self.beta = beta.AsyncBetaResourceWithStreamingResponse(client.beta)
+        self._client = client
+
+    @cached_property
+    def workbooks(self) -> workbooks.AsyncWorkbooksResourceWithStreamingResponse:
+        from .resources.workbooks import AsyncWorkbooksResourceWithStreamingResponse
+
+        return AsyncWorkbooksResourceWithStreamingResponse(self._client.workbooks)
+
+    @cached_property
+    def beta(self) -> beta.AsyncBetaResourceWithStreamingResponse:
+        from .resources.beta import AsyncBetaResourceWithStreamingResponse
+
+        return AsyncBetaResourceWithStreamingResponse(self._client.beta)
 
 
 Client = Grid
