@@ -20,6 +20,12 @@ __all__ = [
 
 
 class Apply(BaseModel):
+    """
+    Details temporary changes made during a query, including the `target` cell, the new `value`, and
+    the `originalValue` before the change. Note that the API has no state and any changes made are
+    cleared after each request.
+    """
+
     original_value: Union[float, str, bool, None] = FieldInfo(alias="originalValue", default=None)
     """Original value of the cell before applying the new value"""
 
@@ -31,6 +37,11 @@ class Apply(BaseModel):
 
 
 class ReadDataValueCell(BaseModel):
+    """
+    Represents a single workbook cell, including its value (`v`), cell reference (`r`), type (`t`),
+    number format (`z`), and formatted text (`w`).
+    """
+
     t: Literal["b", "n", "d", "s"]
     """Data type of the cell value (e.g. boolean, number, text)"""
 
@@ -51,6 +62,13 @@ class ReadDataValueCell(BaseModel):
 
 
 class ReadDataErrorCell(BaseModel):
+    """Represents a workbook cell with an error.
+
+    It includes the cell reference (`r`), type (`t`,
+    always `e`), value (`v`), and an optional error code (`e`). It provides details for
+    identifying and understanding errors in workbook data.
+    """
+
     t: Literal["e"]
     """Data type of the cell value (always 'e' for 'error')"""
 
@@ -68,6 +86,8 @@ class ReadDataErrorCell(BaseModel):
 
 
 class ReadDataEmptyCell(BaseModel):
+    """Cells that have no content but hold metadata like comments."""
+
     t: Literal["z"]
     """Data type of the cell value (always 'z' for 'empty cell')"""
 
@@ -82,6 +102,8 @@ ReadData: TypeAlias = Union[ReadDataValueCell, ReadDataErrorCell, ReadDataEmptyC
 
 
 class Read(BaseModel):
+    """A two-dimensional table of cells retrieved from a spreadsheet."""
+
     data: List[List[ReadData]]
 
     source: str
@@ -91,6 +113,8 @@ class Read(BaseModel):
 
 
 class GoalSeek(BaseModel):
+    """Results of a goal seek operation."""
+
     control_cell: str = FieldInfo(alias="controlCell")
     """Reference for the cell that contains the solution"""
 
@@ -105,6 +129,12 @@ class GoalSeek(BaseModel):
 
 
 class WorkbookQueryResponse(BaseModel):
+    """
+    Contains the results of a workbook query, including `read` (queried cell data) and `apply`
+    (details of temporary changes applied). Note that the API has no state and any changes made are
+    cleared after each request.
+    """
+
     apply: Optional[List[Apply]] = None
     """Confirmation of the changes that were applied to the spreadsheet.
 

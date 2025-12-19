@@ -10,6 +10,12 @@ __all__ = ["BetaSearchLabelsResponse", "Result", "ResultLabel"]
 
 
 class ResultLabel(BaseModel):
+    """A label search result.
+
+    Includes the location, text content, value,
+    and score.
+    """
+
     for_: str = FieldInfo(alias="for")
     """Cell reference or range that contains the labelled data"""
 
@@ -30,6 +36,11 @@ class ResultLabel(BaseModel):
 
 
 class Result(BaseModel):
+    """
+    Contains a workbook that includes data labels that match the search
+    query.
+    """
+
     creator_id: str
     """UUID for the user that uploaded the workbook.
 
@@ -63,4 +74,6 @@ class Result(BaseModel):
 
 
 class BetaSearchLabelsResponse(BaseModel):
+    """The results of a spreadsheet data label search."""
+
     results: List[Result]

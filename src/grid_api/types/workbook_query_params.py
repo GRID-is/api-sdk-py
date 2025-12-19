@@ -48,6 +48,8 @@ class WorkbookQueryParams(TypedDict, total=False):
 
 
 class ReadReferenceObject(TypedDict, total=False):
+    """A reference to a range of spreadsheet cells."""
+
     cells: Required[str]
     """Unprefixed A1-style range, id, or name"""
 
@@ -59,6 +61,8 @@ Read: TypeAlias = Union[str, ReadReferenceObject]
 
 
 class ApplyTargetReferenceObject(TypedDict, total=False):
+    """A reference to a range of spreadsheet cells."""
+
     cells: Required[str]
     """Unprefixed A1-style range, id, or name"""
 
@@ -70,6 +74,11 @@ ApplyTarget: TypeAlias = Union[str, ApplyTargetReferenceObject]
 
 
 class Apply(TypedDict, total=False):
+    """
+    Specifies a temporary change to a workbook cell, including the `target` cell reference and the
+    `value` to apply. The API has no state, and so any changes made are cleared after each request.
+    """
+
     target: Required[ApplyTarget]
     """Reference for the cell to write to"""
 
@@ -78,6 +87,8 @@ class Apply(TypedDict, total=False):
 
 
 class GoalSeekControlCellReferenceObject(TypedDict, total=False):
+    """A reference to a range of spreadsheet cells."""
+
     cells: Required[str]
     """Unprefixed A1-style range, id, or name"""
 
@@ -89,6 +100,8 @@ GoalSeekControlCell: TypeAlias = Union[str, GoalSeekControlCellReferenceObject]
 
 
 class GoalSeekTargetCellReferenceObject(TypedDict, total=False):
+    """A reference to a range of spreadsheet cells."""
+
     cells: Required[str]
     """Unprefixed A1-style range, id, or name"""
 
@@ -100,6 +113,13 @@ GoalSeekTargetCell: TypeAlias = Union[str, GoalSeekTargetCellReferenceObject]
 
 
 class GoalSeek(TypedDict, total=False):
+    """Goal seek.
+
+    Use this to calculate the required input value for a formula to achieve a specified
+    target result. This is particularly useful when the desired outcome is known, but the
+    corresponding input is not.
+    """
+
     control_cell: Required[Annotated[GoalSeekControlCell, PropertyInfo(alias="controlCell")]]
     """Reference for the cell that will contain the solution"""
 
@@ -111,5 +131,7 @@ class GoalSeek(TypedDict, total=False):
 
 
 class Options(TypedDict, total=False):
+    """Defines settings for configuring query results."""
+
     axis: Optional[Literal["rows", "columns"]]
     """Determines if data is outputted as rows or columns"""

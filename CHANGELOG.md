@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.9.1 (2025-12-19)
+
+Full Changelog: [v1.9.0...v1.9.1](https://github.com/GRID-is/api-sdk-py/compare/v1.9.0...v1.9.1)
+
+### Bug Fixes
+
+* ensure streams are always closed ([c828938](https://github.com/GRID-is/api-sdk-py/commit/c82893814a3e4ca8ad094271d756b46b4935d1bb))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([1cc7fbb](https://github.com/GRID-is/api-sdk-py/commit/1cc7fbb7070cc6f933b2a5e4e24c358ba2dbd12c))
+* use async_to_httpx_files in patch method ([6e2b78b](https://github.com/GRID-is/api-sdk-py/commit/6e2b78b8175e354173f616127436bc5bc919219a))
+
+
+### Chores
+
+* add missing docstrings ([fda6ab6](https://github.com/GRID-is/api-sdk-py/commit/fda6ab6086927941deb8775f3948ef68b813eddf))
+* add Python 3.14 classifier and testing ([51cbaa4](https://github.com/GRID-is/api-sdk-py/commit/51cbaa46941a35c0051305413a1b1ab18fecf39a))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([6043b4b](https://github.com/GRID-is/api-sdk-py/commit/6043b4b538a6a2378a78ac52a38cd16d5e8f3f5f))
+* **docs:** use environment variables for authentication in code snippets ([e086f8e](https://github.com/GRID-is/api-sdk-py/commit/e086f8e5bd1b7cd4e6f4b8a205150aeab669ba77))
+* **internal:** add `--fix` argument to lint script ([ebc1ed1](https://github.com/GRID-is/api-sdk-py/commit/ebc1ed1c67087cd3ced1897071a99b4d5f02df83))
+* **internal:** add missing files argument to base client ([99af0a1](https://github.com/GRID-is/api-sdk-py/commit/99af0a126613082ecd0e3f245b6e2b63c64e8612))
+* speedup initial import ([8049548](https://github.com/GRID-is/api-sdk-py/commit/80495488ecadba8960bc4b109734ac24f09de608))
+* update lockfile ([d1b2b59](https://github.com/GRID-is/api-sdk-py/commit/d1b2b59b5be3884dd107850438f938010d794d3d))
+
 ## 1.9.0 (2025-11-18)
 
 Full Changelog: [v1.8.2...v1.9.0](https://github.com/GRID-is/api-sdk-py/compare/v1.8.2...v1.9.0)
