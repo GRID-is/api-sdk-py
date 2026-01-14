@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.10.0 (2026-01-14)
+
+Full Changelog: [v1.9.1...v1.10.0](https://github.com/GRID-is/api-sdk-py/compare/v1.9.1...v1.10.0)
+
+### Features
+
+* **client:** add support for binary request streaming ([4e14b90](https://github.com/GRID-is/api-sdk-py/commit/4e14b90bae5c1bcab59ee1dbd88866b3fd79f9d5))
+
+
+### Chores
+
+* **internal:** codegen related update ([ee287bc](https://github.com/GRID-is/api-sdk-py/commit/ee287bcf0e072a19186c3ceacac1f3b32ef692a8))
+
 ## 1.9.1 (2025-12-19)
 
 Full Changelog: [v1.9.0...v1.9.1](https://github.com/GRID-is/api-sdk-py/compare/v1.9.0...v1.9.1)
