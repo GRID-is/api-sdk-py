@@ -32,13 +32,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestWorkbooks:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Grid) -> None:
         workbook = client.workbooks.list()
         assert_matches_type(SyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Grid) -> None:
         workbook = client.workbooks.list(
@@ -47,7 +47,7 @@ class TestWorkbooks:
         )
         assert_matches_type(SyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Grid) -> None:
         response = client.workbooks.with_raw_response.list()
@@ -57,7 +57,7 @@ class TestWorkbooks:
         workbook = response.parse()
         assert_matches_type(SyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Grid) -> None:
         with client.workbooks.with_streaming_response.list() as response:
@@ -69,7 +69,7 @@ class TestWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_calc(self, client: Grid) -> None:
         workbook = client.workbooks.calc(
@@ -78,7 +78,7 @@ class TestWorkbooks:
         )
         assert_matches_type(WorkbookCalcResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_calc_with_all_params(self, client: Grid) -> None:
         workbook = client.workbooks.calc(
@@ -93,7 +93,7 @@ class TestWorkbooks:
         )
         assert_matches_type(WorkbookCalcResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_calc(self, client: Grid) -> None:
         response = client.workbooks.with_raw_response.calc(
@@ -106,7 +106,7 @@ class TestWorkbooks:
         workbook = response.parse()
         assert_matches_type(WorkbookCalcResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_calc(self, client: Grid) -> None:
         with client.workbooks.with_streaming_response.calc(
@@ -121,7 +121,7 @@ class TestWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_calc(self, client: Grid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -203,7 +203,7 @@ class TestWorkbooks:
                 id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_query(self, client: Grid) -> None:
         workbook = client.workbooks.query(
@@ -212,7 +212,7 @@ class TestWorkbooks:
         )
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_query_with_all_params(self, client: Grid) -> None:
         workbook = client.workbooks.query(
@@ -233,7 +233,7 @@ class TestWorkbooks:
         )
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_query(self, client: Grid) -> None:
         response = client.workbooks.with_raw_response.query(
@@ -246,7 +246,7 @@ class TestWorkbooks:
         workbook = response.parse()
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_query(self, client: Grid) -> None:
         with client.workbooks.with_streaming_response.query(
@@ -261,7 +261,7 @@ class TestWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_query(self, client: Grid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -381,7 +381,7 @@ class TestWorkbooks:
                 chart={},
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_upload(self, client: Grid) -> None:
         workbook = client.workbooks.upload(
@@ -389,7 +389,7 @@ class TestWorkbooks:
         )
         assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_upload(self, client: Grid) -> None:
         response = client.workbooks.with_raw_response.upload(
@@ -401,7 +401,7 @@ class TestWorkbooks:
         workbook = response.parse()
         assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_upload(self, client: Grid) -> None:
         with client.workbooks.with_streaming_response.upload(
@@ -415,7 +415,7 @@ class TestWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_values(self, client: Grid) -> None:
         workbook = client.workbooks.values(
@@ -424,7 +424,7 @@ class TestWorkbooks:
         )
         assert_matches_type(WorkbookValuesResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_values_with_all_params(self, client: Grid) -> None:
         workbook = client.workbooks.values(
@@ -439,7 +439,7 @@ class TestWorkbooks:
         )
         assert_matches_type(WorkbookValuesResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_values(self, client: Grid) -> None:
         response = client.workbooks.with_raw_response.values(
@@ -452,7 +452,7 @@ class TestWorkbooks:
         workbook = response.parse()
         assert_matches_type(WorkbookValuesResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_values(self, client: Grid) -> None:
         with client.workbooks.with_streaming_response.values(
@@ -467,7 +467,7 @@ class TestWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_values(self, client: Grid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -482,13 +482,13 @@ class TestAsyncWorkbooks:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.list()
         assert_matches_type(AsyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.list(
@@ -497,7 +497,7 @@ class TestAsyncWorkbooks:
         )
         assert_matches_type(AsyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncGrid) -> None:
         response = await async_client.workbooks.with_raw_response.list()
@@ -507,7 +507,7 @@ class TestAsyncWorkbooks:
         workbook = await response.parse()
         assert_matches_type(AsyncCursorPagination[WorkbookListResponse], workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncGrid) -> None:
         async with async_client.workbooks.with_streaming_response.list() as response:
@@ -519,7 +519,7 @@ class TestAsyncWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_calc(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.calc(
@@ -528,7 +528,7 @@ class TestAsyncWorkbooks:
         )
         assert_matches_type(WorkbookCalcResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_calc_with_all_params(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.calc(
@@ -543,7 +543,7 @@ class TestAsyncWorkbooks:
         )
         assert_matches_type(WorkbookCalcResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_calc(self, async_client: AsyncGrid) -> None:
         response = await async_client.workbooks.with_raw_response.calc(
@@ -556,7 +556,7 @@ class TestAsyncWorkbooks:
         workbook = await response.parse()
         assert_matches_type(WorkbookCalcResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_calc(self, async_client: AsyncGrid) -> None:
         async with async_client.workbooks.with_streaming_response.calc(
@@ -571,7 +571,7 @@ class TestAsyncWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_calc(self, async_client: AsyncGrid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -653,7 +653,7 @@ class TestAsyncWorkbooks:
                 id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_query(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.query(
@@ -662,7 +662,7 @@ class TestAsyncWorkbooks:
         )
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_query_with_all_params(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.query(
@@ -683,7 +683,7 @@ class TestAsyncWorkbooks:
         )
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_query(self, async_client: AsyncGrid) -> None:
         response = await async_client.workbooks.with_raw_response.query(
@@ -696,7 +696,7 @@ class TestAsyncWorkbooks:
         workbook = await response.parse()
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_query(self, async_client: AsyncGrid) -> None:
         async with async_client.workbooks.with_streaming_response.query(
@@ -711,7 +711,7 @@ class TestAsyncWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_query(self, async_client: AsyncGrid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -831,7 +831,7 @@ class TestAsyncWorkbooks:
                 chart={},
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_upload(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.upload(
@@ -839,7 +839,7 @@ class TestAsyncWorkbooks:
         )
         assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncGrid) -> None:
         response = await async_client.workbooks.with_raw_response.upload(
@@ -851,7 +851,7 @@ class TestAsyncWorkbooks:
         workbook = await response.parse()
         assert_matches_type(WorkbookUploadResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_upload(self, async_client: AsyncGrid) -> None:
         async with async_client.workbooks.with_streaming_response.upload(
@@ -865,7 +865,7 @@ class TestAsyncWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_values(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.values(
@@ -874,7 +874,7 @@ class TestAsyncWorkbooks:
         )
         assert_matches_type(WorkbookValuesResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_values_with_all_params(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.values(
@@ -889,7 +889,7 @@ class TestAsyncWorkbooks:
         )
         assert_matches_type(WorkbookValuesResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_values(self, async_client: AsyncGrid) -> None:
         response = await async_client.workbooks.with_raw_response.values(
@@ -902,7 +902,7 @@ class TestAsyncWorkbooks:
         workbook = await response.parse()
         assert_matches_type(WorkbookValuesResponse, workbook, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_values(self, async_client: AsyncGrid) -> None:
         async with async_client.workbooks.with_streaming_response.values(
@@ -917,7 +917,7 @@ class TestAsyncWorkbooks:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_values(self, async_client: AsyncGrid) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
