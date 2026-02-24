@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.11.0 (2026-02-24)
+
+Full Changelog: [v1.10.0...v1.11.0](https://github.com/GRID-is/api-sdk-py/compare/v1.10.0...v1.11.0)
+
+### Features
+
+* **client:** add custom JSON encoder for extended type support ([e0c4407](https://github.com/GRID-is/api-sdk-py/commit/e0c44071f0eef9d9ec77a6faea76f91b49d30ffd))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([18b9a80](https://github.com/GRID-is/api-sdk-py/commit/18b9a80d6368727472f580cb1b717e1295ca0dec))
+* format all `api.md` files ([ff1eef4](https://github.com/GRID-is/api-sdk-py/commit/ff1eef4d3e8d7a01465a6d1a02ed93c22fd8fd8a))
+* **internal:** add request options to SSE classes ([465d1fa](https://github.com/GRID-is/api-sdk-py/commit/465d1fa684d5926148e57dde22b0f9812a915f55))
+* **internal:** bump dependencies ([7785295](https://github.com/GRID-is/api-sdk-py/commit/7785295e9c9bb00ef3d8c5e929cea8a4bae939e1))
+* **internal:** fix lint error on Python 3.14 ([c97356a](https://github.com/GRID-is/api-sdk-py/commit/c97356a07e8cf00395c3562d17f78aff3d4ebb15))
+* **internal:** make `test_proxy_environment_variables` more resilient ([10dfdc5](https://github.com/GRID-is/api-sdk-py/commit/10dfdc5cdc3aa2ac6b878fce9ebcf8a33baf1d86))
+* **internal:** remove mock server code ([0d60ba3](https://github.com/GRID-is/api-sdk-py/commit/0d60ba31b074f3e62e9abe5a56e4c77194873b40))
+* **internal:** update `actions/checkout` version ([1e1a980](https://github.com/GRID-is/api-sdk-py/commit/1e1a980c1a582e0dea8a11ea1090b937b171f0c6))
+* update mock server docs ([da55f7e](https://github.com/GRID-is/api-sdk-py/commit/da55f7ee6bd5988fadf6af7739dcac1619aabcb9))
+
 ## 1.10.0 (2026-01-14)
 
 Full Changelog: [v1.9.1...v1.10.0](https://github.com/GRID-is/api-sdk-py/compare/v1.9.1...v1.10.0)
