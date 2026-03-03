@@ -95,12 +95,14 @@ class Grid(SyncAPIClient):
 
     @cached_property
     def workbooks(self) -> WorkbooksResource:
+        """Interact with workbooks and their data"""
         from .resources.workbooks import WorkbooksResource
 
         return WorkbooksResource(self)
 
     @cached_property
     def beta(self) -> BetaResource:
+        """Interact with workbooks and their data"""
         from .resources.beta import BetaResource
 
         return BetaResource(self)
@@ -276,12 +278,14 @@ class AsyncGrid(AsyncAPIClient):
 
     @cached_property
     def workbooks(self) -> AsyncWorkbooksResource:
+        """Interact with workbooks and their data"""
         from .resources.workbooks import AsyncWorkbooksResource
 
         return AsyncWorkbooksResource(self)
 
     @cached_property
     def beta(self) -> AsyncBetaResource:
+        """Interact with workbooks and their data"""
         from .resources.beta import AsyncBetaResource
 
         return AsyncBetaResource(self)
@@ -408,12 +412,14 @@ class GridWithRawResponse:
 
     @cached_property
     def workbooks(self) -> workbooks.WorkbooksResourceWithRawResponse:
+        """Interact with workbooks and their data"""
         from .resources.workbooks import WorkbooksResourceWithRawResponse
 
         return WorkbooksResourceWithRawResponse(self._client.workbooks)
 
     @cached_property
     def beta(self) -> beta.BetaResourceWithRawResponse:
+        """Interact with workbooks and their data"""
         from .resources.beta import BetaResourceWithRawResponse
 
         return BetaResourceWithRawResponse(self._client.beta)
@@ -427,12 +433,14 @@ class AsyncGridWithRawResponse:
 
     @cached_property
     def workbooks(self) -> workbooks.AsyncWorkbooksResourceWithRawResponse:
+        """Interact with workbooks and their data"""
         from .resources.workbooks import AsyncWorkbooksResourceWithRawResponse
 
         return AsyncWorkbooksResourceWithRawResponse(self._client.workbooks)
 
     @cached_property
     def beta(self) -> beta.AsyncBetaResourceWithRawResponse:
+        """Interact with workbooks and their data"""
         from .resources.beta import AsyncBetaResourceWithRawResponse
 
         return AsyncBetaResourceWithRawResponse(self._client.beta)
@@ -446,12 +454,14 @@ class GridWithStreamedResponse:
 
     @cached_property
     def workbooks(self) -> workbooks.WorkbooksResourceWithStreamingResponse:
+        """Interact with workbooks and their data"""
         from .resources.workbooks import WorkbooksResourceWithStreamingResponse
 
         return WorkbooksResourceWithStreamingResponse(self._client.workbooks)
 
     @cached_property
     def beta(self) -> beta.BetaResourceWithStreamingResponse:
+        """Interact with workbooks and their data"""
         from .resources.beta import BetaResourceWithStreamingResponse
 
         return BetaResourceWithStreamingResponse(self._client.beta)
@@ -465,12 +475,14 @@ class AsyncGridWithStreamedResponse:
 
     @cached_property
     def workbooks(self) -> workbooks.AsyncWorkbooksResourceWithStreamingResponse:
+        """Interact with workbooks and their data"""
         from .resources.workbooks import AsyncWorkbooksResourceWithStreamingResponse
 
         return AsyncWorkbooksResourceWithStreamingResponse(self._client.workbooks)
 
     @cached_property
     def beta(self) -> beta.AsyncBetaResourceWithStreamingResponse:
+        """Interact with workbooks and their data"""
         from .resources.beta import AsyncBetaResourceWithStreamingResponse
 
         return AsyncBetaResourceWithStreamingResponse(self._client.beta)

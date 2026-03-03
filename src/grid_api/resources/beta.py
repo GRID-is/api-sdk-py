@@ -26,6 +26,8 @@ __all__ = ["BetaResource", "AsyncBetaResource"]
 
 
 class BetaResource(SyncAPIResource):
+    """Interact with workbooks and their data"""
+
     @cached_property
     def with_raw_response(self) -> BetaResourceWithRawResponse:
         """
@@ -158,6 +160,8 @@ class BetaResource(SyncAPIResource):
 
 
 class AsyncBetaResource(AsyncAPIResource):
+    """Interact with workbooks and their data"""
+
     @cached_property
     def with_raw_response(self) -> AsyncBetaResourceWithRawResponse:
         """
