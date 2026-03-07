@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.11.1 (2026-03-07)
+
+Full Changelog: [v1.11.0...v1.11.1](https://github.com/GRID-is/api-sdk-py/compare/v1.11.0...v1.11.1)
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([4345ff0](https://github.com/GRID-is/api-sdk-py/commit/4345ff0373b9765d300382b988beb4472976bbad))
+* **internal:** codegen related update ([0ec4244](https://github.com/GRID-is/api-sdk-py/commit/0ec424404dfbaea1370a10ae8e092cfb2a6def5f))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([5056fec](https://github.com/GRID-is/api-sdk-py/commit/5056fecf5fa19ba00a1a085f816a54da4ff7b621))
+* update placeholder string ([74729ea](https://github.com/GRID-is/api-sdk-py/commit/74729ea5f6f0fe4d7e178820e54ef27423687952))
+
 ## 1.11.0 (2026-02-24)
 
 Full Changelog: [v1.10.0...v1.11.0](https://github.com/GRID-is/api-sdk-py/compare/v1.10.0...v1.11.0)

@@ -45,6 +45,8 @@ __all__ = ["WorkbooksResource", "AsyncWorkbooksResource"]
 
 
 class WorkbooksResource(SyncAPIResource):
+    """Interact with workbooks and their data"""
+
     @cached_property
     def with_raw_response(self) -> WorkbooksResourceWithRawResponse:
         """
@@ -444,6 +446,8 @@ class WorkbooksResource(SyncAPIResource):
 
 
 class AsyncWorkbooksResource(AsyncAPIResource):
+    """Interact with workbooks and their data"""
+
     @cached_property
     def with_raw_response(self) -> AsyncWorkbooksResourceWithRawResponse:
         """
