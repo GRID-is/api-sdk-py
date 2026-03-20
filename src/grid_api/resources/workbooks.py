@@ -16,7 +16,7 @@ from ..types import (
     workbook_render_chart_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, path_template, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -157,7 +157,7 @@ class WorkbooksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1/workbooks/{id}/calc",
+            path_template("/v1/workbooks/{id}/calc", id=id),
             body=maybe_transform(
                 {
                     "read": read,
@@ -211,7 +211,7 @@ class WorkbooksResource(SyncAPIResource):
             **(extra_headers or {}),
         }
         return self._post(
-            f"/v1/workbooks/{id}/export",
+            path_template("/v1/workbooks/{id}/export", id=id),
             body=maybe_transform(
                 {
                     "apply": apply,
@@ -269,7 +269,7 @@ class WorkbooksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1/workbooks/{id}/query",
+            path_template("/v1/workbooks/{id}/query", id=id),
             body=maybe_transform(
                 {
                     "read": read,
@@ -329,7 +329,7 @@ class WorkbooksResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "image/png", **(extra_headers or {})}
         return self._post(
-            f"/v1/workbooks/{id}/chart",
+            path_template("/v1/workbooks/{id}/chart", id=id),
             body=maybe_transform(
                 {
                     "chart": chart,
@@ -430,7 +430,7 @@ class WorkbooksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1/workbooks/{id}/values",
+            path_template("/v1/workbooks/{id}/values", id=id),
             body=maybe_transform(
                 {
                     "read": read,
@@ -558,7 +558,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1/workbooks/{id}/calc",
+            path_template("/v1/workbooks/{id}/calc", id=id),
             body=await async_maybe_transform(
                 {
                     "read": read,
@@ -612,7 +612,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
             **(extra_headers or {}),
         }
         return await self._post(
-            f"/v1/workbooks/{id}/export",
+            path_template("/v1/workbooks/{id}/export", id=id),
             body=await async_maybe_transform(
                 {
                     "apply": apply,
@@ -670,7 +670,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1/workbooks/{id}/query",
+            path_template("/v1/workbooks/{id}/query", id=id),
             body=await async_maybe_transform(
                 {
                     "read": read,
@@ -730,7 +730,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "image/png", **(extra_headers or {})}
         return await self._post(
-            f"/v1/workbooks/{id}/chart",
+            path_template("/v1/workbooks/{id}/chart", id=id),
             body=await async_maybe_transform(
                 {
                     "chart": chart,
@@ -831,7 +831,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1/workbooks/{id}/values",
+            path_template("/v1/workbooks/{id}/values", id=id),
             body=await async_maybe_transform(
                 {
                     "read": read,
