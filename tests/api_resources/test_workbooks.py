@@ -208,7 +208,7 @@ class TestWorkbooks:
     def test_method_query(self, client: Grid) -> None:
         workbook = client.workbooks.query(
             id="id",
-            read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+            read=["A1:A4"],
         )
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
@@ -217,7 +217,7 @@ class TestWorkbooks:
     def test_method_query_with_all_params(self, client: Grid) -> None:
         workbook = client.workbooks.query(
             id="id",
-            read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+            read=["A1:A4"],
             apply=[
                 {
                     "target": "A2",
@@ -238,7 +238,7 @@ class TestWorkbooks:
     def test_raw_response_query(self, client: Grid) -> None:
         response = client.workbooks.with_raw_response.query(
             id="id",
-            read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+            read=["A1:A4"],
         )
 
         assert response.is_closed is True
@@ -251,7 +251,7 @@ class TestWorkbooks:
     def test_streaming_response_query(self, client: Grid) -> None:
         with client.workbooks.with_streaming_response.query(
             id="id",
-            read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+            read=["A1:A4"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -267,7 +267,7 @@ class TestWorkbooks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.workbooks.with_raw_response.query(
                 id="",
-                read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+                read=["A1:A4"],
             )
 
     @parametrize
@@ -658,7 +658,7 @@ class TestAsyncWorkbooks:
     async def test_method_query(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.query(
             id="id",
-            read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+            read=["A1:A4"],
         )
         assert_matches_type(WorkbookQueryResponse, workbook, path=["response"])
 
@@ -667,7 +667,7 @@ class TestAsyncWorkbooks:
     async def test_method_query_with_all_params(self, async_client: AsyncGrid) -> None:
         workbook = await async_client.workbooks.query(
             id="id",
-            read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+            read=["A1:A4"],
             apply=[
                 {
                     "target": "A2",
@@ -688,7 +688,7 @@ class TestAsyncWorkbooks:
     async def test_raw_response_query(self, async_client: AsyncGrid) -> None:
         response = await async_client.workbooks.with_raw_response.query(
             id="id",
-            read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+            read=["A1:A4"],
         )
 
         assert response.is_closed is True
@@ -701,7 +701,7 @@ class TestAsyncWorkbooks:
     async def test_streaming_response_query(self, async_client: AsyncGrid) -> None:
         async with async_client.workbooks.with_streaming_response.query(
             id="id",
-            read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+            read=["A1:A4"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -717,7 +717,7 @@ class TestAsyncWorkbooks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.workbooks.with_raw_response.query(
                 id="",
-                read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+                read=["A1:A4"],
             )
 
     @parametrize
