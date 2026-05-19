@@ -411,6 +411,30 @@ class TestGrid:
 
         client.close()
 
+    def test_hardcoded_query_params_in_url(self, client: Grid) -> None:
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo?beta=true"))
+        url = httpx.URL(request.url)
+        assert dict(url.params) == {"beta": "true"}
+
+        request = client._build_request(
+            FinalRequestOptions(
+                method="get",
+                url="/foo?beta=true",
+                params={"limit": "10", "page": "abc"},
+            )
+        )
+        url = httpx.URL(request.url)
+        assert dict(url.params) == {"beta": "true", "limit": "10", "page": "abc"}
+
+        request = client._build_request(
+            FinalRequestOptions(
+                method="get",
+                url="/files/a%2Fb?beta=true",
+                params={"limit": "10"},
+            )
+        )
+        assert request.url.raw_path == b"/files/a%2Fb?beta=true&limit=10"
+
     def test_request_extra_json(self, client: Grid) -> None:
         request = client._build_request(
             FinalRequestOptions(
@@ -836,7 +860,7 @@ class TestGrid:
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.workbooks.with_streaming_response.query(id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"]).__enter__()
+            client.workbooks.with_streaming_response.query(id="id", read=["A1:A4"]).__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -846,7 +870,7 @@ class TestGrid:
         respx_mock.post("/v1/workbooks/id/query").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.workbooks.with_streaming_response.query(id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"]).__enter__()
+            client.workbooks.with_streaming_response.query(id="id", read=["A1:A4"]).__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -875,7 +899,7 @@ class TestGrid:
 
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=retry_handler)
 
-        response = client.workbooks.with_raw_response.query(id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"])
+        response = client.workbooks.with_raw_response.query(id="id", read=["A1:A4"])
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -898,7 +922,7 @@ class TestGrid:
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=retry_handler)
 
         response = client.workbooks.with_raw_response.query(
-            id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"], extra_headers={"x-stainless-retry-count": Omit()}
+            id="id", read=["A1:A4"], extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -923,7 +947,7 @@ class TestGrid:
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=retry_handler)
 
         response = client.workbooks.with_raw_response.query(
-            id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"], extra_headers={"x-stainless-retry-count": "42"}
+            id="id", read=["A1:A4"], extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -931,8 +955,14 @@ class TestGrid:
     def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
-        # Delete in case our environment has this set
+        # Delete in case our environment has any proxy env vars set
         monkeypatch.delenv("HTTP_PROXY", raising=False)
+        monkeypatch.delenv("ALL_PROXY", raising=False)
+        monkeypatch.delenv("NO_PROXY", raising=False)
+        monkeypatch.delenv("http_proxy", raising=False)
+        monkeypatch.delenv("https_proxy", raising=False)
+        monkeypatch.delenv("all_proxy", raising=False)
+        monkeypatch.delenv("no_proxy", raising=False)
 
         client = DefaultHttpxClient()
 
@@ -1287,6 +1317,30 @@ class TestAsyncGrid:
         assert dict(url.params) == {"foo": "baz", "query_param": "overridden"}
 
         await client.close()
+
+    async def test_hardcoded_query_params_in_url(self, async_client: AsyncGrid) -> None:
+        request = async_client._build_request(FinalRequestOptions(method="get", url="/foo?beta=true"))
+        url = httpx.URL(request.url)
+        assert dict(url.params) == {"beta": "true"}
+
+        request = async_client._build_request(
+            FinalRequestOptions(
+                method="get",
+                url="/foo?beta=true",
+                params={"limit": "10", "page": "abc"},
+            )
+        )
+        url = httpx.URL(request.url)
+        assert dict(url.params) == {"beta": "true", "limit": "10", "page": "abc"}
+
+        request = async_client._build_request(
+            FinalRequestOptions(
+                method="get",
+                url="/files/a%2Fb?beta=true",
+                params={"limit": "10"},
+            )
+        )
+        assert request.url.raw_path == b"/files/a%2Fb?beta=true&limit=10"
 
     def test_request_extra_json(self, client: Grid) -> None:
         request = client._build_request(
@@ -1718,9 +1772,7 @@ class TestAsyncGrid:
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.workbooks.with_streaming_response.query(
-                id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"]
-            ).__aenter__()
+            await async_client.workbooks.with_streaming_response.query(id="id", read=["A1:A4"]).__aenter__()
 
         assert _get_open_connections(async_client) == 0
 
@@ -1730,9 +1782,7 @@ class TestAsyncGrid:
         respx_mock.post("/v1/workbooks/id/query").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.workbooks.with_streaming_response.query(
-                id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"]
-            ).__aenter__()
+            await async_client.workbooks.with_streaming_response.query(id="id", read=["A1:A4"]).__aenter__()
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1761,7 +1811,7 @@ class TestAsyncGrid:
 
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=retry_handler)
 
-        response = await client.workbooks.with_raw_response.query(id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"])
+        response = await client.workbooks.with_raw_response.query(id="id", read=["A1:A4"])
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1786,7 +1836,7 @@ class TestAsyncGrid:
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=retry_handler)
 
         response = await client.workbooks.with_raw_response.query(
-            id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"], extra_headers={"x-stainless-retry-count": Omit()}
+            id="id", read=["A1:A4"], extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1811,7 +1861,7 @@ class TestAsyncGrid:
         respx_mock.post("/v1/workbooks/id/query").mock(side_effect=retry_handler)
 
         response = await client.workbooks.with_raw_response.query(
-            id="id", read=["A1", "Sheet2!B3", "=SUM(A1:A4)"], extra_headers={"x-stainless-retry-count": "42"}
+            id="id", read=["A1:A4"], extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1823,8 +1873,14 @@ class TestAsyncGrid:
     async def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
-        # Delete in case our environment has this set
+        # Delete in case our environment has any proxy env vars set
         monkeypatch.delenv("HTTP_PROXY", raising=False)
+        monkeypatch.delenv("ALL_PROXY", raising=False)
+        monkeypatch.delenv("NO_PROXY", raising=False)
+        monkeypatch.delenv("http_proxy", raising=False)
+        monkeypatch.delenv("https_proxy", raising=False)
+        monkeypatch.delenv("all_proxy", raising=False)
+        monkeypatch.delenv("no_proxy", raising=False)
 
         client = DefaultAsyncHttpxClient()
 

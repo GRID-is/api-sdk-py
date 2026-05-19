@@ -15,8 +15,9 @@ from ..types import (
     workbook_values_params,
     workbook_render_chart_params,
 )
+from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -45,6 +46,8 @@ __all__ = ["WorkbooksResource", "AsyncWorkbooksResource"]
 
 
 class WorkbooksResource(SyncAPIResource):
+    """Interact with workbooks and their data"""
+
     @cached_property
     def with_raw_response(self) -> WorkbooksResourceWithRawResponse:
         """
@@ -155,7 +158,7 @@ class WorkbooksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1/workbooks/{id}/calc",
+            path_template("/v1/workbooks/{id}/calc", id=id),
             body=maybe_transform(
                 {
                     "read": read,
@@ -209,7 +212,7 @@ class WorkbooksResource(SyncAPIResource):
             **(extra_headers or {}),
         }
         return self._post(
-            f"/v1/workbooks/{id}/export",
+            path_template("/v1/workbooks/{id}/export", id=id),
             body=maybe_transform(
                 {
                     "apply": apply,
@@ -267,7 +270,7 @@ class WorkbooksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1/workbooks/{id}/query",
+            path_template("/v1/workbooks/{id}/query", id=id),
             body=maybe_transform(
                 {
                     "read": read,
@@ -327,7 +330,7 @@ class WorkbooksResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "image/png", **(extra_headers or {})}
         return self._post(
-            f"/v1/workbooks/{id}/chart",
+            path_template("/v1/workbooks/{id}/chart", id=id),
             body=maybe_transform(
                 {
                     "chart": chart,
@@ -371,7 +374,7 @@ class WorkbooksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -428,7 +431,7 @@ class WorkbooksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1/workbooks/{id}/values",
+            path_template("/v1/workbooks/{id}/values", id=id),
             body=maybe_transform(
                 {
                     "read": read,
@@ -444,6 +447,8 @@ class WorkbooksResource(SyncAPIResource):
 
 
 class AsyncWorkbooksResource(AsyncAPIResource):
+    """Interact with workbooks and their data"""
+
     @cached_property
     def with_raw_response(self) -> AsyncWorkbooksResourceWithRawResponse:
         """
@@ -554,7 +559,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1/workbooks/{id}/calc",
+            path_template("/v1/workbooks/{id}/calc", id=id),
             body=await async_maybe_transform(
                 {
                     "read": read,
@@ -608,7 +613,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
             **(extra_headers or {}),
         }
         return await self._post(
-            f"/v1/workbooks/{id}/export",
+            path_template("/v1/workbooks/{id}/export", id=id),
             body=await async_maybe_transform(
                 {
                     "apply": apply,
@@ -666,7 +671,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1/workbooks/{id}/query",
+            path_template("/v1/workbooks/{id}/query", id=id),
             body=await async_maybe_transform(
                 {
                     "read": read,
@@ -726,7 +731,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         extra_headers = {"Accept": "image/png", **(extra_headers or {})}
         return await self._post(
-            f"/v1/workbooks/{id}/chart",
+            path_template("/v1/workbooks/{id}/chart", id=id),
             body=await async_maybe_transform(
                 {
                     "chart": chart,
@@ -770,7 +775,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -827,7 +832,7 @@ class AsyncWorkbooksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1/workbooks/{id}/values",
+            path_template("/v1/workbooks/{id}/values", id=id),
             body=await async_maybe_transform(
                 {
                     "read": read,

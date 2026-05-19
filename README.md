@@ -34,7 +34,7 @@ client = Grid(
 
 response = client.workbooks.query(
     id="YOUR_WORKBOOK_ID",
-    read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+    read=["A1:A4"],
 )
 print(response.read)
 ```
@@ -61,7 +61,7 @@ client = AsyncGrid(
 async def main() -> None:
     response = await client.workbooks.query(
         id="YOUR_WORKBOOK_ID",
-        read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+        read=["A1:A4"],
     )
     print(response.read)
 
@@ -98,7 +98,7 @@ async def main() -> None:
     ) as client:
         response = await client.workbooks.query(
             id="YOUR_WORKBOOK_ID",
-            read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+            read=["A1:A4"],
         )
         print(response.read)
 
@@ -197,7 +197,7 @@ client = Grid()
 
 response = client.workbooks.query(
     id="id",
-    read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+    read=["A1:A4"],
     goal_seek={
         "control_cell": "Sheet1!A1:B2",
         "target_cell": "Sheet1!A1:B2",
@@ -242,7 +242,7 @@ client = Grid()
 try:
     client.workbooks.query(
         id="YOUR_WORKBOOK_ID",
-        read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+        read=["A1:A4"],
     )
 except grid_api.APIConnectionError as e:
     print("The server could not be reached")
@@ -288,7 +288,7 @@ client = Grid(
 # Or, configure per-request:
 client.with_options(max_retries=5).workbooks.query(
     id="YOUR_WORKBOOK_ID",
-    read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+    read=["A1:A4"],
 )
 ```
 
@@ -314,7 +314,7 @@ client = Grid(
 # Override per-request:
 client.with_options(timeout=5.0).workbooks.query(
     id="YOUR_WORKBOOK_ID",
-    read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+    read=["A1:A4"],
 )
 ```
 
@@ -372,7 +372,7 @@ from grid_api import Grid
 client = Grid()
 response = client.workbooks.with_raw_response.query(
     id="YOUR_WORKBOOK_ID",
-    read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+    read=["A1:A4"],
 )
 print(response.headers.get('X-My-Header'))
 
@@ -393,7 +393,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.workbooks.with_streaming_response.query(
     id="YOUR_WORKBOOK_ID",
-    read=["A1", "Sheet2!B3", "=SUM(A1:A4)"],
+    read=["A1:A4"],
 ) as response:
     print(response.headers.get("X-My-Header"))
 

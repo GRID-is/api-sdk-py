@@ -1,5 +1,46 @@
 # Changelog
 
+## 1.12.0 (2026-05-01)
+
+Full Changelog: [v1.11.0...v1.12.0](https://github.com/GRID-is/api-sdk-py/compare/v1.11.0...v1.12.0)
+
+### Features
+
+* **internal:** implement indices array format for query and form serialization ([f3eff93](https://github.com/GRID-is/api-sdk-py/commit/f3eff936c9490703c9e75486b2bbc6af5766ff04))
+* support setting headers via env ([0f121d7](https://github.com/GRID-is/api-sdk-py/commit/0f121d717abfb263c788a1264609e65d0d34cf33))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([e0a41c9](https://github.com/GRID-is/api-sdk-py/commit/e0a41c9add6e55f0b19551c18b35369a61bf590a))
+* **deps:** bump minimum typing-extensions version ([43e8920](https://github.com/GRID-is/api-sdk-py/commit/43e8920efeab184fe25b07ff818d72896629b201))
+* ensure file data are only sent as 1 parameter ([54795f5](https://github.com/GRID-is/api-sdk-py/commit/54795f501ef9a8ea6e8d0db63e06d31599119a82))
+* **pydantic:** do not pass `by_alias` unless set ([0b816af](https://github.com/GRID-is/api-sdk-py/commit/0b816afd611261ea770d7ab9b1e3bd83d532e012))
+* sanitize endpoint path params ([cc5a586](https://github.com/GRID-is/api-sdk-py/commit/cc5a58617ecba1d588fc033ed32c2c24737267d7))
+* use correct field name format for multipart file arrays ([6ded485](https://github.com/GRID-is/api-sdk-py/commit/6ded485faeaae68563a73737e3b36d0f8c090a73))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([772c0e5](https://github.com/GRID-is/api-sdk-py/commit/772c0e53c4063beb2e4dc38945157756fdf0fa88))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([f0653a2](https://github.com/GRID-is/api-sdk-py/commit/f0653a2861fbdc2817ae347f28038358b93138ff))
+* **ci:** skip uploading artifacts on stainless-internal branches ([4345ff0](https://github.com/GRID-is/api-sdk-py/commit/4345ff0373b9765d300382b988beb4472976bbad))
+* **internal:** codegen related update ([0ec4244](https://github.com/GRID-is/api-sdk-py/commit/0ec424404dfbaea1370a10ae8e092cfb2a6def5f))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([5056fec](https://github.com/GRID-is/api-sdk-py/commit/5056fecf5fa19ba00a1a085f816a54da4ff7b621))
+* **internal:** more robust bootstrap script ([989b7d9](https://github.com/GRID-is/api-sdk-py/commit/989b7d9ffcce9394e5a58332e8f7cdce8a07e5bb))
+* **internal:** tweak CI branches ([0799ec4](https://github.com/GRID-is/api-sdk-py/commit/0799ec417967f0ace8894fc71bc129eee38babf3))
+* **internal:** update gitignore ([78f076e](https://github.com/GRID-is/api-sdk-py/commit/78f076e0a8b88131bb4402e8622f860c87517f56))
+* update placeholder string ([74729ea](https://github.com/GRID-is/api-sdk-py/commit/74729ea5f6f0fe4d7e178820e54ef27423687952))
+
+
+### Documentation
+
+* update examples ([cbd8c1a](https://github.com/GRID-is/api-sdk-py/commit/cbd8c1a6757a6003e53e2e2b56a072c4cd2fd8f3))
+
 ## 1.11.0 (2026-02-24)
 
 Full Changelog: [v1.10.0...v1.11.0](https://github.com/GRID-is/api-sdk-py/compare/v1.10.0...v1.11.0)
