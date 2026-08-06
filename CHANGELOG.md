@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.1 (2026-08-06)
+
+- Add deprecation notice to README
+
 ## 1.12.0 (2026-05-01)
 
 Full Changelog: [v1.11.0...v1.12.0](https://github.com/GRID-is/api-sdk-py/compare/v1.11.0...v1.12.0)
