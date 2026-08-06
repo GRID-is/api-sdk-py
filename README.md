@@ -3,6 +3,8 @@
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/grid_api.svg?label=pypi%20(stable))](https://pypi.org/project/grid_api/)
 
+**Note:** this project has been superseded by our [agent tools](https://grid.is/agent-tools) and our [packages for working with spreadsheets locally](https://grid.is/editor).
+
 This library provides convenient access to the Grid REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
